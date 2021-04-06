@@ -1,12 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 import {debounceTime} from 'rxjs/operators';
 import {SearchService} from '../services/search.service';
 import {AccountService} from '../services/account.service';
 import {faSearch} from '@fortawesome/free-solid-svg-icons/faSearch';
 import {ChainService} from '../services/chain.service';
-import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-search-results',
@@ -49,13 +48,13 @@ export class SearchResultsComponent implements OnInit {
     }, 3000);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.searchForm.get('search_field').valueChanges.pipe(debounceTime(300)).subscribe(async (result) => {
       this.filteredAccounts = await this.searchService.filterAccountNames(result);
     });
   }
 
-  async submit() {
+  async submit(): Promise<boolean> {
     if (!this.searchForm.valid) {
       return true;
     }
@@ -64,6 +63,7 @@ export class SearchResultsComponent implements OnInit {
     if (!status) {
       this.err = 'no results for ' + searchText;
     }
+    return false;
   }
 
 }

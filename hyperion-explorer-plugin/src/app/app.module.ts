@@ -5,7 +5,6 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatPaginatorIntl, MatPaginatorModule} from '@angular/material/paginator';
-import {AccountService} from './services/account.service';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
 import {ReactiveFormsModule} from '@angular/forms';
@@ -34,10 +33,10 @@ import {AccountComponent} from './search-results/account/account.component';
 import {TransactionComponent} from './search-results/transaction/transaction.component';
 import {BlockComponent} from './search-results/block/block.component';
 import {KeyComponent} from './search-results/key/key.component';
-import { EvmAddressComponent } from './search-results/evm-address/evm-address.component';
+import {EvmAddressComponent} from './search-results/evm-address/evm-address.component';
 import {PaginationService} from './services/pagination.service';
-import { EvmBlockComponent } from './search-results/evm-block/evm-block.component';
-import { EvmTransactionComponent } from './search-results/evm-transaction/evm-transaction.component';
+import {EvmBlockComponent} from './search-results/evm-block/evm-block.component';
+import {EvmTransactionComponent} from './search-results/evm-transaction/evm-transaction.component';
 
 @Injectable()
 export class CustomPaginator extends MatPaginatorIntl {

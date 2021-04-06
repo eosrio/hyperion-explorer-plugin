@@ -190,7 +190,7 @@ export class AccountService {
         filters: [],
         read_until: 0,
         start_from: maxBlock + 1
-      });
+      }).catch(console.log);
       this.streamClientStatus = this.streamClient.online;
     };
   }

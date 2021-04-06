@@ -49,7 +49,7 @@ export class BlockComponent implements OnInit, OnDestroy {
   countdownLoop: any;
   countdownTimer = 0;
 
-  objectKeyCount(obj) {
+  objectKeyCount(obj): number {
     try {
       return Object.keys(obj).length;
     } catch (e) {
@@ -89,18 +89,18 @@ export class BlockComponent implements OnInit, OnDestroy {
     });
   }
 
-  async reloadCountdownTimer() {
+  async reloadCountdownTimer(): Promise<void> {
     await this.accountService.updateLib();
     this.countdownTimer = Math.ceil((this.block.number - this.accountService.libNum) / 2);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     if (this.countdownLoop) {
       clearInterval(this.countdownLoop);
     }
   }
 
-  formatDate(date: string) {
+  formatDate(date: string): string {
     return new Date(date).toLocaleString();
   }
 

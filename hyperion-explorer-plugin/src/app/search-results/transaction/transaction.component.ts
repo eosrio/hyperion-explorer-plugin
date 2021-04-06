@@ -32,7 +32,7 @@ export class TransactionComponent implements OnInit, OnDestroy {
   countdownLoop: any;
   countdownTimer = 0;
 
-  objectKeyCount(obj) {
+  objectKeyCount(obj): number {
     try {
       return Object.keys(obj).length;
     } catch (e) {
@@ -46,7 +46,7 @@ export class TransactionComponent implements OnInit, OnDestroy {
               private title: Title) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.activatedRoute.params.subscribe(async (routeParams) => {
       this.txID = routeParams.transaction_id;
       this.tx = await this.accountService.loadTxData(routeParams.transaction_id);
@@ -73,17 +73,17 @@ export class TransactionComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     if (this.countdownLoop) {
       clearInterval(this.countdownLoop);
     }
   }
 
-  formatDate(date: string) {
+  formatDate(date: string): string {
     return new Date(date).toLocaleString();
   }
 
-  async reloadCountdownTimer() {
+  async reloadCountdownTimer(): Promise<void> {
     await this.accountService.updateLib();
     this.countdownTimer = Math.ceil((this.tx.actions[0].block_num - this.accountService.libNum) / 2);
   }

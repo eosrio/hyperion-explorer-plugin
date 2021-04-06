@@ -119,7 +119,7 @@ export class AccountComponent implements OnInit, OnDestroy {
     );
 
     this.treeFlattener = new MatTreeFlattener(
-      this._transformer, node => node.level, node => node.expandable, node => node.children
+      this.transformer, node => node.level, node => node.expandable, node => node.children
     );
 
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
@@ -130,16 +130,16 @@ export class AccountComponent implements OnInit, OnDestroy {
     this.accountService.disconnectStream();
   }
 
-  _transformer = (node: Permission, level: number) => {
+  transformer(node: Permission, level: number): any {
     return {
       expandable: !!node.children && node.children.length > 0,
       perm_name: node.perm_name,
       level,
       ...node
     };
-  };
+  }
 
-  objectKeyCount(obj) {
+  objectKeyCount(obj): number {
     try {
       return Object.keys(obj).length;
     } catch (e) {
@@ -226,67 +226,67 @@ export class AccountComponent implements OnInit, OnDestroy {
     }
   }
 
-  liquidBalance() {
+  liquidBalance(): number {
     if (this.accountService.account.core_liquid_balance) {
       return parseFloat(this.accountService.account.core_liquid_balance.split(' ')[0]);
     }
     return 0;
   }
 
-  myCpuBalance() {
+  myCpuBalance(): number {
     if (this.accountService.account.self_delegated_bandwidth) {
       return parseFloat(this.accountService.account.self_delegated_bandwidth.cpu_weight.split(' ')[0]);
     }
     return 0;
   }
 
-  myNetBalance() {
+  myNetBalance(): number {
     if (this.accountService.account.self_delegated_bandwidth) {
       return parseFloat(this.accountService.account.self_delegated_bandwidth.net_weight.split(' ')[0]);
     }
     return 0;
   }
 
-  cpuBalance() {
+  cpuBalance(): number {
     if (this.accountService.account.total_resources) {
       return parseFloat(this.accountService.account.total_resources.cpu_weight.split(' ')[0]);
     }
     return 0;
   }
 
-  netBalance() {
+  netBalance(): number {
     if (this.accountService.account.total_resources) {
       return parseFloat(this.accountService.account.total_resources.net_weight.split(' ')[0]);
     }
     return 0;
   }
 
-  totalBalance() {
+  totalBalance(): number {
     const liquid = this.liquidBalance();
     const cpu = this.myCpuBalance();
     const net = this.myNetBalance();
     return liquid + cpu + net;
   }
 
-  stakedBalance() {
+  stakedBalance(): number {
     const cpu = this.myCpuBalance();
     const net = this.myNetBalance();
     return cpu + net;
   }
 
-  cpuByOthers() {
+  cpuByOthers(): number {
     const cpu = this.cpuBalance();
     const mycpu = this.myCpuBalance();
     return cpu - mycpu;
   }
 
-  netByOthers() {
+  netByOthers(): number {
     const net = this.netBalance();
     const mynet = this.myNetBalance();
     return net - mynet;
   }
 
-  stakedbyOthers() {
+  stakedbyOthers(): number {
     const cpu = this.cpuBalance();
     const net = this.netBalance();
     const mycpu = this.myCpuBalance();
@@ -294,7 +294,7 @@ export class AccountComponent implements OnInit, OnDestroy {
     return (cpu + net) - (mycpu + mynet);
   }
 
-  refundBalance() {
+  refundBalance(): number {
     let cpuRefund = 0;
     let netRefund = 0;
     if (this.accountService.account.refund_request) {
@@ -304,7 +304,7 @@ export class AccountComponent implements OnInit, OnDestroy {
     return cpuRefund + netRefund;
   }
 
-  formatDate(date: string) {
+  formatDate(date: string): string {
     return new Date(date).toLocaleString();
   }
 
@@ -318,7 +318,7 @@ export class AccountComponent implements OnInit, OnDestroy {
     });
   }
 
-  private processPermissions() {
+  private processPermissions(): void {
     if (this.accountService.account) {
       const permissions: Permission[] = this.accountService.account.permissions;
       if (permissions) {
@@ -334,15 +334,15 @@ export class AccountComponent implements OnInit, OnDestroy {
     }
   }
 
-  isArray(value: any) {
+  isArray(value: any): boolean {
     return typeof value === 'object' && value.length > 0;
   }
 
-  getType(subitem: any) {
+  getType(subitem: any): string {
     return typeof subitem;
   }
 
-  convertBytes(bytes: number) {
+  convertBytes(bytes: number): string {
     if (bytes > (1024 ** 3)) {
       return (bytes / (1024 ** 3)).toFixed(2) + ' GB';
     }
@@ -355,7 +355,7 @@ export class AccountComponent implements OnInit, OnDestroy {
     return bytes + ' bytes';
   }
 
-  convertMicroS(micros: number) {
+  convertMicroS(micros: number): string {
     let int = 0;
     let remainder = 0;
     const calcSec = 1000 ** 2;
