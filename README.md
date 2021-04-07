@@ -1,3 +1,6 @@
+# Hyperion Lightweight Explorer
+
+Required config:
 ```json
 {
   "plugins": {
