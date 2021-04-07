@@ -83,15 +83,32 @@ export class SearchService {
 
     // match EVM 0x prefix
     if (searchText.startsWith('0x')) {
-      if (searchText.length === 42) {
-        await this.router.navigate(['/evm/address', searchText]);
+      let route;
+      switch (searchText.length) {
+        case 42: {
+          route = '/evm/address';
+          break;
+        }
+        case 66: {
+          route = '/evm/transaction';
+          break;
+        }
+        default: {
+          if (searchText.length < 16) {
+            // probably a block number in hex
+            route = '/evm/block';
+          } else {
+            console.log('Ox prefixed string with length:', searchText.length);
+          }
+        }
+      }
+      if (route) {
+        await this.router.navigate([route, searchText]);
         return true;
       }
-      console.log(searchText.length);
     }
 
     console.log('NO PATTERN MATCHED!');
-
     return false;
   }
 }
