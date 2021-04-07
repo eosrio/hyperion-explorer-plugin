@@ -23,18 +23,46 @@ export class EvmService {
     this.addressTransactions = new MatTableDataSource([]);
   }
 
+  async callRpcMethod(method: string, params: any[]): Promise<any> {
+    try {
+      const response = await this.http.post(this.jsonRpcApi, {
+        jsonrpc: '2.0',
+        id: Date.now(),
+        method,
+        params
+      }).toPromise() as any;
+      return response.result;
+    } catch (e) {
+      console.log(e);
+      return null;
+    }
+  }
+
   async getBalance(address: string): Promise<number> {
-    const response = await this.http.post(this.jsonRpcApi, {
-      jsonrpc: '2.0',
-      id: Date.now(),
-      method: 'eth_getBalanceHuman',
-      params: [address]
-    }).toPromise() as any;
-    if (response.result) {
-      return Number(response.result);
+    const getBalResult = await this.callRpcMethod('eth_getBalanceHuman', [address]);
+    if (getBalResult) {
+      return Number(getBalResult);
     } else {
       return 0;
     }
+  }
+
+  async getTransactionReceipt(hash: string): Promise<any> {
+    const data = await this.callRpcMethod('eth_getTransactionReceipt', [hash.toLowerCase()]);
+    console.log(data);
+    return data;
+  }
+
+  async getBlockByNumber(blockNumber: string): Promise<any> {
+    const data = await this.callRpcMethod('eth_getBlockByNumber', [blockNumber.toLowerCase()]);
+    console.log(data);
+    return data;
+  }
+
+  async getBlockByHash(hash: string): Promise<any> {
+    const data = await this.callRpcMethod('eth_getBlockByHash', [hash.toLowerCase()]);
+    console.log(data);
+    return data;
   }
 
   getServerUrl(): void {
