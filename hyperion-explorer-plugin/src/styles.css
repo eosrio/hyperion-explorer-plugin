@@ -11,19 +11,22 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: #f4f5f8;
   margin: 0;
+  overflow: hidden;
 }
 
 /*container responsive*/
+.container {
+  width: 100%;
+}
+
 @media screen and (max-width: 576px) {
   .container {
     padding: 30px 10px;
-    width: 100vw;
   }
 }
 @media (min-width: 577px) and (max-width: 1049px) {
   .container {
     padding: 30px 50px;
-    width: 100vw;
   }
 }
 @media (min-width: 1050px) {
@@ -32,7 +35,6 @@ body {
     margin-right: auto;
     padding: 30px 16px;
     max-width: 1024px;
-    width: 100vw;
   }
 }
 /*container responsive ends*/
@@ -68,7 +70,14 @@ body {
 }
 
 .break-word {
+  white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;      /* Opera 4-6 */
+  white-space: -o-pre-wrap;    /* Opera 7 */
   white-space: pre-wrap;       /* css-3 */
+  word-wrap: break-word;       /* Internet Explorer 5.5+ */
+  white-space: -webkit-pre-wrap; /* Newer versions of Chrome/Safari*/
+  word-break: break-word;
+  white-space: normal;
 }
 
 .div-link {
@@ -82,3 +91,9 @@ body {
 .link-blue {
   color: #00aee7;
 }
+
+.faded {
+  color: #a4a4a4;
+}
+
+

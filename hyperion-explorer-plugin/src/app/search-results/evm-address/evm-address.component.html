@@ -1,14 +1,16 @@
 <mat-progress-spinner [diameter]="45" *ngIf="!evm.loaded" mode="indeterminate"></mat-progress-spinner>
 
-<div *ngIf="evm.loaded" class="container" fxLayout="column"
-     fxLayoutAlign="start center"
-     fxLayoutGap="15px">
+<div class="container" style="height: 100%;">
+  <div *ngIf="evm.loaded"  fxLayout="column"
+     fxLayoutAlign="start stretch"
+     fxLayoutGap="15px" >
 
-  <mat-card fxFlex="100" fxFlexFill>
-    <h2 style="letter-spacing: 1px;">
+  <mat-card>
+    <h2 style="margin-bottom: 0" class="faded">
       <fa-icon [icon]="faUserCircle" style="margin-right: 5px"></fa-icon>
-      {{address}}
+      <span>EVM Address</span>
     </h2>
+    <h2 class="break-word" style="letter-spacing: 1px;">{{address}}</h2>
     <div fxLayout="column">
       <div class="total-balance width-100">
         <strong>Native Balance: </strong>
@@ -18,7 +20,7 @@
   </mat-card>
 
   <!-- ACTIONS -->
-  <mat-card fxFlexFill fxFlex="100">
+  <mat-card fxFlex="100" fxFlexFill>
     <div fxLayout="row" fxLayoutAlign="space-between start">
       <h3 style="margin-top: 0;">
         <fa-layers [fixedWidth]="true" style="margin-right: 5px">
@@ -118,4 +120,5 @@
     </button>
   </mat-card>
 
+</div>
 </div>

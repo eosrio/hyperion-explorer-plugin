@@ -1,4 +1,5 @@
-<div style="height: 100vh" fxLayout="column" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+<div style="height: 100vh" fxLayout="column" fxLayoutGap="10px"
+     class="user-pages">
   <mat-card class="search-card">
     <div class="container" fxLayout="row" fxLayoutAlign="space-between center" style="padding: 0; width: 100%;">
       <img [fxHide.lt-sm]="true" src="assets/logo.png" alt="logo" style="height: 80px" routerLink="/" class="logo">
@@ -13,14 +14,17 @@
         </span>
         </div>
         <form [formGroup]="searchForm" (ngSubmit)="submit()">
-          <div fxLayout="row" fxLayoutAlign="center start">
-            <mat-form-field appearance="outline" class="search-input">
-              <label>
-                <input matInput formControlName="search_field" [matAutocomplete]="auto"
-                       [placeholder]="searchPlaceholder">
-              </label>
-              <mat-error *ngIf="err">{{err}}</mat-error>
-            </mat-form-field>
+          <div fxLayout="row" fxLayoutAlign="center stretch">
+
+            <div fxLayout="column">
+              <mat-form-field appearance="outline" class="search-input" style="height: 100%" fxFlex="grow">
+                <label>
+                  <input matInput formControlName="search_field" [matAutocomplete]="auto"
+                         [placeholder]="searchPlaceholder">
+                </label>
+                <mat-error *ngIf="err">{{err}}</mat-error>
+              </mat-form-field>
+            </div>
             <mat-autocomplete #auto="matAutocomplete" (optionSelected)="submit()">
               <mat-option *ngFor="let account of filteredAccounts" [value]="account">{{account}}</mat-option>
             </mat-autocomplete>
@@ -44,15 +48,17 @@
       </div>
     </div>
   </mat-card>
-  <!--  <div>-->
-  <router-outlet></router-outlet>
-  <!--  </div>-->
 
-  <div class="faded footer-text" style="">
-    <div style="margin-bottom: 7px">Data provider <a [href]="chainData.chainInfoData.provider_url"
-                                                     target="_blank">{{chainData.chainInfoData.provider}}</a></div>
-    <div>Made with ❤ by EOS Rio</div>
+  <div fxFlex="grow" class="user-page" fxLayout="column">
+    <router-outlet></router-outlet>
+    <div class="faded footer-text">
+      <div style="margin-bottom: 7px">Data provider <a [href]="chainData.chainInfoData.provider_url"
+                                                       target="_blank">{{chainData.chainInfoData.provider}}</a>
+      </div>
+      <div>Made with ❤ by EOS Rio</div>
+    </div>
   </div>
-</div>
 
+
+</div>
 
