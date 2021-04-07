@@ -26,31 +26,56 @@
             EVM Transaction
           </h2>
           <mat-chip-list orientation="vertical">
-            <mat-chip *ngIf="evm.libNum > txData.block_num" selected>
+            <mat-chip *ngIf="accountService.libNum > txData.block_num" selected>
               <fa-icon [icon]="faLock" style="margin-right: 5px"></fa-icon>
               Irreversible
             </mat-chip>
-            <mat-chip *ngIf="evm.libNum < txData.block_num" color="accent" selected>
+            <mat-chip *ngIf="accountService.libNum < txData.block_num" color="accent" selected>
               <fa-icon [icon]="faHourglass" style="margin-right: 5px"></fa-icon>
-<!--              Pending ({{countdownTimer}}s)-->
+              <!--              Pending ({{countdownTimer}}s)-->
             </mat-chip>
           </mat-chip-list>
         </div>
         <h2 style="margin: 10px 0 12px 0;" class="break-word">{{txData.hash}}</h2>
       </div>
       <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="15px">
-        <div>Block num: <a [routerLink]="['/evm/block', txData.block]"
-                           class="link-blue">{{txData.block}}</a></div>
-        <div>Block time: {{formatDate(txData['@timestamp'])}}</div>
-        <div>To: <a class="link-blue break-word" [routerLink]="['/evm/address', txData.to]">{{txData.to}}</a></div>
-        <div>From: <a class="link-blue break-word" [routerLink]="['/evm/address', txData.from]">{{txData.from}}</a></div>
-        <div>Value: {{txData.value}}</div>
-        <div>Transaction Fee: {{txData.fee}}</div>
-        <div>Gas Price: {{txData.gas_price}}</div>
-        <div>Gas Limit: {{txData.gas_limit}}</div>
-        <div>Gas used by Transaction: {{txData.gas_used}}</div>
-        <div>Nonce: {{txData.nonce}}</div>
-        <div>Input Data: {{txData.input_data}}</div>
+        <div>
+          <strong>Block Number:</strong>
+          <span class="monospace">&nbsp;</span>
+          <a [routerLink]="['/evm/block', txData.block]" class="link-blue">{{txData.block}}</a>
+        </div>
+        <div>
+          <strong>Block Timestamp:</strong>
+          <span class="monospace">&nbsp;</span>
+          {{formatDate(txData.timestamp)}}
+        </div>
+
+        <div>
+          <strong>To:</strong>
+          <span class="monospace">&nbsp;&nbsp;&nbsp;</span>
+          <a class="link-blue break-word monospace" [routerLink]="['/evm/address', txData.to]">{{txData.to}}</a>
+        </div>
+
+        <div>
+          <strong>From:</strong>
+          <span class="monospace">&nbsp;</span>
+          <a class="link-blue break-word monospace" [routerLink]="['/evm/address', txData.from]">{{txData.from}}</a>
+        </div>
+
+        <div><strong>Value:</strong> {{txData.value}}</div>
+
+        <div><strong>Gas Price:</strong> {{txData.gas_price}}</div>
+
+        <div><strong>Gas Used:</strong> {{txData.gas_used}}</div>
+
+        <div><strong>Nonce:</strong> {{txData.nonce}}</div>
+
+        <div>
+          <strong>Input Data:</strong>
+          <br>
+          <span class="break-word monospace">{{txData.input_data}}</span>
+        </div>
+
       </div>
     </mat-card>
   </div>

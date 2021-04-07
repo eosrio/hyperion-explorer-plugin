@@ -16,11 +16,13 @@ export class EvmService {
   streamClientLoaded = true;
   transactions = [];
   addressTransactions: MatTableDataSource<any[]>;
+  blockTransactions: MatTableDataSource<any[]>;
   private server: string;
 
   constructor(private http: HttpClient, private pagService: PaginationService) {
     this.getServerUrl();
     this.addressTransactions = new MatTableDataSource([]);
+    this.blockTransactions = new MatTableDataSource([]);
   }
 
   async callRpcMethod(method: string, params: any[]): Promise<any> {
@@ -48,21 +50,19 @@ export class EvmService {
   }
 
   async getTransactionReceipt(hash: string): Promise<any> {
-    const data = await this.callRpcMethod('eth_getTransactionReceipt', [hash.toLowerCase()]);
-    console.log(data);
-    return data;
+    return await this.callRpcMethod('eth_getTransactionReceipt', [hash.toLowerCase()]);
+  }
+
+  async getTransactionByHash(hash: string): Promise<any> {
+    return await this.callRpcMethod('eth_getTransactionByHash', [hash.toLowerCase()]);
   }
 
   async getBlockByNumber(blockNumber: string): Promise<any> {
-    const data = await this.callRpcMethod('eth_getBlockByNumber', [blockNumber.toLowerCase()]);
-    console.log(data);
-    return data;
+    return await this.callRpcMethod('eth_getBlockByNumber', [blockNumber.toLowerCase()]);
   }
 
   async getBlockByHash(hash: string): Promise<any> {
-    const data = await this.callRpcMethod('eth_getBlockByHash', [hash.toLowerCase()]);
-    console.log(data);
-    return data;
+    return await this.callRpcMethod('eth_getBlockByHash', [hash.toLowerCase()]);
   }
 
   getServerUrl(): void {
@@ -87,6 +87,11 @@ export class EvmService {
     }
   }
 
+  async loadBlock(blockNumber: any): Promise<any> {
+    const blockData = await this.getBlockByNumber('0x' + Number(blockNumber).toString(16));
+    this.blockTransactions.data = await this.getTransactions(blockData.transactions);
+  }
+
   async loadMoreTransactions(address: string): Promise<void> {
     console.log(address);
   }
@@ -99,8 +104,18 @@ export class EvmService {
         trx.evm_block = trx.receipt.block;
         trx.evm_hash = trx.receipt.hash;
       }
-      console.log(trx);
     }
     this.addressTransactions.data = this.transactions;
+  }
+
+  async getTransactions(hashes: string[]): Promise<any> {
+    try {
+      return await this.http.post(this.server + '/evm_explorer/get_transactions', {
+        tx_hashes: hashes
+      }).toPromise() as any;
+    } catch (e) {
+      console.log(e);
+      return [];
+    }
   }
 }

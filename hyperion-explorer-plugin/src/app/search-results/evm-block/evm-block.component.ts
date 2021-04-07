@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {EvmService} from '../../services/evm.service';
 import {faCube} from '@fortawesome/free-solid-svg-icons/faCube';
 import {faHourglassStart} from '@fortawesome/free-solid-svg-icons/faHourglassStart';
@@ -6,13 +6,16 @@ import {faCircle} from '@fortawesome/free-solid-svg-icons/faCircle';
 import {faLock} from '@fortawesome/free-solid-svg-icons/faLock';
 import {faHistory} from '@fortawesome/free-solid-svg-icons/faHistory';
 import {faSadTear} from '@fortawesome/free-solid-svg-icons/faSadTear';
+import {Subscription} from 'rxjs';
+import {ActivatedRoute} from '@angular/router';
+import {AccountService} from '../../services/account.service';
 
 @Component({
   selector: 'app-evm-block',
   templateUrl: './evm-block.component.html',
   styleUrls: ['./evm-block.component.css']
 })
-export class EvmBlockComponent implements OnInit {
+export class EvmBlockComponent implements OnInit, OnDestroy {
   faCircle = faCircle;
   faBlock = faCube;
   faLock = faLock;
@@ -42,10 +45,34 @@ export class EvmBlockComponent implements OnInit {
     transactions: [this.txData, this.txData]
   };
 
-  constructor(public evm: EvmService) {
+  subs: Subscription[];
+  blockNumber = '';
+
+  columnsToDisplay: string[] = [
+    'hash',
+    'fromAddr',
+    'toAddr',
+    'nativeValue'
+  ];
+
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    public accountService: AccountService,
+    public evm: EvmService
+  ) {
+    this.subs = [];
   }
 
   ngOnInit(): void {
+    this.subs.push(this.activatedRoute.params.subscribe(async (routeParams) => {
+      this.blockNumber = routeParams.block_num;
+      await this.evm.loadBlock(this.blockNumber);
+      await this.accountService.checkIrreversibility();
+    }));
+  }
+
+  ngOnDestroy(): void {
+    this.subs.forEach(s => s.unsubscribe());
   }
 
 }

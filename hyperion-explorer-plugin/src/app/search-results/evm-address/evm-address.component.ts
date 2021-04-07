@@ -7,6 +7,7 @@ import {Subscription} from 'rxjs';
 import {EvmService} from '../../services/evm.service';
 import {PageEvent} from '@angular/material/paginator';
 import {faClock} from '@fortawesome/free-solid-svg-icons/faClock';
+import {AccountService} from '../../services/account.service';
 
 @Component({
   selector: 'app-evm-address',
@@ -33,6 +34,7 @@ export class EvmAddressComponent implements OnInit, OnDestroy {
 
   constructor(
     private activatedRoute: ActivatedRoute,
+    public accountService: AccountService,
     public evm: EvmService
   ) {
     this.subs = [];
@@ -43,6 +45,7 @@ export class EvmAddressComponent implements OnInit, OnDestroy {
       this.address = routeParams.address;
       this.nativeBalance = await this.evm.getBalance(this.address);
       await this.evm.loadTransactions(this.address);
+      await this.accountService.checkIrreversibility();
     }));
   }
 
