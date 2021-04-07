@@ -1,5 +1,10 @@
 # Hyperion Lightweight Explorer
 
+Install plugin (soon™)
+```bash
+soon...
+```
+
 Required config:
 ```json
 {
