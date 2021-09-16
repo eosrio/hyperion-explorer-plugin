@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build:prod": "ng build --prod --base-href /v2/explore/",
+    "build:prod": "ng build --configuration production --base-href /v2/explore/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -34,11 +34,11 @@
     "ngx-json-viewer": "^3.0.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
-    "zone.js": "~0.11.3"
+    "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.1102.7",
-    "@angular/cli": "^11.2.7",
+    "@angular-devkit/build-angular": "^12.2.6",
+    "@angular/cli": "^12.2.6",
     "@angular/compiler-cli": "^12.2.6",
     "@angular/localize": "^12.2.6",
     "@types/jasmine": "~3.6.0",
@@ -46,7 +46,7 @@
     "codelyzer": "^6.0.0",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
-    "karma": "~6.1.0",
+    "karma": "~6.3.4",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
