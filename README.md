@@ -1,8 +1,8 @@
 # Hyperion Lightweight Explorer
 
-Install plugin (soon™)
+Install plugin (using hyperion plugin manager)
 ```bash
-soon...
+./hpm install -r https://github.com/eosrio/hyperion-explorer-plugin -b main explorer
 ```
 
 Required config:
