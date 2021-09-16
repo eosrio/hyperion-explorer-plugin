@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "postinstall": "cd hyperion-explorer && npm install && npm run build:prod"
+    "postinstall": "(cd hyperion-explorer && npm install && npm run build:prod)"
   },
   "engines": {
     "node": "^16"
