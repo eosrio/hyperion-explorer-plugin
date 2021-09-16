@@ -12,7 +12,7 @@ const hyperion_plugin_1 = require("../../hyperion-plugin");
 class Explorer extends hyperion_plugin_1.HyperionPlugin {
     constructor(config) {
         super(config);
-        this.internalPluginName = 'telos-evm';
+        this.internalPluginName = 'explorer';
         this.hasApiRoutes = true;
         if (this.baseConfig) {
             this.pluginConfig = this.baseConfig;

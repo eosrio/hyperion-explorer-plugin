@@ -32,7 +32,8 @@
             "scripts": [],
             "allowedCommonJsDependencies": [
               "socket.io-client",
-              "hammerjs"
+              "hammerjs",
+              "@eosrio/hyperion-stream-client"
             ]
           },
           "configurations": {

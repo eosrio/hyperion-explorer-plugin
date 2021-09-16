@@ -1,13 +1,13 @@
 # Hyperion Lightweight Explorer
 
-Install plugin (using hyperion plugin manager)
+Install plugin (hpm - hyperion plugin manager)
 
-*v3.3.5+ required*
+Hyperion History v3.3.5+ required
 ```bash
 ./hpm install -r https://github.com/eosrio/hyperion-explorer-plugin -b main explorer
 ```
 
-Required config:
+Required config on the plugin section of the `chain.config.json`
 ```json
 {
   "plugins": {

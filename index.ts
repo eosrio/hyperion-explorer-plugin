@@ -13,11 +13,8 @@ export interface ExplorerConfig {
 }
 
 export default class Explorer extends HyperionPlugin {
-
-    internalPluginName = 'telos-evm';
-
+    internalPluginName = 'explorer';
     hasApiRoutes = true;
-
     pluginConfig: ExplorerConfig;
 
     constructor(config: ExplorerConfig) {
