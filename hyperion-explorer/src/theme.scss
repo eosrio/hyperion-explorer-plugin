@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import '../node_modules/@angular/material/theming';
 
 $hyperion: (
@@ -9,16 +10,16 @@ $hyperion: (
   )
 );
 
-$primary: mat-palette($hyperion, primary);
-$accent: mat-palette($hyperion, accent);
-$theme: mat-light-theme($primary, $accent);
+$primary: mat.define-palette($hyperion, primary);
+$accent: mat.define-palette($hyperion, accent);
+$theme: mat.define-light-theme($primary, $accent);
 
-@include angular-material-theme($theme);
+@include mat.all-component-themes($theme);
 
 .primary {
-  color: mat-color($hyperion, primary);
+  color: mat.get-color-from-palette($hyperion, primary);
 }
 
 .accent {
-  color: mat-color($hyperion, accent);
+  color: mat.get-color-from-palette($hyperion, accent);
 }
