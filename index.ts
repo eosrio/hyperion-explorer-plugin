@@ -14,6 +14,8 @@ export interface ExplorerConfig {
 
 export default class Explorer extends HyperionPlugin {
     internalPluginName = 'explorer';
+    apiPlugin = true;
+    indexerPlugin = false;
     hasApiRoutes = true;
     pluginConfig: ExplorerConfig;
 
@@ -115,7 +117,7 @@ export default class Explorer extends HyperionPlugin {
 
         server.get('/v2/explorer_metadata', (request: FastifyRequest, reply: FastifyReply) => {
             reply.send({
-                logo: apiConfig.chain_logo_url,
+                logo: this.pluginConfig.chain_logo_url,
                 provider: apiConfig.provider_name,
                 provider_url: apiConfig.provider_url,
                 chain_name: apiConfig.chain_name,
