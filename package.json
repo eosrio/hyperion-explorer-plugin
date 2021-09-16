@@ -4,8 +4,7 @@
   "description": "Official Lightweight Explorer plugin for Hyperion",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
-    "postinstall": "(cd hyperion-explorer && npm install && npm run build:prod)"
+    "build": "tsc"
   },
   "engines": {
     "node": "^16"
