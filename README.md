@@ -4,10 +4,13 @@ Install plugin (hpm - hyperion plugin manager)
 
 Hyperion History v3.3.5+ required
 ```bash
-./hpm install -r https://github.com/eosrio/hyperion-explorer-plugin -b main explorer
+# install from this repository
+./hpm install -r https://github.com/eosrio/hyperion-explorer-plugin explorer
+# enable the plugin globally
+./hpm enable explorer
 ```
 
-Required config on the plugin section of the `chain.config.json`
+Required configuration on the plugin section of the `chain.config.json`
 ```json
 {
   "plugins": {
@@ -18,4 +21,9 @@ Required config on the plugin section of the `chain.config.json`
     }
   }
 }
+```
+
+Uninstall
+```bash
+./hpm uninstall explorer
 ```
