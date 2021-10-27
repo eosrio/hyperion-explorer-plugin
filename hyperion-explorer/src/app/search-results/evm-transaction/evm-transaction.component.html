@@ -64,7 +64,9 @@
 
         <div><strong>Value:</strong> {{txData.val_formatted}}</div>
 
-        <div><strong>Gas Price:</strong> {{txData.gas_price}}</div>
+        <div><strong>Gas Price:</strong> {{(txData.gas_price / 1000000000).toFixed(2)}} GWEI</div>
+
+        <div><strong>Gas Fee:</strong> {{((txData.gas_used * txData.gas_price) / 1000000000000000000).toFixed(4)}} TLOS</div>
 
         <div><strong>Gas Used:</strong> {{txData.gas_used}}</div>
 
@@ -85,9 +87,9 @@
         </div>
 
 
-        <div><strong>Status:</strong> {{txData.status}}</div>
+        <div><strong>Status:</strong> {{txData.status == "0x1" ? "Success (0x1)" : "Error (0x0)"}}</div>
 
-        <div *ngIf="txData.errors"><strong>Error:</strong> {{txData.errors}}</div>
+        <div *ngIf="txData.error"><strong>Error:</strong> {{txData.error}}</div>
 
         <div><strong>Logs:</strong></div>
         <ngx-json-viewer [json]="txData.logs" [expanded]="false"></ngx-json-viewer>
