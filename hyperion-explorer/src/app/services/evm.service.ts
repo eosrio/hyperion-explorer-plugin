@@ -111,7 +111,7 @@ export class EvmService {
     for (const trx of this.transactions) {
       trx.evm_block = trx.block;
       trx.evm_hash = trx.hash;
-      trx.val_formatted = `${parseInt(trx.value_d, 10).toFixed(4)} TLOS`;
+      trx.val_formatted = `${parseFloat(trx.value_d).toFixed(5)} TLOS`;
     }
     this.addressTransactions.data = this.transactions;
   }
