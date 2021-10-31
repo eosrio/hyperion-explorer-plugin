@@ -93,6 +93,10 @@ export class EvmService {
     }
   }
 
+  async loadRecentTransactions(): Promise<void> {
+    const resp = await this.http.get(this.server + '/v2/history/get_actions?filter=eosio.evm=raw').toPromise() as any;
+  }
+
   async loadBlock(blockNumber: any): Promise<any> {
     const blockData = await this.getBlockByNumber('0x' + Number(blockNumber).toString(16), true);
     blockData.transactions.forEach((trx) => {

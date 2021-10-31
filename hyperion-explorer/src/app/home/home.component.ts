@@ -1,38 +1,43 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {debounceTime} from 'rxjs/operators';
 import {SearchService} from '../services/search.service';
 import {AccountService} from '../services/account.service';
 import {faSearch} from '@fortawesome/free-solid-svg-icons/faSearch';
 import {ChainService} from '../services/chain.service';
+import {EvmService} from '../services/evm.service';
 import {Title} from '@angular/platform-browser';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   searchForm: FormGroup;
   filteredAccounts: string[];
   faSearch = faSearch;
   searchPlaceholder: string;
   placeholders = [
-    'Search by account name...',
-    'Search by block number...',
-    'Search by transaction id...',
-    'Search by public key...'
+    'Search by EVM address...',
+    'Search by transaction hash...',
+    'Search by contract address...'
   ];
   err = '';
+  subs: Subscription[];
+
   private currentPlaceholder = 0;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     private accountService: AccountService,
     private searchService: SearchService,
     public chainData: ChainService,
+    public evm: EvmService,
     private title: Title
   ) {
     this.searchForm = this.formBuilder.group({
@@ -47,6 +52,7 @@ export class HomeComponent implements OnInit {
       }
       this.searchPlaceholder = this.placeholders[this.currentPlaceholder];
     }, 2000);
+    this.subs = [];
   }
 
   ngOnInit(): void {
@@ -54,8 +60,15 @@ export class HomeComponent implements OnInit {
       this.filteredAccounts = await this.searchService.filterAccountNames(result);
     });
     if (this.chainData.chainInfoData.chain_name) {
-      this.title.setTitle(`${this.chainData.chainInfoData.chain_name} Hyperion Explorer`);
+      this.title.setTitle(`${this.chainData.chainInfoData.chain_name} Telos EVM Explorer`);
     }
+    this.subs.push(this.activatedRoute.params.subscribe(async (routeParams) => {
+      await this.evm.loadRecentTransactions();
+    }));
+  }
+
+  ngOnDestroy(): void {
+    this.subs.forEach(s => s.unsubscribe());
   }
 
   async submit(): Promise<void> {

@@ -24,6 +24,8 @@ const routes: Routes = [
       {path: 'key/:key', component: KeyComponent},
       {path: 'evm/address/:address', component: EvmAddressComponent},
       {path: 'evm/transaction/:hash', component: EvmTransactionComponent},
+      {path: 'tx/:hash', component: EvmTransactionComponent},
+      {path: 'address/:address', component: EvmAddressComponent},
       {path: 'evm/block/:block_num', component: EvmBlockComponent}
     ],
   },
