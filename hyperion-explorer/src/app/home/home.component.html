@@ -47,7 +47,7 @@
     <mat-card fxFlex="100" fxFlexFill>
       <div fxLayout="row" fxLayoutAlign="space-between start">
         <h3 style="margin-top: 0;">
-          <fa-layers [fixedWidth]="true" style="margin-right: 5px; cursor: pointer;" (click)="evm.loadRecentTransactions()">
+          <fa-layers [fixedWidth]="true" style="margin-right: 5px; cursor: pointer;" (click)="evm.loadRecentTransactions(); accountService.checkIrreversibility()">
             <fa-icon [icon]="faCircle" transform="grow-3"></fa-icon>
             <fa-icon [icon]="faHistory" [inverse]="true" transform="shrink-5" ></fa-icon>
           </fa-layers>
