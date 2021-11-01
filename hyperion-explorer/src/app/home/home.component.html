@@ -59,7 +59,7 @@
         <div *ngIf="evm.streamClientLoaded" (click)="evm.toggleStreaming()" class="livestream"
              matTooltip="click to turn on/off"
              matTooltipClass="tooltip-bigger">
-          action live streaming <span class="w-500">{{evm.streamClientStatus ? 'enabled' : 'disabled'}}</span>
+          transaction live streaming <span class="w-500">{{evm.streamClientStatus ? 'enabled' : 'disabled'}}</span>
           <span class="dot"
                 [ngClass]="{'pulse': evm.streamClientStatus, 'red-dot': !evm.streamClientStatus}"></span>
         </div>
