@@ -130,6 +130,8 @@ export class EvmService {
     this.transactions = transactions;
     for (const trx of this.transactions) {
       debugger;
+      trx.to = trx.act.data.to;
+      trx.from = trx.act.data.from;
       trx.evm_block = trx.act.data.block;
       trx.evm_hash = trx.act.data.hash;
       trx.val_formatted = `${parseFloat(trx.act.data.value_d).toFixed(5)} TLOS`;
