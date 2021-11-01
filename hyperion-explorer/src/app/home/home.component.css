@@ -9,6 +9,11 @@
   border-left: 0;
 }
 
+.table-container{
+  height: calc(100% - 6rem); 
+  overflow: auto;
+}
+
 ::ng-deep .home-search-input.mat-form-field-appearance-outline .mat-form-field-outline-end {
   border-radius: 0 0 0 0 !important;
 }

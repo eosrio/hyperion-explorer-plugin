@@ -64,69 +64,70 @@
                 [ngClass]="{'pulse': evm.streamClientStatus, 'red-dot': !evm.streamClientStatus}"></span>
         </div>
       </div>
-  
-      <table [ngStyle]="{'width': '100%'}"
-             mat-table [dataSource]="evm.recentTransactions"
-             matSort
-             matSortActive="block"
-             matSortStart="desc"
-             matSortDirection="desc" class="actions-table">
-  
-        <ng-container matColumnDef="hash">
-          <th mat-header-cell *matHeaderCellDef [ngStyle.gt-xs]="{'min-width': '100px'}">TX Hash</th>
-          <td mat-cell *matCellDef="let trx" data-label="TX">
-            <a [routerLink]="['/evm/transaction', trx['evm_hash']]" class="link-blue monospace">
-              {{trx['evm_hash'].slice(0,16)}}...
-            </a>
-          </td>
-        </ng-container>
-  
-  
-        <!-- Block & Date Column -->
-        <ng-container matColumnDef="block">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header [ngStyle.gt-xs]="{'min-width': '70px'}">Block & Date</th>
-          <td mat-cell *matCellDef="let trx" data-label="Block & Date">
-            <a [routerLink]="['/evm/block', trx['evm_block']]" class="link-blue">{{trx['block_num']}}</a>
-            <br>
-            <span> {{formatDate(trx['@timestamp'])}}</span>
-          </td>
-        </ng-container>
-  
-        <ng-container matColumnDef="fromAddr">
-          <th mat-header-cell *matHeaderCellDef [ngStyle.gt-xs]="{'min-width': '100px'}">From</th>
-          <td mat-cell *matCellDef="let trx" data-label="From">
-            <a *ngIf="trx['from']" [routerLink]="['/evm/address', trx['from']]" class="link-blue monospace">
-              {{trx['from'].slice(0,16)}}...
-            </a>
-          </td>
-        </ng-container>
-  
-        <ng-container matColumnDef="toAddr">
-          <th mat-header-cell *matHeaderCellDef [ngStyle.gt-xs]="{'min-width': '100px'}">To</th>
-          <td mat-cell *matCellDef="let trx" data-label="To">
-            <a *ngIf="trx['to']" [routerLink]="['/evm/address', trx['to']]" class="link-blue monospace">
-              {{trx['to'].slice(0,16)}}...
-            </a>
-            <a *ngIf="!trx['to']" class="monospace">
-              0x0
-            </a>
-          </td>
-        </ng-container>
-  
-        <ng-container matColumnDef="nativeValue">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header [ngStyle.gt-xs]="{'min-width': '100px'}">Value</th>
-          <td mat-cell *matCellDef="let trx" data-label="Value">
-            {{trx['val_formatted']}}
-          </td>
-        </ng-container>
-  
-        <!--suppress AngularUndefinedBinding -->
-        <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></tr>
-  
-        <!--suppress AngularUndefinedBinding -->
-        <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
-  
-      </table>
+      <div class="table-container">
+        <table [ngStyle]="{'width': '100%'}"
+              mat-table [dataSource]="evm.recentTransactions"
+              matSort
+              matSortActive="block"
+              matSortStart="desc"
+              matSortDirection="desc" class="actions-table">
+    
+          <ng-container matColumnDef="hash">
+            <th mat-header-cell *matHeaderCellDef [ngStyle.gt-xs]="{'min-width': '100px'}">TX Hash</th>
+            <td mat-cell *matCellDef="let trx" data-label="TX">
+              <a [routerLink]="['/evm/transaction', trx['evm_hash']]" class="link-blue monospace">
+                {{trx['evm_hash'].slice(0,16)}}...
+              </a>
+            </td>
+          </ng-container>
+    
+    
+          <!-- Block & Date Column -->
+          <ng-container matColumnDef="block">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header [ngStyle.gt-xs]="{'min-width': '70px'}">Block & Date</th>
+            <td mat-cell *matCellDef="let trx" data-label="Block & Date">
+              <a [routerLink]="['/evm/block', trx['evm_block']]" class="link-blue">{{trx['block_num']}}</a>
+              <br>
+              <span> {{formatDate(trx['@timestamp'])}}</span>
+            </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="fromAddr">
+            <th mat-header-cell *matHeaderCellDef [ngStyle.gt-xs]="{'min-width': '100px'}">From</th>
+            <td mat-cell *matCellDef="let trx" data-label="From">
+              <a *ngIf="trx['from']" [routerLink]="['/evm/address', trx['from']]" class="link-blue monospace">
+                {{trx['from'].slice(0,16)}}...
+              </a>
+            </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="toAddr">
+            <th mat-header-cell *matHeaderCellDef [ngStyle.gt-xs]="{'min-width': '100px'}">To</th>
+            <td mat-cell *matCellDef="let trx" data-label="To">
+              <a *ngIf="trx['to']" [routerLink]="['/evm/address', trx['to']]" class="link-blue monospace">
+                {{trx['to'].slice(0,16)}}...
+              </a>
+              <a *ngIf="!trx['to']" class="monospace">
+                0x0
+              </a>
+            </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="nativeValue">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header [ngStyle.gt-xs]="{'min-width': '100px'}">Value</th>
+            <td mat-cell *matCellDef="let trx" data-label="Value">
+              {{trx['val_formatted']}}
+            </td>
+          </ng-container>
+    
+          <!--suppress AngularUndefinedBinding -->
+          <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></tr>
+    
+          <!--suppress AngularUndefinedBinding -->
+          <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+    
+        </table>
+      </div>
   
       <mat-paginator #paginator
                      pageSize=15
