@@ -136,7 +136,7 @@ export class EvmService {
       trx.evm_hash = trx.act.data.hash;
       trx.val_formatted = `${parseFloat(trx.act.data.value_d).toFixed(5)} TLOS`;
     }
-    this.recentTransactions.data = [...this.transactions, ...this.transactions, ...this.transactions];
+    this.recentTransactions.data = this.transactions;
   }
 
   getErrorFromOutput(output: string): string {
