@@ -42,7 +42,7 @@
       </div>
     </div>
   </mat-card>
-
+  <div class="container" style="height: 100%;">
     <!-- ACTIONS -->
     <mat-card fxFlex="100" fxFlexFill>
       <div fxLayout="row" fxLayoutAlign="space-between start">
@@ -51,7 +51,7 @@
             <fa-icon [icon]="faCircle" transform="grow-3"></fa-icon>
             <fa-icon [icon]="faHistory" [inverse]="true" transform="shrink-5"></fa-icon>
           </fa-layers>
-          Transactions
+          Recent Transactions
         </h3>
   
         <span class="lib">Last Irreversible Block: <strong class="monospace">{{accountService.libNum}}</strong></span>
@@ -65,7 +65,8 @@
         </div>
       </div>
   
-      <table mat-table [dataSource]="evm.recentTransactions"
+      <table [ngStyle]="{'width': '100%'}"
+             mat-table [dataSource]="evm.recentTransactions"
              matSort
              matSortActive="block"
              matSortStart="desc"
@@ -74,11 +75,6 @@
         <ng-container matColumnDef="hash">
           <th mat-header-cell *matHeaderCellDef [ngStyle.gt-xs]="{'min-width': '100px'}">TX Hash</th>
           <td mat-cell *matCellDef="let trx" data-label="TX">
-  <!--          <span *ngIf="evm.libNum < trx['block_num']"-->
-  <!--                matTooltip="time until irreversible" matTooltipClass="tooltip-bigger">-->
-  <!--            <fa-icon [icon]="faClock" class="accent" style="margin-right: 1px"></fa-icon>-->
-  <!--            {{(trx['block_num'] - evm.libNum) / 2}}s-->
-  <!--          </span>-->
             <a [routerLink]="['/evm/transaction', trx['hash']]" class="link-blue monospace">
               {{trx['evm_hash'].slice(0,16)}}...
             </a>
@@ -143,5 +139,6 @@
         load more actions
       </button>
     </mat-card>
+  </div>
   <div class="faded footer-text" style="">Made with ❤ by EOS Rio</div>
 </div>

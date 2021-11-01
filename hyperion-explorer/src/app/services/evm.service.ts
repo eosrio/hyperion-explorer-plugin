@@ -97,7 +97,6 @@ export class EvmService {
 
   async loadRecentTransactions(): Promise<void> {
     const resp = await this.http.get(this.server + '/v2/history/get_actions?filter=eosio.evm:raw').toPromise() as any;
-    debugger;
     this.processRecentTransactions(resp.actions);
     
   }
@@ -129,7 +128,6 @@ export class EvmService {
     this.transactions = [];
     this.transactions = transactions;
     for (const trx of this.transactions) {
-      debugger;
       trx.to = trx.act.data.to;
       trx.from = trx.act.data.from;
       trx.evm_block = trx.act.data.block;
