@@ -10,6 +10,7 @@ const REVERT_PANIC_SELECTOR = '0x4e487b71';
 @Injectable({
   providedIn: 'root'
 })
+
 export class EvmService {
   loaded = true;
 
@@ -136,7 +137,7 @@ export class EvmService {
       trx.val_formatted = `${parseFloat(trx.act.data.value_d).toFixed(5)} TLOS`;
     }
     this.recentTransactions.paginator 
-    this.recentTransactions.data = this.transactions;
+    this.recentTransactions.data = [...this.transactions, ...this.transactions];
   }
 
   getErrorFromOutput(output: string): string {

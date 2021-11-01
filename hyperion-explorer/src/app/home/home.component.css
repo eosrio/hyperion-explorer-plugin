@@ -10,7 +10,7 @@
 }
 
 .table-container{
-  height: calc(100% - 9.5rem); 
+  height: calc(100% - 6rem); 
   overflow: auto;
 }
 
@@ -67,9 +67,6 @@
   }
   .home-search-input {
     width: 330px;
-  }
-  .mat-card-height{
-    height: calc(100% - 4rem) !important;
   }
 }
 
