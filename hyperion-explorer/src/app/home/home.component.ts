@@ -89,6 +89,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
+  formatDate(date: string): string {
+    return new Date(date).toLocaleString();
+  }
+
   ngOnInit(): void {
     this.searchForm.get('search_field').valueChanges.pipe(debounceTime(300)).subscribe(async (result) => {
       this.filteredAccounts = await this.searchService.filterAccountNames(result);

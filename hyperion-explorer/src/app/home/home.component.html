@@ -65,7 +65,7 @@
         </div>
       </div>
   
-      <table mat-table [dataSource]="evm.addressTransactions"
+      <table mat-table [dataSource]="evm.recentTransactions"
              matSort
              matSortActive="block"
              matSortStart="desc"
@@ -80,7 +80,7 @@
   <!--            {{(trx['block_num'] - evm.libNum) / 2}}s-->
   <!--          </span>-->
             <a [routerLink]="['/evm/transaction', trx['hash']]" class="link-blue monospace">
-              {{trx['hash'].slice(0,16)}}...
+              {{trx['evm_hash'].slice(0,16)}}...
             </a>
           </td>
         </ng-container>

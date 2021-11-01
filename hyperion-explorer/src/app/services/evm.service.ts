@@ -17,12 +17,14 @@ export class EvmService {
   libNum = 0;
   streamClientLoaded = true;
   transactions = [];
+  recentTransactions: MatTableDataSource<any[]>;
   addressTransactions: MatTableDataSource<any[]>;
   blockTransactions: MatTableDataSource<any[]>;
   private server: string;
 
   constructor(private http: HttpClient, private pagService: PaginationService) {
     this.getServerUrl();
+    this.recentTransactions = new MatTableDataSource([]);
     this.addressTransactions = new MatTableDataSource([]);
     this.blockTransactions = new MatTableDataSource([]);
   }
@@ -94,7 +96,10 @@ export class EvmService {
   }
 
   async loadRecentTransactions(): Promise<void> {
-    const resp = await this.http.get(this.server + '/v2/history/get_actions?filter=eosio.evm=raw').toPromise() as any;
+    const resp = await this.http.get(this.server + '/v2/history/get_actions?filter=eosio.evm:raw').toPromise() as any;
+    debugger;
+    this.processRecentTransactions(resp.actions);
+    
   }
 
   async loadBlock(blockNumber: any): Promise<any> {
@@ -118,6 +123,18 @@ export class EvmService {
       trx.val_formatted = `${parseFloat(trx.value_d).toFixed(5)} TLOS`;
     }
     this.addressTransactions.data = this.transactions;
+  }
+
+  private processRecentTransactions(transactions: any[]): void {
+    this.transactions = [];
+    this.transactions = transactions;
+    for (const trx of this.transactions) {
+      debugger;
+      trx.evm_block = trx.act.data.block;
+      trx.evm_hash = trx.act.data.hash;
+      trx.val_formatted = `${parseFloat(trx.act.data.value_d).toFixed(5)} TLOS`;
+    }
+    this.recentTransactions.data = this.transactions;
   }
 
   getErrorFromOutput(output: string): string {
