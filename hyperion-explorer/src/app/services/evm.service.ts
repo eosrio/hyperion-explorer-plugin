@@ -137,7 +137,7 @@ export class EvmService {
       trx.val_formatted = `${parseFloat(trx.act.data.value_d).toFixed(5)} TLOS`;
     }
     this.recentTransactions.paginator 
-    this.recentTransactions.data = [...this.transactions, ...this.transactions];
+    this.recentTransactions.data = this.transactions;
   }
 
   getErrorFromOutput(output: string): string {
