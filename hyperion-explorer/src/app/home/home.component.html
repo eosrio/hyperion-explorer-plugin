@@ -128,16 +128,14 @@
   
       </table>
   
-      <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]"
-                     [length]="evm.recentTransactions.filteredData.length"
+      <mat-paginator #paginator
+                     pageSize=15
+                     length="evm.recentTransactions.filteredData.length"
+                     [pageSizeOptions]="[15, 25, 50, 100]"
                      (page)="changePage($event)"
                      showFirstLastButtons>
       </mat-paginator>
-  
-      <button mat-stroked-button color="primary" class="float-r" style="margin-right: 16px;"
-              (click)="evm.loadMoreTransactions(address)">
-        load more actions
-      </button>
+
     </mat-card>
   </div>
   <div class="faded footer-text" style="">Made with ❤ by EOS Rio</div>

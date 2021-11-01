@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {debounceTime} from 'rxjs/operators';
@@ -11,7 +11,7 @@ import {Title} from '@angular/platform-browser';
 import {Subscription} from 'rxjs';
 import {faCircle} from '@fortawesome/free-solid-svg-icons/faCircle';
 import {faHistory} from '@fortawesome/free-solid-svg-icons/faHistory';
-import { PageEvent } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-home',
@@ -20,6 +20,7 @@ import { PageEvent } from '@angular/material/paginator';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   address = '';
+  @ViewChild('paginator') paginator: MatPaginator;
   searchForm: FormGroup;
   filteredAccounts: string[];
   faSearch = faSearch;
@@ -102,6 +103,10 @@ export class HomeComponent implements OnInit, OnDestroy {
       await this.evm.loadRecentTransactions();
       await this.accountService.checkIrreversibility();
     }));
+  }
+
+  ngAfterViewInit() {
+    this.evm.recentTransactions.paginator = this.paginator;
   }
 
   ngOnDestroy(): void {

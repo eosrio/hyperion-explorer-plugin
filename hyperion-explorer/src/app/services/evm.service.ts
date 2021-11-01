@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {MatTableDataSource} from '@angular/material/table';
 import {PaginationService} from './pagination.service';
+import { MatPaginator } from '@angular/material/paginator';
 
 const REVERT_FUNCTION_SELECTOR = '0x08c379a0';
 const REVERT_PANIC_SELECTOR = '0x4e487b71';
@@ -134,7 +135,8 @@ export class EvmService {
       trx.evm_hash = trx.act.data.hash;
       trx.val_formatted = `${parseFloat(trx.act.data.value_d).toFixed(5)} TLOS`;
     }
-    this.recentTransactions.data = this.transactions;
+    this.recentTransactions.paginator 
+    this.recentTransactions.data = [...this.transactions, ...this.transactions];
   }
 
   getErrorFromOutput(output: string): string {
