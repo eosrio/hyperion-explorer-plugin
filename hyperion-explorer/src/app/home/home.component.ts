@@ -9,6 +9,11 @@ import {ChainService} from '../services/chain.service';
 import {EvmService} from '../services/evm.service';
 import {Title} from '@angular/platform-browser';
 import {Subscription} from 'rxjs';
+import {faCircle} from '@fortawesome/free-solid-svg-icons/faCircle';
+import {faHistory} from '@fortawesome/free-solid-svg-icons/faHistory';
+import { PageEvent } from '@angular/material/paginator';
+// import {faClock} from '@fortawesome/free-solid-svg-icons/faClock';
+
 
 @Component({
   selector: 'app-home',
@@ -16,6 +21,7 @@ import {Subscription} from 'rxjs';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit, OnDestroy {
+  address = '';
   searchForm: FormGroup;
   filteredAccounts: string[];
   faSearch = faSearch;
@@ -26,7 +32,16 @@ export class HomeComponent implements OnInit, OnDestroy {
     'Search by contract address...'
   ];
   err = '';
+  columnsToDisplay: string[] = [
+    'hash',
+    'block',
+    'fromAddr',
+    'toAddr',
+    'nativeValue'
+  ];
   subs: Subscription[];
+  faCircle = faCircle;
+  faHistory = faHistory;
 
   private currentPlaceholder = 0;
 
@@ -34,7 +49,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private accountService: AccountService,
+    public accountService: AccountService,
     private searchService: SearchService,
     public chainData: ChainService,
     public evm: EvmService,
@@ -53,6 +68,25 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.searchPlaceholder = this.placeholders[this.currentPlaceholder];
     }, 2000);
     this.subs = [];
+  }
+
+  changePage(event: PageEvent): void {
+
+    // disable streaming if enabled
+    if (this.evm.streamClientStatus) {
+      this.evm.toggleStreaming();
+    }
+
+    const maxPages = Math.floor(event.length / event.pageSize);
+    console.log(event);
+    console.log(`${event.pageIndex} / ${maxPages}`);
+    try {
+      if (event.pageIndex === maxPages - 1) {
+        this.evm.loadMoreTransactions(this.address).catch(console.log);
+      }
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   ngOnInit(): void {
