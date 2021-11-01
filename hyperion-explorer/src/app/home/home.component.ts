@@ -12,8 +12,6 @@ import {Subscription} from 'rxjs';
 import {faCircle} from '@fortawesome/free-solid-svg-icons/faCircle';
 import {faHistory} from '@fortawesome/free-solid-svg-icons/faHistory';
 import { PageEvent } from '@angular/material/paginator';
-// import {faClock} from '@fortawesome/free-solid-svg-icons/faClock';
-
 
 @Component({
   selector: 'app-home',
@@ -102,6 +100,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
     this.subs.push(this.activatedRoute.params.subscribe(async (routeParams) => {
       await this.evm.loadRecentTransactions();
+      await this.accountService.checkIrreversibility();
     }));
   }
 
