@@ -42,9 +42,9 @@
       </div>
     </div>
   </mat-card>
-  <div class="container" style="height: 100%;">
+  <div class="container" style="height: calc(100% - 16rem);">
     <!-- ACTIONS -->
-    <mat-card fxFlex="100" fxFlexFill>
+    <mat-card fxFlex="100" fxFlexFill class='mat-card-height'>
       <div fxLayout="row" fxLayoutAlign="space-between start">
         <h3 style="margin-top: 0;">
           <fa-layers [fixedWidth]="true" style="margin-right: 5px; cursor: pointer;" (click)="evm.loadRecentTransactions(); accountService.checkIrreversibility()">
@@ -65,7 +65,7 @@
         </div>
       </div>
       <div class="table-container">
-        <table [ngStyle]="{'width': '100%'}"
+        <table [ngStyle]="{'width': '100%'} "
               mat-table [dataSource]="evm.recentTransactions"
               matSort
               matSortActive="block"
