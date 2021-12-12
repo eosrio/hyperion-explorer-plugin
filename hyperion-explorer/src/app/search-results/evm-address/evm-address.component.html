@@ -13,8 +13,8 @@
     <h2 class="break-word" style="letter-spacing: 1px;">{{address}}</h2>
     <div fxLayout="column">
       <div class="total-balance width-100">
-        <strong>Native Balance: </strong>
-        <span class="float-r">{{nativeBalance}}</span>
+        <strong>Balance: </strong>
+        <span class="float-r">{{nativeBalance}} TLOS</span>
       </div>
     </div>
   </mat-card>
@@ -56,7 +56,7 @@
 <!--            {{(trx['block_num'] - evm.libNum) / 2}}s-->
 <!--          </span>-->
           <a [routerLink]="['/evm/transaction', trx['hash']]" class="link-blue monospace">
-            {{trx['hash'].slice(0,8)}}...{{trx['hash'].slice(-8)}}
+            {{trx['hash'].slice(0,16)}}...
           </a>
         </td>
       </ng-container>
@@ -76,7 +76,7 @@
         <th mat-header-cell *matHeaderCellDef [ngStyle.gt-xs]="{'min-width': '100px'}">From</th>
         <td mat-cell *matCellDef="let trx" data-label="From">
           <a *ngIf="trx['from']" [routerLink]="['/evm/address', trx['from']]" class="link-blue monospace">
-            {{trx['from'].slice(0,8)}}...{{trx['from'].slice(-8)}}
+            {{trx['from'].slice(0,16)}}...
           </a>
         </td>
       </ng-container>
@@ -85,7 +85,7 @@
         <th mat-header-cell *matHeaderCellDef [ngStyle.gt-xs]="{'min-width': '100px'}">To</th>
         <td mat-cell *matCellDef="let trx" data-label="To">
           <a *ngIf="trx['to']" [routerLink]="['/evm/address', trx['to']]" class="link-blue monospace">
-            {{trx['to'].slice(0,8)}}...{{trx['to'].slice(-8)}}
+            {{trx['to'].slice(0,16)}}...
           </a>
           <a *ngIf="!trx['to']" class="monospace">
             0x0

@@ -1,4 +1,4 @@
-<div style="height: 100vh" fxLayout="column" fxLayoutAlign="space-between stretch" >
+<div style="height: 100vh; overflow:auto;" fxLayout="column" fxLayoutAlign="space-between stretch" >
   <mat-card class="search-card" fxLayout="column" fxLayoutAlign="end center">
     <div fxLayout="column" fxLayoutAlign="center center" style="text-align: center;" fxLayoutGap="20px">
     <img src="assets/logo.png" alt="logo" class="logo">
@@ -42,5 +42,102 @@
       </div>
     </div>
   </mat-card>
+  <div class="container">
+    <!-- ACTIONS -->
+    <mat-card fxFlex="100" fxFlexFill class='mat-card-height'>
+      <div fxLayout="row" fxLayoutAlign="space-between start">
+        <h3 style="margin-top: 0;">
+          <fa-layers [fixedWidth]="true" style="margin-right: 5px; cursor: pointer;" (click)="evm.loadRecentTransactions(); accountService.checkIrreversibility()">
+            <fa-icon [icon]="faCircle" transform="grow-3"></fa-icon>
+            <fa-icon [icon]="faHistory" [inverse]="true" transform="shrink-5" ></fa-icon>
+          </fa-layers>
+          Recent Transactions
+        </h3>
+  
+        <span class="lib">Last Irreversible Block: <strong class="monospace">{{accountService.libNum}}</strong></span>
+  
+        <div *ngIf="evm.streamClientLoaded" (click)="evm.toggleStreaming()" class="livestream"
+             matTooltip="click to turn on/off"
+             matTooltipClass="tooltip-bigger">
+          transaction live streaming <span class="w-500">{{evm.streamClientStatus ? 'enabled' : 'disabled'}}</span>
+          <span class="dot"
+                [ngClass]="{'pulse': evm.streamClientStatus, 'red-dot': !evm.streamClientStatus}"></span>
+        </div>
+      </div>
+      <div class="table-container">
+        <table [ngStyle]="{'width': '100%'} "
+              mat-table [dataSource]="evm.recentTransactions"
+              matSort
+              matSortActive="block"
+              matSortStart="desc"
+              matSortDirection="desc" class="actions-table">
+    
+          <ng-container matColumnDef="hash">
+            <th mat-header-cell *matHeaderCellDef [ngStyle.gt-xs]="{'min-width': '100px'}">TX Hash</th>
+            <td mat-cell *matCellDef="let trx" data-label="TX">
+              <a [routerLink]="['/evm/transaction', trx['evm_hash']]" class="link-blue monospace">
+                {{trx['evm_hash'].slice(0,16)}}...
+              </a>
+            </td>
+          </ng-container>
+    
+    
+          <!-- Block & Date Column -->
+          <ng-container matColumnDef="block">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header [ngStyle.gt-xs]="{'min-width': '70px'}">Block & Date</th>
+            <td mat-cell *matCellDef="let trx" data-label="Block & Date">
+              <a [routerLink]="['/evm/block', trx['evm_block']]" class="link-blue">{{trx['block_num']}}</a>
+              <br>
+              <span> {{formatDate(trx['@timestamp'])}}</span>
+            </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="fromAddr">
+            <th mat-header-cell *matHeaderCellDef [ngStyle.gt-xs]="{'min-width': '100px'}">From</th>
+            <td mat-cell *matCellDef="let trx" data-label="From">
+              <a *ngIf="trx['from']" [routerLink]="['/evm/address', trx['from']]" class="link-blue monospace">
+                {{trx['from'].slice(0,16)}}...
+              </a>
+            </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="toAddr">
+            <th mat-header-cell *matHeaderCellDef [ngStyle.gt-xs]="{'min-width': '100px'}">To</th>
+            <td mat-cell *matCellDef="let trx" data-label="To">
+              <a *ngIf="trx['to']" [routerLink]="['/evm/address', trx['to']]" class="link-blue monospace">
+                {{trx['to'].slice(0,16)}}...
+              </a>
+              <a *ngIf="!trx['to']" class="monospace">
+                0x0
+              </a>
+            </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="nativeValue">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header [ngStyle.gt-xs]="{'min-width': '100px'}">Value</th>
+            <td mat-cell *matCellDef="let trx" data-label="Value">
+              {{trx['val_formatted']}}
+            </td>
+          </ng-container>
+    
+          <!--suppress AngularUndefinedBinding -->
+          <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></tr>
+    
+          <!--suppress AngularUndefinedBinding -->
+          <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+    
+        </table>
+      </div>
+  
+      <mat-paginator #paginator
+                     pageSize=15
+                     length="evm.recentTransactions.filteredData.length"
+                     [pageSizeOptions]="[15, 25, 50, 100]"
+                     (page)="changePage($event)"
+                     showFirstLastButtons>
+      </mat-paginator>
+
+    </mat-card>
+  </div>
   <div class="faded footer-text" style="">Made with ❤ by EOS Rio</div>
 </div>

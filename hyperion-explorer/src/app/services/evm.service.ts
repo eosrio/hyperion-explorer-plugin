@@ -3,12 +3,14 @@ import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {MatTableDataSource} from '@angular/material/table';
 import {PaginationService} from './pagination.service';
+import { MatPaginator } from '@angular/material/paginator';
 
 const REVERT_FUNCTION_SELECTOR = '0x08c379a0';
 const REVERT_PANIC_SELECTOR = '0x4e487b71';
 @Injectable({
   providedIn: 'root'
 })
+
 export class EvmService {
   loaded = true;
 
@@ -17,12 +19,14 @@ export class EvmService {
   libNum = 0;
   streamClientLoaded = true;
   transactions = [];
+  recentTransactions: MatTableDataSource<any[]>;
   addressTransactions: MatTableDataSource<any[]>;
   blockTransactions: MatTableDataSource<any[]>;
   private server: string;
 
   constructor(private http: HttpClient, private pagService: PaginationService) {
     this.getServerUrl();
+    this.recentTransactions = new MatTableDataSource([]);
     this.addressTransactions = new MatTableDataSource([]);
     this.blockTransactions = new MatTableDataSource([]);
   }
@@ -93,11 +97,17 @@ export class EvmService {
     }
   }
 
+  async loadRecentTransactions(): Promise<void> {
+    const resp = await this.http.get(this.server + '/v2/history/get_actions?filter=eosio.evm:raw').toPromise() as any;
+    this.processRecentTransactions(resp.actions);
+    
+  }
+
   async loadBlock(blockNumber: any): Promise<any> {
     const blockData = await this.getBlockByNumber('0x' + Number(blockNumber).toString(16), true);
     blockData.transactions.forEach((trx) => {
-      trx.val_formatted = `${(parseInt(trx.value, 16) / 1000000000000000000 ).toFixed(4)} TLOS`
-    })
+      trx.val_formatted = `${(parseInt(trx.value, 16) / 1000000000000000000 ).toFixed(4)} TLOS`;
+    });
     this.blockTransactions.data = blockData.transactions;
   }
 
@@ -111,13 +121,26 @@ export class EvmService {
     for (const trx of this.transactions) {
       trx.evm_block = trx.block;
       trx.evm_hash = trx.hash;
-      trx.val_formatted = `${parseInt(trx.value_d).toFixed(4)} TLOS`
+      trx.val_formatted = `${parseFloat(trx.value_d).toFixed(5)} TLOS`;
     }
     this.addressTransactions.data = this.transactions;
   }
 
+  private processRecentTransactions(transactions: any[]): void {
+    this.transactions = [];
+    this.transactions = transactions;
+    for (const trx of this.transactions) {
+      trx.to = trx.act.data.to;
+      trx.from = trx.act.data.from;
+      trx.evm_block = trx.act.data.block;
+      trx.evm_hash = trx.act.data.hash;
+      trx.val_formatted = `${parseFloat(trx.act.data.value_d).toFixed(5)} TLOS`;
+    }
+    this.recentTransactions.data = this.transactions;
+  }
+
   getErrorFromOutput(output: string): string {
-    if (!output) return '';
+    if (!output) { return ''; }
     if (output.startsWith(REVERT_FUNCTION_SELECTOR)) {
       return this.parseRevertReason(output);
     }
@@ -133,47 +156,47 @@ export class EvmService {
     if (!revertOutput || revertOutput.length < 138) {
       return '';
     }
-  
+
     let reason = '';
-    let trimmedOutput = revertOutput.substr(138);
+    const trimmedOutput = revertOutput.substr(138);
     for (let i = 0; i < trimmedOutput.length; i += 2) {
       reason += String.fromCharCode(parseInt(trimmedOutput.substr(i, 2), 16));
     }
     return reason;
   }
-  
+
   parsePanicReason(revertOutput: string): string {
-    let trimmedOutput = revertOutput.slice(-2)
+    const trimmedOutput = revertOutput.slice(-2);
     let reason;
-  
-    switch(trimmedOutput) {
-      case "01":
-        reason = "If you call assert with an argument that evaluates to false.";
+
+    switch (trimmedOutput) {
+      case '01':
+        reason = 'If you call assert with an argument that evaluates to false.';
         break;
-      case "11":
-        reason = "If an arithmetic operation results in underflow or overflow outside of an unchecked { ... } block.";
+      case '11':
+        reason = 'If an arithmetic operation results in underflow or overflow outside of an unchecked { ... } block.';
         break;
-      case "12":
-        reason = "If you divide or modulo by zero (e.g. 5 / 0 or 23 % 0).";
+      case '12':
+        reason = 'If you divide or modulo by zero (e.g. 5 / 0 or 23 % 0).';
         break;
-      case "21":
-        reason = "If you convert a value that is too big or negative into an enum type.";
+      case '21':
+        reason = 'If you convert a value that is too big or negative into an enum type.';
         break;
-      case "31":
-        reason = "If you call .pop() on an empty array.";
+      case '31':
+        reason = 'If you call .pop() on an empty array.';
         break;
-      case "32":
-        reason = "If you access an array, bytesN or an array slice at an out-of-bounds or negative index (i.e. x[i] where i >= x.length or i < 0).";
+      case '32':
+        reason = 'If you access an array, bytesN or an array slice at an out-of-bounds or negative index (i.e. x[i] where i >= x.length or i < 0).';
         break;
-      case "41":
-        reason = "If you allocate too much memory or create an array that is too large.";
-        break;	
-      case "51":
-        reason = "If you call a zero-initialized variable of internal function type.";
-        break;		
+      case '41':
+        reason = 'If you allocate too much memory or create an array that is too large.';
+        break;
+      case '51':
+        reason = 'If you call a zero-initialized variable of internal function type.';
+        break;
       default:
-        reason = "Default panic message";
-    }	
+        reason = 'Default panic message';
+    }
     return reason;
   }
 }
