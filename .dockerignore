@@ -6,7 +6,6 @@ hyperion-explorer/.idea
 node_modules
 docker
 docker-compose
-
 */data
 skaffold*
 helm
