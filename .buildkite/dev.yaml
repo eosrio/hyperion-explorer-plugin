@@ -2,7 +2,6 @@ defaults:
   agents: &default-agents
     queue: voice-main-dev-deployer
  
-
 steps:
 # helm deploy to dev
   - label: ":helm: Trigger Helm Deploy"
