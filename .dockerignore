@@ -5,9 +5,9 @@ hyperion-explorer/.idea
 .DS_Store
 node_modules
 docker
-docker-compose/*/data/
-docker-compose/eosio/config/protocol_features
+docker-compose
 
 */data
-skaffold.yaml
-skaffold-build
+skaffold*
+helm
+.buildkite
