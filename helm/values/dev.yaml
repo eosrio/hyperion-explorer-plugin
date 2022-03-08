@@ -9,7 +9,7 @@ config:
   es_replicas: 1
   abi_scan: false
   elastic_host:  vault:secret/data/devops/elasticsearch#ELASTIC_HOST
-  elastic_user: elastic
+  elastic_user: "test"
   elastic_pass: vault:secret/data/devops/elasticsearch#ELASTIC_PASSWORD
 
 services:
@@ -144,7 +144,7 @@ deployments:
           - containerPort: 7000
             protocol: TCP
             name: hyperion-api
-        image: "gcr.io/voice-dev-infra-services/voice/voice-eos-hyperion:{{ .Values.tag }}"
+        image: "gcr.io/voice-dev-infra-services/voice/voice-eos-hyperion:{{ .Values.release.tag }}"
         imagePullPolicy: Always
         command: ["bash", "scripts/get-secrets.sh","voice-indexer"]
         extraVars:
@@ -154,10 +154,10 @@ deployments:
           GLOBAL_AGENT_HTTPS_PROXY: http://proxy.service:3128
           no_proxy: .svc.cluster.local,.service,.internal,.vops.int,metadata.google.internal,.psc.us-west1.gcp.cloud.es.io,.psc.us-west1.gcp.cloud.es.io
           GLOBAL_AGENT_NO_PROXY	: "*.svc.cluster.local,*.service,*.internal,*.vops.int,metadata.google.internal,.psc.us-west1.gcp.cloud.es.io,.psc.us-west1.gcp.cloud.es.io,.psc.us-west1.gcp.cloud.es.io"
-          elastic_user: {{ .Values.config.elastic_user}}
-          elastic_pass: {{ .Values.config.elastic_pass}}
-          elastic_host: {{ .Values.config.elastic_host}}
-          server_name: {{ .Values.config.server_name}}
+          elastic_user: "{{ .Values.config.elastic_user}}"
+          elastic_pass: "{{ .Values.config.elastic_pass}}"
+          elastic_host: "{{ .Values.config.elastic_host}}"
+          server_name: "{{ .Values.config.server_name}}"
         resources:
           requests:
             cpu: "1500m"
@@ -167,7 +167,7 @@ deployments:
             mountPath: /tmp/connections.json
             subPath: connections.json
           - name: "{{ if .Values.config.abi_scan }}eos-hyperion-config-abi{{ else }}eos-hyperion-config{{ end }}"
-            mountPath: hyperion-history-api/chains/voice.config.json
+            mountPath: /tmp/voice.config.json/chains/voice.config.json
             subPath: voice.config.json
 
   voice-eos-hyperion-api:
@@ -210,7 +210,7 @@ deployments:
           - containerPort: 7000
             protocol: TCP
             name: hyperion-api
-        image: "gcr.io/voice-dev-infra-services/voice/voice-eos-hyperion:{{ .Values.tag }}"
+        image: "gcr.io/voice-dev-infra-services/voice/voice-eos-hyperion:{{ .Values.release.tag }}"
         imagePullPolicy: Always
         command: ["bash", "scripts/get-secrets.sh","voice-api"]
         extraVars:
@@ -220,10 +220,10 @@ deployments:
           GLOBAL_AGENT_HTTPS_PROXY: http://proxy.service:3128
           no_proxy: .svc.cluster.local,.service,.internal,.vops.int,metadata.google.internal,.psc.us-west1.gcp.cloud.es.io,.psc.us-west1.gcp.cloud.es.io
           GLOBAL_AGENT_NO_PROXY	: "*.svc.cluster.local,*.service,*.internal,*.vops.int,metadata.google.internal,.psc.us-west1.gcp.cloud.es.io,.psc.us-west1.gcp.cloud.es.io,.psc.us-west1.gcp.cloud.es.io"
-          elastic_user: {{ .Values.config.elastic_user}}
-          elastic_pass: {{ .Values.config.elastic_pass}}
-          elastic_host: {{ .Values.config.elastic_host}}
-          server_name: {{ .Values.config.server_name}}
+          elastic_user: "{{ .Values.config.elastic_user}}"
+          elastic_pass: "{{ .Values.config.elastic_pass}}"
+          elastic_host: "{{ .Values.config.elastic_host}}"
+          server_name: "{{ .Values.config.server_name}}"
           # LaunchDarkly Config
           LAUNCHDARKLY_SDK_KEY: "vault:secret/data/applications/devel#LAUNCHDARKLY_SDK_KEY"
         lifecycle:
@@ -243,7 +243,7 @@ deployments:
             subPath: connections.json
             readOnly: false
           - name: "{{ if .Values.config.abi_scan }}eos-hyperion-config-abi{{ else }}eos-hyperion-config{{ end }}"
-            mountPath: /hyperion-history-api/chains/voice.config.json
+            mountPath: /tmp/voice.config.json/chains/voice.config.json
             subPath: voice.config.json
             readOnly: false
 hpas:
