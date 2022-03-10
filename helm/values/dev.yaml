@@ -1,5 +1,6 @@
 release:
   tag: latest
+
 config:
   server_name: vault:secret/data/applications/devel#HYPERION_SERVER_NAME
   provider_url: https://voice.com
@@ -51,7 +52,6 @@ services:
         targetPort: 15692
         protocol: TCP
         name: monitoring
-
 
 statefulsets:
   voice-hyperion-rabbit-mq:
@@ -246,6 +246,7 @@ deployments:
             mountPath: /tmp/voice.config.json/chains/voice.config.json
             subPath: voice.config.json
             readOnly: false
+
 hpas:
   voice-eos-hyperion-api:
     minReplicas: 1
