@@ -1,6 +1,5 @@
 release:
   tag: latest
-
 config:
   serverName: ""
   provider_url: https://voice.com
@@ -9,7 +8,6 @@ config:
   chain_logo_url: "https://storage.googleapis.com/voice_logo/logo.ico"
   es_replicas: 1
   abi_scan: false
-
 services:
   voice-eos-hyperion:
     customLabels:
@@ -63,6 +61,7 @@ services:
         targetPort: 15692
         protocol: TCP
         name: monitoring
+
 
 statefulsets:
   voice-hyperion-rabbit-mq:
@@ -133,6 +132,7 @@ deployments:
             name: voice-redis
         image: "redis:5.0.9-alpine"
         imagePullPolicy: IfNotPresent
+
   voice-eos-hyperion-api:
     replicaCount: 1
     tolerations:
@@ -200,13 +200,13 @@ deployments:
             subPath: voice.config.json
             readOnly: false
         extraVars:
+          # LaunchDarkly Config
           http_proxy: http://proxy.service:3128
           https_proxy: http://proxy.service:3128
           GLOBAL_AGENT_HTTP_PROXY: http://proxy.service:3128
           GLOBAL_AGENT_HTTPS_PROXY: http://proxy.service:3128
           no_proxy: .svc.cluster.local,.service,.internal,.vops.int,metadata.google.internal,.psc.us-west1.gcp.cloud.es.io,.psc.us-west1.gcp.cloud.es.io,0.0.0.0
           GLOBAL_AGENT_NO_PROXY	: "*.svc.cluster.local,*.service,*.internal,*.vops.int,metadata.google.internal,.psc.us-west1.gcp.cloud.es.io,.psc.us-west1.gcp.cloud.es.io,.psc.us-west1.gcp.cloud.es.io,0.0.0.0"
-          # LaunchDarkly Config
           LAUNCHDARKLY_SDK_KEY: "vault:secret/data/applications/devel#LAUNCHDARKLY_SDK_KEY"
 
 configmaps:

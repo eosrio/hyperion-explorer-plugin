@@ -10,7 +10,7 @@ config:
   abi_scan: false
   elastic_host:  vault:secret/data/devops/elasticsearch#ELASTIC_HOST
   elastic_user: elastic
-  elastic_pass: vault:secret/data/devops/elasticsearch#ELASTIC_PASSWORD
+  elastic_pass:  vault:secret/data/devops/elasticsearch#ELASTIC_HOST
 
 services:
   voice-eos-hyperion:
@@ -152,6 +152,12 @@ deployments:
           ELASTIC_PASS: "{{ .Values.config.elastic_pass }}"
           ELASTIC_HOST: "{{ .Values.config.elastic_host }}"
           SERVER_NAME: "{{ .Values.config.server_name }}"
+          http_proxy: http://proxy.service:3128
+          https_proxy: http://proxy.service:3128
+          GLOBAL_AGENT_HTTP_PROXY: http://proxy.service:3128
+          GLOBAL_AGENT_HTTPS_PROXY: http://proxy.service:3128
+          no_proxy: .svc.cluster.local,.service,.internal,.vops.int,metadata.google.internal,.psc.us-west1.gcp.cloud.es.io,.psc.us-west1.gcp.cloud.es.io,0.0.0.0
+          GLOBAL_AGENT_NO_PROXY	: "*.svc.cluster.local,*.service,*.internal,*.vops.int,metadata.google.internal,.psc.us-west1.gcp.cloud.es.io,.psc.us-west1.gcp.cloud.es.io,.psc.us-west1.gcp.cloud.es.io,0.0.0.0"
         resources:
           requests:
             cpu: "1500m"
@@ -161,7 +167,7 @@ deployments:
             mountPath: /tmp/connections.json
             subPath: connections.json
           - name: "{{ if .Values.config.abi_scan }}eos-hyperion-config-abi{{ else }}eos-hyperion-config{{ end }}"
-            mountPath: /tmp/voice.config.json
+            mountPath: hyperion-history-api/chains/voice.config.json
             subPath: voice.config.json
 
   voice-eos-hyperion-api:
@@ -214,13 +220,18 @@ deployments:
         imagePullPolicy: Always
         command: ["bash", "scripts/get-secrets.sh","voice-api"]
         extraVars:
+          ELASTIC_USER: "{{ .Values.config.elastic_user }}"
+          ELASTIC_PASS: "{{ .Values.config.elastic_pass }}"
+          ELASTIC_HOST: "{{ .Values.config.elastic_host }}"
+          SERVER_NAME: "{{ .Values.config.server_name }}"
           http_proxy: http://proxy.service:3128
           https_proxy: http://proxy.service:3128
-          no_proxy: .svc.cluster.local,.service,.internal,.vops.int,metadata.google.internal
-          elastic_user: {{ .Values.config.elastic_user}}
-          elastic_pass: {{ .Values.config.elastic_pass}}
-          elastic_host: {{ .Values.config.elastic_host}}
-          server_name: {{ .Values.config.server_name}}
+          GLOBAL_AGENT_HTTP_PROXY: http://proxy.service:3128
+          GLOBAL_AGENT_HTTPS_PROXY: http://proxy.service:3128
+          no_proxy: .svc.cluster.local,.service,.internal,.vops.int,metadata.google.internal,.psc.us-west1.gcp.cloud.es.io,.psc.us-west1.gcp.cloud.es.io,0.0.0.0
+          GLOBAL_AGENT_NO_PROXY	: "*.svc.cluster.local,*.service,*.internal,*.vops.int,metadata.google.internal,.psc.us-west1.gcp.cloud.es.io,.psc.us-west1.gcp.cloud.es.io,.psc.us-west1.gcp.cloud.es.io,0.0.0.0"
+          # LaunchDarkly Config
+          LAUNCHDARKLY_SDK_KEY: "vault:secret/data/applications/prod#LAUNCHDARKLY_SDK_KEY"
         lifecycle:
           preStop:
             exec:
@@ -237,9 +248,8 @@ deployments:
             mountPath: /tmp/connections.json
             subPath: connections.json
           - name: "{{ if .Values.config.abi_scan }}eos-hyperion-config-abi{{ else }}eos-hyperion-config{{ end }}"
-            mountPath: /tmp/voice.config.json
+            mountPath: hyperion-history-api/chains/voice.config.json
             subPath: voice.config.json
-
 hpas:
   voice-eos-hyperion-api:
     minReplicas: 1
@@ -293,9 +303,9 @@ configmaps:
           stop_on: 0
           rewrite: false
           purge_queues: false
-          live_reader: false
+          live_reader: true
           live_only_mode: false
-          abi_scan_mode: true
+          abi_scan_mode: false
           fetch_block: true
           fetch_traces: true
           disable_reading: false
@@ -309,7 +319,7 @@ configmaps:
           parser: '1.8'
           auto_stop: 0
           index_version: v1
-          debug: false
+          debug: true
           bp_logs: false
           bp_monitoring: false
           ipc_debug_rate: 60000
@@ -434,7 +444,7 @@ configmaps:
           parser: '1.8'
           auto_stop: 0
           index_version: v1
-          debug: false
+          debug: true
           bp_logs: false
           bp_monitoring: false
           ipc_debug_rate: 60000
