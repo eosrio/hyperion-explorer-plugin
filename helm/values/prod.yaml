@@ -161,7 +161,7 @@ deployments:
             mountPath: /tmp/connections.json
             subPath: connections.json
           - name: "{{ if .Values.config.abi_scan }}eos-hyperion-config-abi{{ else }}eos-hyperion-config{{ end }}"
-            mountPath: hyperion-history-api/chains/voice.config.json
+            mountPath: /tmp/voice.config.json
             subPath: voice.config.json
 
   voice-eos-hyperion-api:
@@ -237,7 +237,7 @@ deployments:
             mountPath: /tmp/connections.json
             subPath: connections.json
           - name: "{{ if .Values.config.abi_scan }}eos-hyperion-config-abi{{ else }}eos-hyperion-config{{ end }}"
-            mountPath: hyperion-history-api/chains/voice.config.json
+            mountPath: /tmp/voice.config.json
             subPath: voice.config.json
 
 hpas:
@@ -293,9 +293,9 @@ configmaps:
           stop_on: 0
           rewrite: false
           purge_queues: false
-          live_reader: true
+          live_reader: false
           live_only_mode: false
-          abi_scan_mode: false
+          abi_scan_mode: true
           fetch_block: true
           fetch_traces: true
           disable_reading: false
@@ -309,7 +309,7 @@ configmaps:
           parser: '1.8'
           auto_stop: 0
           index_version: v1
-          debug: true
+          debug: false
           bp_logs: false
           bp_monitoring: false
           ipc_debug_rate: 60000
@@ -434,7 +434,7 @@ configmaps:
           parser: '1.8'
           auto_stop: 0
           index_version: v1
-          debug: true
+          debug: false
           bp_logs: false
           bp_monitoring: false
           ipc_debug_rate: 60000
