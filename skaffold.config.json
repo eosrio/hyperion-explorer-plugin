@@ -2,11 +2,16 @@
   "name": "hyperion-history-api",
   "services": [
     {
+    "name": "voice-blockchain-deployer",
+    "chartPath": "skaffold-build/voice-blockchain-deployer/helm-chart",
+    "valuesFiles": [
+      "skaffold-build/voice-blockchain-deployer/helm-chart/values/local.yaml"
+    ]
+  },
+    {
       "name": "hyperion-history-api",
-      "chartPath": "helm/",
+      "remoteChart": "voice-helm-repo/voice-chart",
       "upgradeOnChange": true,
-      "createNamespace": true,
-      "namespace": "hyperion-history-api-testing",
       "valuesFiles": ["helm/values/local.yaml"],
       "artifactOverrides": {
         "deployments": {
@@ -16,8 +21,18 @@
                 "image": "gcr.io/voice-dev-infra-services/voice/voice-eos-hyperion"
               }
             }
+          },
+          "voice-eos-hyperion-indexer" : {
+            "containers": {
+              "voice-eos-hyperion-indexer": {
+                "image": "gcr.io/voice-dev-infra-services/voice/voice-eos-hyperion"
+              }
+            }
           }
         }
+      },
+      "setValueTemplates": {
+        "release.tag": "{{ .IMAGE_TAG }}"
       },
       "artifacts": [
         {
