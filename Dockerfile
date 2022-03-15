@@ -11,7 +11,7 @@ RUN apt-get update \
         apt-get install -y jq
 
 WORKDIR /hyperion-history-api
-RUN git checkout v3.3.5
+RUN git checkout voice-main
 COPY . /hyperion-history-api/plugins/repos/explorer
 COPY .npmrc.template .npmrc
 # COPY config/$env/start.sh ./
