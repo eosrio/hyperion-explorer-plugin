@@ -9,9 +9,8 @@ config:
   es_replicas: 1
   abi_scan: false
   elastic_host: elastic.service.us-west1-dev.vops.int
-
-  elastic_user: '""'
-  elastic_pass: '""'
+  elastic_user: ''
+  elastic_pass: ''
 
 services:
   voice-eos-hyperion:
