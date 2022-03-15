@@ -8,7 +8,8 @@ config:
   chain_logo_url: "https://storage.googleapis.com/voice_logo/logo.ico"
   es_replicas: 1
   abi_scan: false
-  elastic_host: elastic.service
+  elastic_host: elastic.service.us-west1-dev.vops.int
+
   elastic_user: '""'
   elastic_pass: '""'
 
