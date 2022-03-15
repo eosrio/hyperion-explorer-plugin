@@ -342,6 +342,10 @@ export class AccountComponent implements OnInit, OnDestroy {
     return typeof subitem;
   }
 
+  stringifyObject(subitem: object): string {
+      return JSON.stringify(subitem, null, 2);
+  }
+
   convertBytes(bytes: number): string {
     if (bytes > (1024 ** 3)) {
       return (bytes / (1024 ** 3)).toFixed(2) + ' GB';

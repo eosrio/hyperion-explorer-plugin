@@ -367,7 +367,9 @@
                       <div *ngFor="let elem of subitem | keyvalue"
                            [ngClass]="{'data-item': objectKeyCount(subitem) > 1}">
                     <span class="w-500" style="margin-left: 15px">
-                      {{elem.key}}</span>: <span class="break-word">{{elem.value}}</span>
+                      {{elem.key}}</span>: <span class="break-word">
+                        {{stringifyObject(elem.value)}}
+                      </span>
                       </div>
                     </ng-container>
 
