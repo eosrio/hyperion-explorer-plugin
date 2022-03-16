@@ -1,6 +1,6 @@
 export enum FeatureFlagName {
-  IsKycSsnSkippingEnabled = 'is_kyc_ssn_skipping_enabled',
   IsQueryingByBlockNumberEnabled = 'is_querying_by_block_number_enabled',
+  IsQueryingTokenValueEnabled = 'is_querying_token_value_enabled',
 }
 
 interface FeatureFlags {
@@ -9,7 +9,7 @@ interface FeatureFlags {
 
 export const featureFlags: FeatureFlags = {
   [FeatureFlagName.IsQueryingByBlockNumberEnabled]: { defaultValue: false },
-  [FeatureFlagName.IsKycSsnSkippingEnabled]: { defaultValue: true },
+  [FeatureFlagName.IsQueryingTokenValueEnabled]: { defaultValue: false },
 };
 
 export interface FeatureFlagClient {
@@ -18,5 +18,5 @@ export interface FeatureFlagClient {
     TValue extends typeof featureFlags[TFlag]['defaultValue']
   >(
     flag: TFlag
-  ): Promise<TValue>;
+  ): TValue;
 }

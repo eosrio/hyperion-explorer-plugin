@@ -20,21 +20,17 @@ export class LaunchDarklyService implements FeatureFlagClient {
   public client: LDClient;
   private user: LDUser;
 
-  constructor() {
-    this.initLaunchDarkly();
-  }
-
-  private initLaunchDarkly(): void {
+  public async initLaunchDarkly(): Promise<void> {
     console.log('Initializing LaunchDarkly client-side');
     this.user = { key: 'anonymous' };
-
     this.client = initialize(environment.clientSideID, this.user);
+    await this.client.waitForInitialization();
   }
 
-  public async variation<
+  public variation<
     TFlag extends keyof typeof featureFlags,
     TValue extends typeof featureFlags[TFlag]['defaultValue']
-  >(flag: TFlag): Promise<TValue> {
+  >(flag: TFlag): TValue {
     const defaultValue = featureFlags[flag].defaultValue;
 
     return this.client.variation(`${flag}`, defaultValue);

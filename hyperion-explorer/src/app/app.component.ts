@@ -1,18 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LaunchDarklyService } from './services/launch-darkly/launch-darkly.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
-  constructor() {
-    this.initLaunchDarkly();
+
+export class AppComponent implements OnInit {
+  public async initLaunchDarkly(): Promise<void> {
+    const featureFlagClient = new LaunchDarklyService();
+    await featureFlagClient.initLaunchDarkly();
   }
 
-  private async initLaunchDarkly(): Promise<LaunchDarklyService> {
-    const featureFlagClient = new LaunchDarklyService();
-
-    return featureFlagClient;
+  async ngOnInit(): Promise<void> {
+    await this.initLaunchDarkly();
   }
 }
