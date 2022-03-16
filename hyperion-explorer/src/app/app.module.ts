@@ -38,6 +38,7 @@ import {PaginationService} from './services/pagination.service';
 import {EvmBlockComponent} from './search-results/evm-block/evm-block.component';
 import {EvmTransactionComponent} from './search-results/evm-transaction/evm-transaction.component';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
+import { LaunchDarklyService } from './services/launch-darkly/launch-darkly.service';
 
 @Injectable()
 export class CustomPaginator extends MatPaginatorIntl {
@@ -96,7 +97,7 @@ export class CustomPaginator extends MatPaginatorIntl {
     MatProgressSpinnerModule,
     NgxJsonViewerModule
   ],
-  providers: [{provide: MatPaginatorIntl, useClass: CustomPaginator}],
+  providers: [{provide: MatPaginatorIntl, useClass: CustomPaginator}, LaunchDarklyService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

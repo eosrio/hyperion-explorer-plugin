@@ -27,3 +27,9 @@ Uninstall
 ```bash
 ./hpm uninstall explorer
 ```
+
+How to use LaunchDarkly
+
+Use class instantiation -> `featureFlagClient = new LaunchDarklyService();`
+then call waitUntilReady() function -> `await featureFlagClient.client.waitUntilReady()`
+you now have access to the flags -> `const flags = featureFlagClient.client.allFlags()`
