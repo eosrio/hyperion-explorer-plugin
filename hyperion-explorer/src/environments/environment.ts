@@ -3,6 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  clientSideID:'YOUR_CLIENT_ID',
   production: false,
   eosioNodeUrl: 'http://192.168.10.120:7000',
   hyperionApiUrl: 'http://192.168.10.120:7000',

@@ -279,6 +279,7 @@ deployments:
         extraVars:
           # LaunchDarkly Config
           LAUNCHDARKLY_SDK_KEY: "foobarbaz"
+          LAUNCHDARKLY_CLIENT_SIDE_ID: "foobarbaz"
 
 configmaps:
   eos-hyperion-config-abi:
