@@ -83,6 +83,10 @@ export class TransactionComponent implements OnInit, OnDestroy {
     return new Date(date).toLocaleString();
   }
 
+  stringifyObject(subitem: object): string {
+    return JSON.stringify(subitem, null, 2);
+}
+
   async reloadCountdownTimer(): Promise<void> {
     await this.accountService.updateLib();
     this.countdownTimer = Math.ceil((this.tx.actions[0].block_num - this.accountService.libNum) / 2);
