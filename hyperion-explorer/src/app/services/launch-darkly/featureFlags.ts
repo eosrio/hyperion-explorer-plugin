@@ -18,5 +18,5 @@ export interface FeatureFlagClient {
     TValue extends typeof featureFlags[TFlag]['defaultValue']
   >(
     flag: TFlag
-  ): TValue;
+  ): Promise<TValue>;
 }
