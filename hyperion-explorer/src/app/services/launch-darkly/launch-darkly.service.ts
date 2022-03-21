@@ -17,22 +17,26 @@ export const LDAnonymousUser = {
   providedIn: 'root',
 })
 export class LaunchDarklyService implements FeatureFlagClient {
-  public client: LDClient;
+  public static client: LDClient;
   private user: LDUser;
 
   public async initLaunchDarkly(): Promise<void> {
     console.log('Initializing LaunchDarkly client-side');
-    this.user = { key: 'anonymous' };
-    this.client = initialize(environment.clientSideID, this.user);
-    await this.client.waitForInitialization();
+    this.user = LDAnonymousUser;
+    LaunchDarklyService.client = initialize(
+      environment.clientSideID,
+      this.user
+    );
+    await LaunchDarklyService.client.waitForInitialization();
   }
 
-  public variation<
+  public async variation<
     TFlag extends keyof typeof featureFlags,
     TValue extends typeof featureFlags[TFlag]['defaultValue']
-  >(flag: TFlag): TValue {
+  >(flag: TFlag): Promise<TValue> {
     const defaultValue = featureFlags[flag].defaultValue;
+    await LaunchDarklyService.client.waitUntilReady();
 
-    return this.client.variation(`${flag}`, defaultValue);
+    return LaunchDarklyService.client.variation(`${flag}`, defaultValue);
   }
 }

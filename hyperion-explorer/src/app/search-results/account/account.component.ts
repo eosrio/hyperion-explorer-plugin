@@ -21,6 +21,8 @@ import {faQuestionCircle} from '@fortawesome/free-regular-svg-icons/faQuestionCi
 import {AccountCreationData} from '../../interfaces';
 import {ChainService} from '../../services/chain.service';
 import {Title} from '@angular/platform-browser';
+import { LaunchDarklyService } from 'src/app/services/launch-darkly/launch-darkly.service';
+import { FeatureFlagName } from 'src/app/services/launch-darkly/featureFlags';
 
 interface Permission {
   perm_name: string;
@@ -93,6 +95,8 @@ export class AccountComponent implements OnInit, OnDestroy {
   columnsToDisplay: string[] = ['trx_id', 'action', 'data', 'block_num'];
 
   treeControl: FlatTreeControl<FlatNode>;
+  featureFlagClient: LaunchDarklyService;
+  isQueryingTokenValueEnabled: boolean
 
   treeFlattener: MatTreeFlattener<any, any>;
 
@@ -122,6 +126,7 @@ export class AccountComponent implements OnInit, OnDestroy {
       this.transformer, node => node.level, node => node.expandable, node => node.children
     );
 
+    this.featureFlagClient = new LaunchDarklyService
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
   }
 
@@ -150,7 +155,9 @@ export class AccountComponent implements OnInit, OnDestroy {
   hasChild = (_: number, node: FlatNode) => node.expandable;
 
 
-  ngOnInit(): void {
+   async ngOnInit(): Promise<void> {
+    this.isQueryingTokenValueEnabled =await this.featureFlagClient.variation(FeatureFlagName.IsQueryingTokenValueEnabled)
+
     this.activatedRoute.params.subscribe(async (routeParams) => {
 
       if (this.accountService.streamClientStatus) {

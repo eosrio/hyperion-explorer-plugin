@@ -119,7 +119,7 @@
          fxLayout.lt-md="column" fxLayoutAlign.lt-md="start auto"
          fxLayoutGap="10px" fxFlexFill fxFlex="auto">
 
-      <mat-card fxFlex.gt-sm="25" ngClass.gt-sm="middle-card">
+      <mat-card fxFlex.gt-sm="25" ngClass.gt-sm="middle-card" *ngIf="isQueryingTokenValueEnabled">
         <h3>
           <fa-layers [fixedWidth]="true" style="margin-right: 5px">
             <fa-icon [icon]="faCircle" transform="grow-3"></fa-icon>
@@ -149,7 +149,7 @@
         <div *ngIf="!accountService.tokens || !accountService.tokens.length ">No tokens to display</div>
       </mat-card>
 
-      <mat-card fxFlex.gt-sm="75" ngClass.gt-sm="middle-card">
+      <mat-card fxFlex.gt-sm="100" ngClass.gt-sm="middle-card">
 
         <h3>
           <fa-layers [fixedWidth]="true" style="margin-right: 5px">
