@@ -2,7 +2,7 @@
 
 <div class="container">
 
-  <div *ngIf="!accountService.jsonData && accountService.loaded" fxLayout="column"
+  <div *ngIf="!accountService.jsonData && accountService.loaded && !systemAccounts.includes(accountName)" fxLayout="column"
        fxLayoutAlign="start center"
        fxLayoutGap="15px" style="height: 100%">
     <mat-card class="width-100">
@@ -11,6 +11,21 @@
         Account not found
       </h1>
       <div>We couldn't find the account <strong>{{accountName}}</strong></div>
+    </mat-card>
+  </div>
+
+  <div *ngIf="!accountService.jsonData && accountService.loaded && systemAccounts.includes(accountName)" fxLayout="column"
+       fxLayoutAlign="start center"
+       fxLayoutGap="15px" style="height: 100%">
+    <mat-card class="width-100">
+      <h1>
+        <fa-icon [icon]="faSadTear" style="margin-right: 5px"></fa-icon>
+        Access Denied
+      </h1>
+
+      <h3>
+        You do not have permission to view this account.
+      </h3>
     </mat-card>
   </div>
 
