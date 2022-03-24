@@ -96,7 +96,8 @@ export class AccountComponent implements OnInit, OnDestroy {
 
   treeControl: FlatTreeControl<FlatNode>;
   featureFlagClient: LaunchDarklyService;
-  isQueryingTokenValueEnabled: boolean
+  isQueryingTokenValueEnabled: boolean;
+  systemAccounts: string;
 
   treeFlattener: MatTreeFlattener<any, any>;
 
@@ -156,7 +157,8 @@ export class AccountComponent implements OnInit, OnDestroy {
 
 
    async ngOnInit(): Promise<void> {
-    this.isQueryingTokenValueEnabled =await this.featureFlagClient.variation(FeatureFlagName.IsQueryingTokenValueEnabled)
+    this.isQueryingTokenValueEnabled = await this.featureFlagClient.variation(FeatureFlagName.IsQueryingTokenValueEnabled);
+    this.systemAccounts = JSON.parse((await this.featureFlagClient.variation(FeatureFlagName.VoiceSystemAccounts) as string) ?? '[]');
 
     this.activatedRoute.params.subscribe(async (routeParams) => {
 
