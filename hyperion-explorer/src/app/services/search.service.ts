@@ -3,15 +3,20 @@ import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {GetTableByScopeResponse, TableData} from '../interfaces';
 import {Router} from '@angular/router';
+import { LaunchDarklyService } from 'src/app/services/launch-darkly/launch-darkly.service';
+import { FeatureFlagName } from 'src/app/services/launch-darkly/featureFlags';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SearchService {
   searchAccountUrl: string;
+  featureFlagClient: LaunchDarklyService;
+  isQueryingByBlockNumberEnabled: boolean;
 
   constructor(private httpClient: HttpClient, private router: Router) {
     this.searchAccountUrl = environment.eosioNodeUrl + '/v1/chain/get_table_by_scope';
+    this.featureFlagClient = new LaunchDarklyService();
   }
 
   async filterAccountNames(value: string): Promise<any> {
@@ -49,6 +54,10 @@ export class SearchService {
   async submitSearch(searchText: any, filteredAccounts: string[]): Promise<boolean> {
 
     const sValue = searchText.toLowerCase();
+    this.isQueryingByBlockNumberEnabled =
+      await this.featureFlagClient.variation(
+        FeatureFlagName.IsQueryingByBlockNumberEnabled
+      );
 
     // account direct
     if (filteredAccounts.length > 0) {
@@ -75,10 +84,12 @@ export class SearchService {
     }
 
     // block number
-    const blockNum = searchText.replace(/[,.]/g, '');
-    if (parseInt(blockNum, 10) > 0) {
-      await this.router.navigate(['/block', blockNum]);
-      return true;
+    if (this.isQueryingByBlockNumberEnabled) {
+      const blockNum = searchText.replace(/[,.]/g, '');
+      if (parseInt(blockNum, 10) > 0) {
+        await this.router.navigate(['/block', blockNum]);
+        return true;
+      }
     }
 
     // match EVM 0x prefix

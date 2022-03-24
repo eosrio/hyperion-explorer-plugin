@@ -6,6 +6,8 @@ import {SearchService} from '../services/search.service';
 import {AccountService} from '../services/account.service';
 import {faSearch} from '@fortawesome/free-solid-svg-icons/faSearch';
 import {ChainService} from '../services/chain.service';
+import { LaunchDarklyService } from 'src/app/services/launch-darkly/launch-darkly.service';
+import { FeatureFlagName } from 'src/app/services/launch-darkly/featureFlags';
 
 @Component({
   selector: 'app-search-results',
@@ -17,9 +19,10 @@ export class SearchResultsComponent implements OnInit {
   filteredAccounts: string[];
   faSearch = faSearch;
   searchPlaceholder: string;
+  featureFlagClient: LaunchDarklyService;
+  isQueryingByBlockNumberEnabled: boolean;
   placeholders = [
     'Search by account name...',
-    'Search by block number...',
     'Search by transaction id...',
     'Search by public key...'
   ];
@@ -39,6 +42,7 @@ export class SearchResultsComponent implements OnInit {
     this.filteredAccounts = [];
 
     this.searchPlaceholder = this.placeholders[0];
+    this.featureFlagClient = new LaunchDarklyService();
     setInterval(() => {
       this.currentPlaceholder++;
       if (!this.placeholders[this.currentPlaceholder]) {
@@ -48,10 +52,17 @@ export class SearchResultsComponent implements OnInit {
     }, 3000);
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.searchForm.get('search_field').valueChanges.pipe(debounceTime(300)).subscribe(async (result) => {
       this.filteredAccounts = await this.searchService.filterAccountNames(result);
     });
+    this.isQueryingByBlockNumberEnabled =
+      await this.featureFlagClient.variation(
+        FeatureFlagName.IsQueryingByBlockNumberEnabled
+      );
+    if (this.isQueryingByBlockNumberEnabled) {
+      this.placeholders.push('Search by block number...');
+    } 
   }
 
   async submit(): Promise<boolean> {
