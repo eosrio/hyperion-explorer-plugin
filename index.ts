@@ -3,24 +3,22 @@ import {existsSync, readFileSync, unlinkSync, writeFileSync} from "fs";
 import {join} from "path";
 import fastifyStatic from "fastify-static";
 import {ServerResponse} from "http";
-import {hLog} from "../../../helpers/common_functions";
 import got from "got";
-import {HyperionPlugin} from "../../hyperion-plugin";
-
 export interface ExplorerConfig {
     chain_logo_url: string;
     server_name: string;
 }
 
-export default class Explorer extends HyperionPlugin {
+export default class Explorer {
     internalPluginName = 'explorer';
     apiPlugin = true;
     indexerPlugin = false;
     hasApiRoutes = true;
     pluginConfig: ExplorerConfig;
+    private baseConfig: any
+    private chainName: any
 
-    constructor(config: ExplorerConfig) {
-        super(config);
+    constructor() {
         if (this.baseConfig) {
             this.pluginConfig = this.baseConfig;
             if (process.title.endsWith('api')) {
@@ -36,14 +34,14 @@ export default class Explorer extends HyperionPlugin {
     async fetchChainLogo() {
         try {
             if (this.pluginConfig.chain_logo_url) {
-                hLog(`Downloading chain logo from ${this.pluginConfig.chain_logo_url}...`);
+                console.log(`Downloading chain logo from ${this.pluginConfig.chain_logo_url}...`);
                 const chainLogo = await got(this.pluginConfig.chain_logo_url);
                 const path = join(__dirname, 'dist', 'assets', this.chainName + '_logo.png');
                 writeFileSync(path, chainLogo.rawBody);
                 this.pluginConfig.chain_logo_url = 'https://' + this.pluginConfig.server_name + '/v2/explore/assets/' + this.chainName + '_logo.png';
             }
         } catch (e) {
-            hLog(e);
+            console.log(e);
         }
     }
 
@@ -71,7 +69,7 @@ export default class Explorer extends HyperionPlugin {
                     reply.send(baseManifest);
                 });
             } else {
-                hLog('manifest.webmanifest not found in source, using fallback!');
+                console.log('manifest.webmanifest not found in source, using fallback!');
                 const _p = "maskable any";
                 const _t = "image/png";
                 const fallbackData = {
