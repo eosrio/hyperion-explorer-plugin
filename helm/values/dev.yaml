@@ -265,7 +265,7 @@ configmaps:
           chain_name: voice
           server_addr: 0.0.0.0
           server_port: 7000
-          server_name: "{{ .Values.config.serverName }}"
+          server_name: "{{ .Values.config.server_name }}"
           provider_name: "{{ .Values.config.provider_name }}"
           provider_url:  "{{ .Values.config.provider_url }}"
           chain_api: ''
@@ -390,7 +390,7 @@ configmaps:
           chain_name: voice
           server_addr: 0.0.0.0
           server_port: 7000
-          server_name: "{{ .Values.config.serverName }}"
+          server_name: "{{ .Values.config.server_name }}"
           provider_name: " {{ .Values.config.provider_name }}"
           provider_url:  "{{ .Values.config.provider_url }}"
           chain_api: ''

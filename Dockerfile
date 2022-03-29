@@ -23,8 +23,11 @@ RUN mv plugins/repos/explorer/.npmrc.template plugins/repos/explorer/.npmrc && \
     ./hpm state && \
     pm2 startup
 
+# RUN npm install
+
+
 RUN adduser --system --group voice && chown -R voice:voice /hyperion-history-api
 USER voice
-RUN  npm install
+# RUN  npm install
 
 EXPOSE 7000

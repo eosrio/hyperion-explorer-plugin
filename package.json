@@ -4,7 +4,16 @@
   "description": "Official Lightweight Explorer plugin for Hyperion",
   "main": "index.js",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "bootstrap-skaffold": "voice-generate-skaffold bootstrap",
+    "generate-skaffold": "voice-generate-skaffold generate",
+    "deploy-skaffold": "voice-deploy-skaffold",
+    "stop-skaffold": "voice-stop-skaffold",
+    "start-skaffold": "voice-start-skaffold",
+    "clean-skaffold": "voice-clean-skaffold",
+    "setup-skaffold-build": "voice-setup-skaffold-build",
+    "pull-images": "voice-pull-images",
+    "setup-deployer": "voice-setup-deployer"
   },
   "engines": {
     "node": "^16"
