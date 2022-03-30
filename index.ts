@@ -4,21 +4,23 @@ import {join} from "path";
 import fastifyStatic from "fastify-static";
 import {ServerResponse} from "http";
 import got from "got";
+import { HyperionPlugin } from "./hyperion-explorer/plugins/hyperion-plugin";
+
 export interface ExplorerConfig {
     chain_logo_url: string;
     server_name: string;
 }
 
-export default class Explorer {
+export default class Explorer extends HyperionPlugin  {
     internalPluginName = 'explorer';
     apiPlugin = true;
     indexerPlugin = false;
     hasApiRoutes = true;
     pluginConfig: ExplorerConfig;
-    private baseConfig: any
-    private chainName: any
 
-    constructor() {
+    constructor(config: ExplorerConfig) {
+        super(config);
+
         if (this.baseConfig) {
             this.pluginConfig = this.baseConfig;
             if (process.title.endsWith('api')) {
