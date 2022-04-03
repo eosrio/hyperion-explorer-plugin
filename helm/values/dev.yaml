@@ -239,10 +239,10 @@ deployments:
               command: ["bash","stop.sh","voice-api"]
         resources:
           requests:
-            cpu: "500m"
+            cpu: "250m"
             memory: "500Mi"
           limits:
-            cpu: "500m"
+            cpu: "250m"
             memory: "500Mi"
         volumeMounts:
           - name: eos-hyperion-connections
