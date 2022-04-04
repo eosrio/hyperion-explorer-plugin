@@ -3,7 +3,6 @@ import {existsSync, readFileSync, unlinkSync, writeFileSync} from "fs";
 import {join} from "path";
 import fastifyStatic from "fastify-static";
 import {ServerResponse} from "http";
-import got from "got";
 import { HyperionPlugin } from "./hyperion-explorer/plugins/hyperion-plugin";
 
 export interface ExplorerConfig {
@@ -34,6 +33,7 @@ export default class Explorer extends HyperionPlugin  {
     }
 
     async fetchChainLogo() {
+        const { got } = await import('got');
         try {
             if (this.pluginConfig.chain_logo_url) {
                 console.log(`Downloading chain logo from ${this.pluginConfig.chain_logo_url}...`);

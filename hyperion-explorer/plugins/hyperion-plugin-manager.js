@@ -1,5 +1,4 @@
 const fs = require('fs');
-const got = require('got');
 const path = require('path');
 const readline = require('readline');
 const {spawn} = require('child_process');
@@ -122,6 +121,7 @@ async function installCommand() {
   }
 
   if (!catalog) {
+    const { got } = await import('got');
     // update catalog
     console.log(`Updating catalog...`);
     catalog = await got.get('https://raw.githubusercontent.com/eosrio/hyperion-plugins/main/catalog.json').json();
