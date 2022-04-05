@@ -2,7 +2,6 @@ import { __awaiter } from "tslib";
 import { existsSync, readFileSync, unlinkSync, writeFileSync } from "fs";
 import { join } from "path";
 import fastifyStatic from "fastify-static";
-import got from "got";
 export default class Explorer {
     constructor() {
         this.internalPluginName = 'explorer';
@@ -19,9 +18,10 @@ export default class Explorer {
     apiInit() {
         this.fetchChainLogo().catch(console.log);
     }
-    fetchChainLogo() {
+    async fetchChainLogo() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                const { got } = await import('got');
                 if (this.pluginConfig.chain_logo_url) {
                     console.log(`Downloading chain logo from ${this.pluginConfig.chain_logo_url}...`);
                     const chainLogo = yield got(this.pluginConfig.chain_logo_url);
