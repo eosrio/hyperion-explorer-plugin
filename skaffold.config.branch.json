@@ -9,7 +9,7 @@
       "wait": false,
       "valuesFiles": ["helm/values/branches.yaml"],
       "setValueTemplates": {
-        "tag": "{{ .IMAGE_TAG }}"
+        "release.tag": "{{ .IMAGE_TAG }}"
       }
     }
   ],
