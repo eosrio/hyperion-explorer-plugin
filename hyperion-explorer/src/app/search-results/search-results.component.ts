@@ -56,13 +56,13 @@ export class SearchResultsComponent implements OnInit {
     this.searchForm.get('search_field').valueChanges.pipe(debounceTime(300)).subscribe(async (result) => {
       this.filteredAccounts = await this.searchService.filterAccountNames(result);
     });
-    this.isQueryingByBlockNumberEnabled =
-      await this.featureFlagClient.variation(
-        FeatureFlagName.IsQueryingByBlockNumberEnabled
-      );
+    this.isQueryingByBlockNumberEnabled = false
+      // await this.featureFlagClient.variation(
+      //   FeatureFlagName.IsQueryingByBlockNumberEnabled
+      // );
     if (this.isQueryingByBlockNumberEnabled) {
       this.placeholders.push('Search by block number...');
-    } 
+    }
   }
 
   async submit(): Promise<boolean> {

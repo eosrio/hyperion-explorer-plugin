@@ -8,8 +8,8 @@ import { LaunchDarklyService } from './services/launch-darkly/launch-darkly.serv
 
 export class AppComponent implements OnInit {
   public async initLaunchDarkly(): Promise<void> {
-    const featureFlagClient = new LaunchDarklyService();
-    await featureFlagClient.initLaunchDarkly();
+    // const featureFlagClient = new LaunchDarklyService();
+    // await featureFlagClient.initLaunchDarkly();
   }
 
   async ngOnInit(): Promise<void> {
