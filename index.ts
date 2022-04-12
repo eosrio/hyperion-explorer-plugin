@@ -1,9 +1,10 @@
 import {FastifyInstance, FastifyReply, FastifyRequest} from "fastify";
-import {existsSync, readFileSync, unlinkSync} from "fs";
+import {existsSync, readFileSync, unlinkSync, writeFileSync} from "fs";
 import {join} from "path";
 import fastifyStatic from "fastify-static";
 import {ServerResponse} from "http";
 import { HyperionPlugin } from "./hyperion-explorer/plugins/hyperion-plugin";
+import { hLog } from './hyperion-explorer/src/app/utils/utils'
 
 export interface ExplorerConfig {
     chain_logo_url: string;
@@ -32,18 +33,22 @@ export default class Explorer extends HyperionPlugin  {
         try {
             this.fetchChainLogo().catch(console.log);
         } catch (err) {
-            console.log(err, 'error on api init')
+            hLog(`error on api init ${err}`)
         }
     }
 
     async fetchChainLogo() {
         try {
             if (this.pluginConfig.chain_logo_url) {
-                console.log(`Downloading chain logo from ${this.pluginConfig.chain_logo_url}...`);
+                const { got } = await import('got')
+                hLog(`Downloading chain logo from ${this.pluginConfig.chain_logo_url}...`);
+                const chainLogo = await got(this.pluginConfig.chain_logo_url);
+                const path = join(__dirname, 'dist', 'assets', this.chainName + '_logo.png');
+                writeFileSync(path, chainLogo.rawBody);
                 this.pluginConfig.chain_logo_url = 'https://' + this.pluginConfig.server_name + '/v2/explore/assets/' + this.chainName + '_logo.png';
             }
         } catch (e) {
-            console.log(e, 'error fetching logo');
+            hLog(`error fetching logo ${e}`);
         }
     }
 
@@ -61,7 +66,7 @@ export default class Explorer extends HyperionPlugin  {
                 const _data = readFileSync(webManifestPath);
                 const tempPath = join(__dirname, 'dist', 'manifest.webmanifest');
                 if (existsSync(tempPath)) {
-                    console.log('Remving compiled manifest');
+                    hLog('Remving compiled manifest');
                     unlinkSync(tempPath);
                 }
                 const baseManifest = JSON.parse(_data.toString());
@@ -71,7 +76,7 @@ export default class Explorer extends HyperionPlugin  {
                     reply.send(baseManifest);
                 });
             } else {
-                console.log('manifest.webmanifest not found in source, using fallback!');
+                hLog('manifest.webmanifest not found in source, using fallback!');
                 const _p = "maskable any";
                 const _t = "image/png";
                 const fallbackData = {
@@ -95,7 +100,7 @@ export default class Explorer extends HyperionPlugin  {
                 });
             }
         } catch (e) {
-            console.log(e, 'failed to add routes');
+            hLog(`failed to add routes ${e}`);
         }
 
 
