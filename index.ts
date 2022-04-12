@@ -29,7 +29,11 @@ export default class Explorer extends HyperionPlugin  {
     }
 
     apiInit() {
-        this.fetchChainLogo().catch(console.log);
+        try {
+            this.fetchChainLogo().catch(console.log);
+        } catch (err) {
+            console.log(err, 'error on api init')
+        }
     }
 
     async fetchChainLogo() {
@@ -39,7 +43,7 @@ export default class Explorer extends HyperionPlugin  {
                 this.pluginConfig.chain_logo_url = 'https://' + this.pluginConfig.server_name + '/v2/explore/assets/' + this.chainName + '_logo.png';
             }
         } catch (e) {
-            console.log(e);
+            console.log(e, 'error fetching logo');
         }
     }
 
@@ -91,7 +95,7 @@ export default class Explorer extends HyperionPlugin  {
                 });
             }
         } catch (e) {
-            console.log(e);
+            console.log(e, 'failed to add routes');
         }
 
 
