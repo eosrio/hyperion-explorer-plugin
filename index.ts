@@ -12,6 +12,8 @@ export interface ExplorerConfig {
     server_name: string;
 }
 
+// this is a test
+
 export default class Explorer extends HyperionPlugin {
     internalPluginName = 'explorer';
     apiPlugin = true;
