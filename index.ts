@@ -3,7 +3,8 @@ import {existsSync, readFileSync, unlinkSync, writeFileSync} from "fs";
 import {join} from "path";
 import fastifyStatic from "fastify-static";
 import {ServerResponse} from "http";
-import { HyperionPlugin } from "./hyperion-explorer/plugins/hyperion-plugin";
+// @ts-ignore
+import {HyperionPlugin} from "../../hyperion-plugin";
 import { hLog } from './hyperion-explorer/src/app/utils/utils'
 
 export interface ExplorerConfig {
@@ -17,6 +18,8 @@ export default class Explorer extends HyperionPlugin  {
     indexerPlugin = false;
     hasApiRoutes = true;
     pluginConfig: ExplorerConfig;
+    baseConfig: any;
+    chainName: string;
 
     constructor(config: ExplorerConfig) {
         super(config);
