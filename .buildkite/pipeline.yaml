@@ -6,16 +6,13 @@ defaults:
         repository: https://github.com/voice-social/voice-buildkite-template.git
 
 steps:
-
-# build docker images
-  - label: ":docker: trigger docker build hyperion-history-api"
+# build docker images dev-main
+  - label: ":building_construction: Trigger kaniko build"
     command:
-      - "buildkite-agent pipeline upload voice-buildkite-template/docker/build/template.yaml"
+      - "buildkite-agent pipeline upload voice-buildkite-template/kaniko/build/template.yaml"
     env:
       IMAGE: gcr.io/voice-dev-infra-services/voice/voice-eos-hyperion
-      TAG: ${BUILDKITE_COMMIT}
       DOCKERFILE: Dockerfile
-      BUILDKITE_AGENT: voice-app-builder-v2
     agents: *default-agents
     plugins: *default-plugins
     if: build.tag == null
@@ -34,25 +31,18 @@ steps:
       manual:
         permit_on_passed: true
 
-  - wait
-
   - block: ":rocket: Release!"
     if: build.tag == null && build.branch == "main" && build.pull_request.id == null
 
-  - wait
-
-
 # promote image
-  - label: ":docker: trigger docker promote image"
+  - label: ":arrow_up: Trigger gcrane promote"
     command:
-      - "buildkite-agent pipeline upload voice-buildkite-template/docker/promote/template.yaml"
+      - "buildkite-agent pipeline upload voice-buildkite-template/gcrane/promote/template.yaml"
     env:
-      BASE_IMAGE: gcr.io/voice-dev-infra-services/voice/voice-eos-hyperion:${BUILDKITE_COMMIT}
-      TARGET_IMAGE: gcr.io/voice-prod-infra-services/voice/voice-eos-hyperion:${BUILDKITE_COMMIT}
-      BUILDKITE_AGENT: voice-app-builder-v2
+      IMAGE_NAME: voice-eos-hyperion
     agents: *default-agents
     plugins: *default-plugins
-    if: build.tag == null && build.branch == "main" && build.pull_request.id == null
+    if: build.tag == null && build.branch == "master" && build.pull_request.id == null
 
   - wait
 
