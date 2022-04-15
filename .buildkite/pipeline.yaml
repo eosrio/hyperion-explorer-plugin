@@ -26,13 +26,13 @@ steps:
       buildkite-agent pipeline upload .buildkite/dev.yaml
     agents:
       queue: voice-infra-devel-v2
-    if: build.tag == null && build.branch == "main" && build.pull_request.id == null
+    if: build.tag == null && build.branch == "master" && build.pull_request.id == null
     retry:
       manual:
         permit_on_passed: true
 
   - block: ":rocket: Release!"
-    if: build.tag == null && build.branch == "main" && build.pull_request.id == null
+    if: build.tag == null && build.branch == "master" && build.pull_request.id == null
 
 # promote image
   - label: ":arrow_up: Trigger gcrane promote"
@@ -52,7 +52,7 @@ steps:
       buildkite-agent pipeline upload .buildkite/prod.yaml
     agents:
       queue: voice-infra-prod-v2
-    if: build.tag == null && build.branch == "main" && build.pull_request.id == null
+    if: build.tag == null && build.branch == "master" && build.pull_request.id == null
     retry:
       manual:
         permit_on_passed: true
