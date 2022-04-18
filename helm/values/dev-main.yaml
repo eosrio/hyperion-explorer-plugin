@@ -146,7 +146,7 @@ deployments:
             name: hyperion-api
         image: "gcr.io/voice-dev-infra-services/voice/voice-eos-hyperion:{{ .Values.release.tag }}"
         imagePullPolicy: Always
-        command: ["bash", "run.sh","voice-indexer"]
+        command: ["bash", "scripts/get-secrets.sh","voice-indexer"]
         extraVars:
           ELASTIC_USER: "{{ .Values.config.elastic_user }}"
           ELASTIC_PASS: "{{ .Values.config.elastic_pass }}"
@@ -164,7 +164,7 @@ deployments:
             memory: "1024Mi"
         volumeMounts:
           - name: eos-hyperion-connections
-            mountPath: /hyperion-history-api/connections.json
+            mountPath: /tmp/connections.json
             subPath: connections.json
           - name: "{{ if .Values.config.abi_scan }}eos-hyperion-config-abi{{ else }}eos-hyperion-config{{ end }}"
             mountPath: /hyperion-history-api/chains/voice.config.json
