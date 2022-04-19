@@ -7,8 +7,8 @@ import {AccountService} from '../services/account.service';
 import {faSearch} from '@fortawesome/free-solid-svg-icons/faSearch';
 import {ChainService} from '../services/chain.service';
 import {Title} from '@angular/platform-browser';
-import { LaunchDarklyService } from '../services/launch-darkly/launch-darkly.service';
-import { FeatureFlagName } from '../services/launch-darkly/featureFlags';
+import { LaunchDarklyService } from 'src/app/services/launch-darkly/launch-darkly.service';
+import { FeatureFlagName } from 'src/app/services/launch-darkly/featureFlags';
 
 @Component({
   selector: 'app-home',
