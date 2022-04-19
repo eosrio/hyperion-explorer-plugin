@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LDClient, LDUser, initialize } from 'launchdarkly-js-client-sdk';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../environments/environment';
 import { FeatureFlagClient, featureFlags } from './featureFlags';
 
 export const LDUserCustomProperties = {

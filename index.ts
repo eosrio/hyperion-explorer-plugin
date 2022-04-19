@@ -3,16 +3,15 @@ import {existsSync, readFileSync, unlinkSync, writeFileSync} from "fs";
 import {join} from "path";
 import fastifyStatic from "fastify-static";
 import {ServerResponse} from "http";
-import {hLog} from "../../../helpers/common_functions";
-import got from "got";
-import {HyperionPlugin} from "../../hyperion-plugin";
+import { HyperionPlugin } from "./hyperion-explorer/plugins/hyperion-plugin";
+import { hLog } from './hyperion-explorer/src/app/utils/utils'
 
 export interface ExplorerConfig {
     chain_logo_url: string;
     server_name: string;
 }
 
-export default class Explorer extends HyperionPlugin {
+export default class Explorer extends HyperionPlugin  {
     internalPluginName = 'explorer';
     apiPlugin = true;
     indexerPlugin = false;
@@ -21,6 +20,7 @@ export default class Explorer extends HyperionPlugin {
 
     constructor(config: ExplorerConfig) {
         super(config);
+
         if (this.baseConfig) {
             this.pluginConfig = this.baseConfig;
             if (process.title.endsWith('api')) {
@@ -40,6 +40,7 @@ export default class Explorer extends HyperionPlugin {
     async fetchChainLogo() {
         try {
             if (this.pluginConfig.chain_logo_url) {
+                const { got } = await import('got')
                 hLog(`Downloading chain logo from ${this.pluginConfig.chain_logo_url}...`);
                 const chainLogo = await got(this.pluginConfig.chain_logo_url);
                 const path = join(__dirname, 'dist', 'assets', this.chainName + '_logo.png');
@@ -47,7 +48,7 @@ export default class Explorer extends HyperionPlugin {
                 this.pluginConfig.chain_logo_url = 'https://' + this.pluginConfig.server_name + '/v2/explore/assets/' + this.chainName + '_logo.png';
             }
         } catch (e) {
-            hLog(e);
+            hLog(`error fetching logo ${e}`);
         }
     }
 
