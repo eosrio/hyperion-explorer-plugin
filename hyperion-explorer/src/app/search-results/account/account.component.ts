@@ -21,8 +21,8 @@ import {faQuestionCircle} from '@fortawesome/free-regular-svg-icons/faQuestionCi
 import {AccountCreationData} from '../../interfaces';
 import {ChainService} from '../../services/chain.service';
 import {Title} from '@angular/platform-browser';
-import { LaunchDarklyService } from '../../services/launch-darkly/launch-darkly.service';
-import { FeatureFlagName } from '../../services/launch-darkly/featureFlags';
+import { LaunchDarklyService } from 'src/app/services/launch-darkly/launch-darkly.service';
+import { FeatureFlagName } from 'src/app/services/launch-darkly/featureFlags';
 
 interface Permission {
   perm_name: string;
