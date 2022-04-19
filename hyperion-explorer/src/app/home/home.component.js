@@ -11,6 +11,8 @@ const core_1 = require("@angular/core");
 const forms_1 = require("@angular/forms");
 const operators_1 = require("rxjs/operators");
 const faSearch_1 = require("@fortawesome/free-solid-svg-icons/faSearch");
+const launch_darkly_service_1 = require("../services/launch-darkly/launch-darkly.service");
+const featureFlags_1 = require("../services/launch-darkly/featureFlags");
 let HomeComponent = class HomeComponent {
     constructor(formBuilder, router, accountService, searchService, chainData, title) {
         this.formBuilder = formBuilder;
@@ -22,7 +24,6 @@ let HomeComponent = class HomeComponent {
         this.faSearch = faSearch_1.faSearch;
         this.placeholders = [
             'Search by account name...',
-            'Search by block number...',
             'Search by transaction id...',
             'Search by public key...'
         ];
@@ -33,6 +34,7 @@ let HomeComponent = class HomeComponent {
         });
         this.filteredAccounts = [];
         this.searchPlaceholder = this.placeholders[0];
+        this.featureFlagClient = new launch_darkly_service_1.LaunchDarklyService();
         setInterval(() => {
             this.currentPlaceholder++;
             if (!this.placeholders[this.currentPlaceholder]) {
@@ -41,12 +43,17 @@ let HomeComponent = class HomeComponent {
             this.searchPlaceholder = this.placeholders[this.currentPlaceholder];
         }, 2000);
     }
-    ngOnInit() {
+    async ngOnInit() {
         this.searchForm.get('search_field').valueChanges.pipe((0, operators_1.debounceTime)(300)).subscribe(async (result) => {
             this.filteredAccounts = await this.searchService.filterAccountNames(result);
         });
         if (this.chainData.chainInfoData.chain_name) {
             this.title.setTitle(`${this.chainData.chainInfoData.chain_name} Hyperion Explorer`);
+        }
+        this.isQueryingByBlockNumberEnabled =
+            await this.featureFlagClient.variation(featureFlags_1.FeatureFlagName.IsQueryingByBlockNumberEnabled);
+        if (this.isQueryingByBlockNumberEnabled) {
+            this.placeholders.push('Search by block number...');
         }
     }
     async submit() {

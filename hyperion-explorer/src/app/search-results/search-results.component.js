@@ -10,6 +10,8 @@ exports.SearchResultsComponent = void 0;
 const core_1 = require("@angular/core");
 const operators_1 = require("rxjs/operators");
 const faSearch_1 = require("@fortawesome/free-solid-svg-icons/faSearch");
+const launch_darkly_service_1 = require("../services/launch-darkly/launch-darkly.service");
+const featureFlags_1 = require("../services/launch-darkly/featureFlags");
 let SearchResultsComponent = class SearchResultsComponent {
     constructor(formBuilder, router, accountService, searchService, chainData) {
         this.formBuilder = formBuilder;
@@ -20,7 +22,6 @@ let SearchResultsComponent = class SearchResultsComponent {
         this.faSearch = faSearch_1.faSearch;
         this.placeholders = [
             'Search by account name...',
-            'Search by block number...',
             'Search by transaction id...',
             'Search by public key...'
         ];
@@ -31,6 +32,7 @@ let SearchResultsComponent = class SearchResultsComponent {
         });
         this.filteredAccounts = [];
         this.searchPlaceholder = this.placeholders[0];
+        this.featureFlagClient = new launch_darkly_service_1.LaunchDarklyService();
         setInterval(() => {
             this.currentPlaceholder++;
             if (!this.placeholders[this.currentPlaceholder]) {
@@ -39,10 +41,15 @@ let SearchResultsComponent = class SearchResultsComponent {
             this.searchPlaceholder = this.placeholders[this.currentPlaceholder];
         }, 3000);
     }
-    ngOnInit() {
+    async ngOnInit() {
         this.searchForm.get('search_field').valueChanges.pipe((0, operators_1.debounceTime)(300)).subscribe(async (result) => {
             this.filteredAccounts = await this.searchService.filterAccountNames(result);
         });
+        this.isQueryingByBlockNumberEnabled =
+            await this.featureFlagClient.variation(featureFlags_1.FeatureFlagName.IsQueryingByBlockNumberEnabled);
+        if (this.isQueryingByBlockNumberEnabled) {
+            this.placeholders.push('Search by block number...');
+        }
     }
     async submit() {
         if (!this.searchForm.valid) {

@@ -8,14 +8,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppComponent = void 0;
 const core_1 = require("@angular/core");
+const launch_darkly_service_1 = require("./services/launch-darkly/launch-darkly.service");
 let AppComponent = class AppComponent {
-    constructor() { }
+    async initLaunchDarkly() {
+        const featureFlagClient = new launch_darkly_service_1.LaunchDarklyService();
+        await featureFlagClient.initLaunchDarkly();
+    }
+    async ngOnInit() {
+        await this.initLaunchDarkly();
+    }
 };
 AppComponent = __decorate([
     (0, core_1.Component)({
         selector: 'app-root',
         templateUrl: './app.component.html',
-        styleUrls: ['./app.component.css']
+        styleUrls: ['./app.component.css'],
     })
 ], AppComponent);
 exports.AppComponent = AppComponent;

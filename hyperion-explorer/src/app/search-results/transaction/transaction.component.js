@@ -75,6 +75,9 @@ let TransactionComponent = class TransactionComponent {
     formatDate(date) {
         return new Date(date).toLocaleString();
     }
+    stringifyObject(subitem) {
+        return JSON.stringify(subitem, null, 2);
+    }
     async reloadCountdownTimer() {
         await this.accountService.updateLib();
         this.countdownTimer = Math.ceil((this.tx.actions[0].block_num - this.accountService.libNum) / 2);

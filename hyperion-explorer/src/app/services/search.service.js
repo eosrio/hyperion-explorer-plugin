@@ -9,11 +9,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SearchService = void 0;
 const core_1 = require("@angular/core");
 const environment_1 = require("../../environments/environment");
+const launch_darkly_service_1 = require("../services/launch-darkly/launch-darkly.service");
+const featureFlags_1 = require("../services/launch-darkly/featureFlags");
 let SearchService = class SearchService {
     constructor(httpClient, router) {
         this.httpClient = httpClient;
         this.router = router;
         this.searchAccountUrl = environment_1.environment.eosioNodeUrl + '/v1/chain/get_table_by_scope';
+        this.featureFlagClient = new launch_darkly_service_1.LaunchDarklyService();
     }
     async filterAccountNames(value) {
         if ((value && value.length > 12) || !value) {
@@ -43,6 +46,8 @@ let SearchService = class SearchService {
     }
     async submitSearch(searchText, filteredAccounts) {
         const sValue = searchText.toLowerCase();
+        this.isQueryingByBlockNumberEnabled =
+            await this.featureFlagClient.variation(featureFlags_1.FeatureFlagName.IsQueryingByBlockNumberEnabled);
         // account direct
         if (filteredAccounts.length > 0) {
             await this.router.navigate(['/account', sValue]);
@@ -64,10 +69,12 @@ let SearchService = class SearchService {
             return true;
         }
         // block number
-        const blockNum = searchText.replace(/[,.]/g, '');
-        if (parseInt(blockNum, 10) > 0) {
-            await this.router.navigate(['/block', blockNum]);
-            return true;
+        if (this.isQueryingByBlockNumberEnabled) {
+            const blockNum = searchText.replace(/[,.]/g, '');
+            if (parseInt(blockNum, 10) > 0) {
+                await this.router.navigate(['/block', blockNum]);
+                return true;
+            }
         }
         // match EVM 0x prefix
         if (searchText.startsWith('0x')) {

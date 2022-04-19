@@ -1,0 +1,33 @@
+import { HttpClient } from '@angular/common/http';
+import { MatTableDataSource } from '@angular/material/table';
+import { PaginationService } from './pagination.service';
+export declare class EvmService {
+    private http;
+    private pagService;
+    loaded: boolean;
+    jsonRpcApi: string;
+    streamClientStatus: boolean;
+    libNum: number;
+    streamClientLoaded: boolean;
+    transactions: any[];
+    addressTransactions: MatTableDataSource<any[]>;
+    blockTransactions: MatTableDataSource<any[]>;
+    private server;
+    constructor(http: HttpClient, pagService: PaginationService);
+    callRpcMethod(method: string, params: any[]): Promise<any>;
+    getBalance(address: string): Promise<number>;
+    getTransactionReceipt(hash: string): Promise<any>;
+    getTransactionByHash(hash: string): Promise<any>;
+    getBlockByNumber(blockNumber: string, full: boolean): Promise<any>;
+    getBlockByHash(hash: string, full: boolean): Promise<any>;
+    traceTransaction(hash: string): Promise<any>;
+    getServerUrl(): void;
+    toggleStreaming(): void;
+    loadTransactions(address: string): Promise<void>;
+    loadBlock(blockNumber: any): Promise<any>;
+    loadMoreTransactions(address: string): Promise<void>;
+    private processTransactions;
+    getErrorFromOutput(output: string): string;
+    parseRevertReason(revertOutput: string): string;
+    parsePanicReason(revertOutput: string): string;
+}

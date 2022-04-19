@@ -25,6 +25,8 @@ const faSadTear_1 = require("@fortawesome/free-solid-svg-icons/faSadTear");
 const paginator_1 = require("@angular/material/paginator");
 const faVoteYea_1 = require("@fortawesome/free-solid-svg-icons/faVoteYea");
 const faQuestionCircle_1 = require("@fortawesome/free-regular-svg-icons/faQuestionCircle");
+const launch_darkly_service_1 = require("../services/launch-darkly/launch-darkly.service");
+const featureFlags_1 = require("../services/launch-darkly/featureFlags");
 let AccountComponent = class AccountComponent {
     constructor(activatedRoute, accountService, chainData, title) {
         this.activatedRoute = activatedRoute;
@@ -57,6 +59,7 @@ let AccountComponent = class AccountComponent {
         this.hasChild = (_, node) => node.expandable;
         this.treeControl = new tree_1.FlatTreeControl(node => node.level, node => node.expandable);
         this.treeFlattener = new tree_2.MatTreeFlattener(this.transformer, node => node.level, node => node.expandable, node => node.children);
+        this.featureFlagClient = new launch_darkly_service_1.LaunchDarklyService;
         this.dataSource = new tree_2.MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
     }
     ngOnDestroy() {
@@ -79,7 +82,9 @@ let AccountComponent = class AccountComponent {
             return 0;
         }
     }
-    ngOnInit() {
+    async ngOnInit() {
+        this.isQueryingTokenValueEnabled = await this.featureFlagClient.variation(featureFlags_1.FeatureFlagName.IsQueryingTokenValueEnabled);
+        this.systemAccounts = JSON.parse(await this.featureFlagClient.variation(featureFlags_1.FeatureFlagName.VoiceSystemAccounts) ?? '[]');
         this.activatedRoute.params.subscribe(async (routeParams) => {
             if (this.accountService.streamClientStatus) {
                 this.accountService.disconnectStream();
@@ -254,6 +259,9 @@ let AccountComponent = class AccountComponent {
     }
     getType(subitem) {
         return typeof subitem;
+    }
+    stringifyObject(subitem) {
+        return JSON.stringify(subitem, null, 2);
     }
     convertBytes(bytes) {
         if (bytes > (1024 ** 3)) {
