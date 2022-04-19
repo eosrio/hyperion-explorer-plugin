@@ -1,0 +1,146 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": "333ad006-a611-485f-aa82-8e23d52cd263"
+  },
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "hyperion-explorer-plugin": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "",
+      "sourceRoot": "hyperion-explorer/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "../dist",
+            "index": "hyperion-explorer/src/index.html",
+            "main": "hyperion-explorer/src/main.ts",
+            "polyfills": "hyperion-explorer/src/polyfills.ts",
+            "tsConfig": "tsconfig.app.json",
+            "assets": [
+              "hyperion-explorer/src/favicon.ico",
+              "hyperion-explorer/src/assets",
+              "hyperion-explorer/src/manifest.webmanifest"
+            ],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "hyperion-explorer/src/theme.scss",
+              "hyperion-explorer/src/styles.css"
+            ],
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "socket.io-client",
+              "hammerjs",
+              "@eosrio/hyperion-stream-client"
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "hyperion-explorer/src/environments/environment.ts",
+                  "with": "hyperion-explorer/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "ngsw-config.json"
+            }
+          },
+          "defaultConfiguration": ""
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "hyperion-explorer-plugin:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "hyperion-explorer-plugin:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "hyperion-explorer-plugin:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "hyperion-explorer/src/test.ts",
+            "polyfills": "hyperion-explorer/src/polyfills.ts",
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
+            "assets": [
+              "hyperion-explorer/src/favicon.ico",
+              "hyperion-explorer/src/assets",
+              "hyperion-explorer/src/manifest.webmanifest",
+              "hyperion-explorer/src/manifest.webmanifest"
+            ],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "hyperion-explorer/src/styles.css"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "tsconfig.app.json",
+              "tsconfig.spec.json",
+              "e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "e2e/protractor.conf.js",
+            "devServerTarget": "hyperion-explorer-plugin:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "hyperion-explorer-plugin:serve:production"
+            }
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "hyperion-explorer-plugin"
+}
