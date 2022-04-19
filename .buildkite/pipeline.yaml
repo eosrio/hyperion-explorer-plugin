@@ -11,5 +11,3 @@ steps:
     if: build.tag == null && build.branch == "master" && build.pull_request.id == null
     build:
       message: "${BUILDKITE_MESSAGE}"
-      commit: "${BUILDKITE_COMMIT}"
-      branch: "${BUILDKITE_BRANCH}"
