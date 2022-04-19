@@ -45,6 +45,7 @@ const evm_address_component_1 = require("./search-results/evm-address/evm-addres
 const evm_block_component_1 = require("./search-results/evm-block/evm-block.component");
 const evm_transaction_component_1 = require("./search-results/evm-transaction/evm-transaction.component");
 const ngx_json_viewer_1 = require("ngx-json-viewer");
+const launch_darkly_service_1 = require("./services/launch-darkly/launch-darkly.service");
 let CustomPaginator = class CustomPaginator extends paginator_1.MatPaginatorIntl {
     constructor(pagService) {
         super();
@@ -108,7 +109,7 @@ AppModule = __decorate([
             progress_spinner_1.MatProgressSpinnerModule,
             ngx_json_viewer_1.NgxJsonViewerModule
         ],
-        providers: [{ provide: paginator_1.MatPaginatorIntl, useClass: CustomPaginator }],
+        providers: [{ provide: paginator_1.MatPaginatorIntl, useClass: CustomPaginator }, launch_darkly_service_1.LaunchDarklyService],
         bootstrap: [app_component_1.AppComponent]
     })
 ], AppModule);

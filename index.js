@@ -7,11 +7,14 @@ const fs_1 = require("fs");
 const path_1 = require("path");
 const fastify_static_1 = __importDefault(require("fastify-static"));
 const common_functions_1 = require("../../../helpers/common_functions");
+const got_1 = __importDefault(require("got"));
 const hyperion_plugin_1 = require("../../hyperion-plugin");
 class Explorer extends hyperion_plugin_1.HyperionPlugin {
     constructor(config) {
         super(config);
         this.internalPluginName = 'explorer';
+        this.apiPlugin = true;
+        this.indexerPlugin = false;
         this.hasApiRoutes = true;
         if (this.baseConfig) {
             this.pluginConfig = this.baseConfig;
@@ -27,6 +30,9 @@ class Explorer extends hyperion_plugin_1.HyperionPlugin {
         try {
             if (this.pluginConfig.chain_logo_url) {
                 (0, common_functions_1.hLog)(`Downloading chain logo from ${this.pluginConfig.chain_logo_url}...`);
+                const chainLogo = await (0, got_1.default)(this.pluginConfig.chain_logo_url);
+                const path = (0, path_1.join)(__dirname, 'dist', 'assets', this.chainName + '_logo.png');
+                (0, fs_1.writeFileSync)(path, chainLogo.rawBody);
                 this.pluginConfig.chain_logo_url = 'https://' + this.pluginConfig.server_name + '/v2/explore/assets/' + this.chainName + '_logo.png';
             }
         }
@@ -100,7 +106,7 @@ class Explorer extends hyperion_plugin_1.HyperionPlugin {
         });
         server.get('/v2/explorer_metadata', (request, reply) => {
             reply.send({
-                logo: apiConfig.chain_logo_url,
+                logo: this.pluginConfig.chain_logo_url,
                 provider: apiConfig.provider_name,
                 provider_url: apiConfig.provider_url,
                 chain_name: apiConfig.chain_name,
