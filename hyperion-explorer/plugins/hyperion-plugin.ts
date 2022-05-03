@@ -48,7 +48,7 @@ export abstract class HyperionPlugin {
         }
     }
 
-    abstract rtes(server: FastifyInstance): void;
+    abstract addRoutes(server: FastifyInstance): void;
 
     // abstract processActionData(input: any): Promise<any>;
     initOnce() {
