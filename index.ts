@@ -57,6 +57,8 @@ export default class Explorer extends HyperionPlugin {
         const apiConfig = manager.config.api;
         const manifestName = `Hyperion Explorer - ${manager.config.api.chain_name}`;
 
+        hLog(`Adding plugin route`)
+
         server.register(require('fastify-compress'), {global: false});
 
         try {
@@ -101,6 +103,8 @@ export default class Explorer extends HyperionPlugin {
         } catch (e) {
             hLog(`failed to add routes ${e}`);
         }
+
+        hLog(`directory name ${__dirname}`)
 
 
         server.register(fastifyStatic, {
