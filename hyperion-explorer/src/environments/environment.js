@@ -7,8 +7,8 @@ exports.environment = void 0;
 exports.environment = {
     clientSideID: 'YOUR_CLIENT_ID',
     production: false,
-    eosioNodeUrl: 'http://192.168.10.120:7000',
-    hyperionApiUrl: 'http://192.168.10.120:7000',
+    eosioNodeUrl: 'https://explorer.dev.vops.co',
+    hyperionApiUrl: 'https://explorer.dev.vops.co',
     systemContract: 'eosio',
     userResourcesTable: 'userres'
 };
