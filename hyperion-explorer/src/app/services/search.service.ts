@@ -54,10 +54,10 @@ export class SearchService {
   async submitSearch(searchText: any, filteredAccounts: string[]): Promise<boolean> {
 
     const sValue = searchText.toLowerCase();
-    this.isQueryingByBlockNumberEnabled = false
-      // await this.featureFlagClient.variation(
-      //   FeatureFlagName.IsQueryingByBlockNumberEnabled
-      // );
+    this.isQueryingByBlockNumberEnabled =
+      await this.featureFlagClient.variation(
+        FeatureFlagName.IsQueryingByBlockNumberEnabled
+      );
 
     // account direct
     if (filteredAccounts.length > 0) {

@@ -60,10 +60,10 @@ export class HomeComponent implements OnInit {
     if (this.chainData.chainInfoData.chain_name) {
       this.title.setTitle(`${this.chainData.chainInfoData.chain_name} Hyperion Explorer`);
     }
-    this.isQueryingByBlockNumberEnabled = false
-      // await this.featureFlagClient.variation(
-      //   FeatureFlagName.IsQueryingByBlockNumberEnabled
-      // );
+    this.isQueryingByBlockNumberEnabled =
+      await this.featureFlagClient.variation(
+        FeatureFlagName.IsQueryingByBlockNumberEnabled
+      );
     if (this.isQueryingByBlockNumberEnabled) {
       this.placeholders.push('Search by block number...');
     }
