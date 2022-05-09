@@ -157,8 +157,8 @@ export class AccountComponent implements OnInit, OnDestroy {
 
 
    async ngOnInit(): Promise<void> {
-    this.isQueryingTokenValueEnabled = false // await this.featureFlagClient.variation(FeatureFlagName.IsQueryingTokenValueEnabled);
-    this.systemAccounts = '[]' // JSON.parse((await this.featureFlagClient.variation(FeatureFlagName.VoiceSystemAccounts) as string) ?? '[]');
+    this.isQueryingTokenValueEnabled = await this.featureFlagClient.variation(FeatureFlagName.IsQueryingTokenValueEnabled);
+    this.systemAccounts = JSON.parse((await this.featureFlagClient.variation(FeatureFlagName.VoiceSystemAccounts) as string) ?? '[]');
 
     this.activatedRoute.params.subscribe(async (routeParams) => {
 
