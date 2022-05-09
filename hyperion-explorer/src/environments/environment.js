@@ -5,10 +5,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.environment = void 0;
 exports.environment = {
-    clientSideID: 'YOUR_CLIENT_ID',
+    clientSideID: '5f874a1e1663d70aab4db753',
     production: false,
-    eosioNodeUrl: 'http://192.168.10.120:7000',
-    hyperionApiUrl: 'http://192.168.10.120:7000',
+    eosioNodeUrl: 'https://explorer.dev.vops.co',
+    hyperionApiUrl: 'https://explorer.dev.vops.co',
     systemContract: 'eosio',
     userResourcesTable: 'userres'
 };

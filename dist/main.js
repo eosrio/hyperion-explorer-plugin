@@ -5481,7 +5481,7 @@ __webpack_require__.r(__webpack_exports__);
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 const environment = {
-    clientSideID: 'YOUR_CLIENT_ID',
+    clientSideID: '5f874a1e1663d70aab4db753',
     production: false,
     eosioNodeUrl: 'https://explorer.dev.vops.co',
     hyperionApiUrl: 'https://explorer.dev.vops.co',
