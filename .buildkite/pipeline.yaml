@@ -23,8 +23,8 @@ steps:
   - label: ":buildkite: trigger docker build"
     command: |
       buildkite-agent pipeline upload voice-buildkite-template/docker/build/hyperion.yaml
-    agents:
-      queue:  voice-app-builder-v2
+    agents: *default-agents
+    plugins: *default-plugins
     retry:
       manual:
         permit_on_passed: true
