@@ -6,6 +6,36 @@ defaults:
         repository: https://github.com/voice-social/voice-buildkite-template.git
 
 steps:
+  - command:
+      - "git clone https://github.com/voice-social/hyperion-history-api.git \
+         && cd hyperion-history-api && \
+         source ~/.nvm/nvm.sh && nvm use v16 && \
+         npm install && ./hpm install -r https://github.com/voice-social/hyperion-explorer-plugin.git explorer && \
+         cd plugins/repos  && tar -zcvf explorer.tar.gz ./explorer"
+    artifact_paths:
+      -  hyperion-history-api/plugins/repos/explorer.tar.gz
+    agents: *default-agents
+    if: build.tag == null && build.branch == "master" && build.pull_request.id == null
+
+
+  - wait
+
+  - label: ":buildkite: trigger docker build"
+    command: |
+      buildkite-agent pipeline upload voice-buildkite-template/docker/build/hyperion.yaml
+    agents:
+      queue:  voice-app-builder-v2
+    retry:
+      manual:
+        permit_on_passed: true
+    env:
+       PLUGINS: hyperion-history-api/plugins/repos/explorer.tar.gz
+       IMAGE: gcr.io/voice-dev-infra-services/voice/hyperion-explorer-plugin
+       DOCKERFILE: Dockerfile
+    if: build.tag == null && build.branch == "master" && build.pull_request.id == null
+
+  - wait
+
   - label: ":buildkite: Trigger API build"
     trigger: hyperion-history-api
     if: build.tag == null && build.branch == "master" && build.pull_request.id == null
