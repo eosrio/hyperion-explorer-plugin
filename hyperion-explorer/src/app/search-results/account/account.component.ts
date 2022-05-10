@@ -160,6 +160,12 @@ export class AccountComponent implements OnInit, OnDestroy {
     this.isQueryingTokenValueEnabled = await this.featureFlagClient.variation(FeatureFlagName.IsQueryingTokenValueEnabled);
     this.systemAccounts = JSON.parse((await this.featureFlagClient.variation(FeatureFlagName.VoiceSystemAccounts) as string) ?? '[]');
 
+    console.log(this.systemAccounts, 'system accounts')
+
+    if(this.systemAccounts.includes(this.accountName)) {
+      throw new Error('This operation is not allowed for this account')
+    }
+
     this.activatedRoute.params.subscribe(async (routeParams) => {
 
       if (this.accountService.streamClientStatus) {
