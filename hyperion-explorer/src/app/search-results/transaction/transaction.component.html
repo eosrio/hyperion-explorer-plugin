@@ -74,7 +74,7 @@
         <ng-container matColumnDef="contract">
           <th mat-header-cell *matHeaderCellDef> Contract</th>
           <td mat-cell *matCellDef="let action" data-label="Contract">
-            <span [routerLink]="['/account', action.act.account]" class="div-link">{{action.act.account}}</span>
+            <span>{{action.act.account}}</span>
           </td>
         </ng-container>
 
