@@ -44,21 +44,6 @@
 
         <div fxLayout="column" fxLayoutAlign="start start" fxFlex.gt-xs="316px" class="mt-7" style="height: 100%"
              fxFlexFill>
-          <div class="total-balance width-100">
-            <strong>Total Balance: </strong>
-            <span class="float-r">{{totalBalance() | number: '1.0-' + systemPrecision}} {{systemSymbol}}</span>
-          </div>
-          <div class="mb-5 width-100">
-            <strong>Liquid Balance: </strong>
-            <span class="float-r">{{liquidBalance() | number: '1.0-' + systemPrecision}} {{systemSymbol}}</span>
-          </div>
-          <div class="mb-5 width-100">
-            <strong>Staked Balance: </strong>
-            <span class="float-r">{{stakedBalance() | number: '1.0-' + systemPrecision}} {{systemSymbol}}</span></div>
-          <div class="width-100">
-            <strong>Refunding: </strong>
-            <span class="float-r">{{refundBalance() | number: '1.0-' + systemPrecision}} {{systemSymbol}}</span>
-          </div>
           <div class="width-100" style="margin-top: 12px">
             <div *ngIf="creationData && creationData.creator" class="mt-7 width-100">
               <strong>Created by: </strong>
