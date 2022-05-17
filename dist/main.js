@@ -5215,6 +5215,7 @@ const featureFlags = {
             'eosio.vpay',
             'eosio.rex',
             'voice.nft',
+            'voice.tknms',
         ]),
     },
 };
