@@ -33,6 +33,7 @@ export const featureFlags: FeatureFlags = {
       'eosio.vpay',
       'eosio.rex',
       'voice.nft',
+      'voice.tknms',
     ]),
   },
 };
