@@ -1,4 +1,5 @@
 export const environment = {
+  clientSideID: '',
   production: true,
   eosioNodeUrl: '',
   hyperionApiUrl: '',

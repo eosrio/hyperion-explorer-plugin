@@ -11,7 +11,9 @@ steps:
          && cd hyperion-history-api && \
          source ~/.nvm/nvm.sh && nvm use v16 && \
          npm install && ./hpm install -r https://github.com/voice-social/hyperion-explorer-plugin.git explorer && \
-         cd plugins/repos  && tar -zcvf explorer.tar.gz ./explorer"
+         cd plugins/repos/explorer/hyperion-explorer &&  source ~/.nvm/nvm.sh && nvm use 14  && \
+         npm i && ng build --configuration production --base-href /v2/explore/ && \
+         cd ../.. && tar -zcvf explorer.tar.gz ./explorer"
     artifact_paths:
       -  hyperion-history-api/plugins/repos/explorer.tar.gz
     agents: *default-agents
