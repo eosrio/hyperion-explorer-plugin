@@ -22,8 +22,8 @@
                   <input matInput formControlName="search_field" [matAutocomplete]="auto"
                          [placeholder]="searchPlaceholder">
                 </label>
-                <mat-error *ngIf="err">{{err}}</mat-error>
               </mat-form-field>
+              <mat-error *ngIf="err">{{err}}</mat-error>
             </div>
             <mat-autocomplete #auto="matAutocomplete" (optionSelected)="submit()">
               <mat-option *ngFor="let account of filteredAccounts" [value]="account">{{account}}</mat-option>
@@ -34,17 +34,6 @@
             </button>
           </div>
         </form>
-        <!--      <div>-->
-        <!--        <div style="margin-bottom: 10px;" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="6px">-->
-        <!--          <span>Connected to</span>-->
-        <!--          <span class="outline" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">-->
-        <!--            <img [src]="chainData.chainInfoData.logo" alt="logo" style="height: 28px">-->
-        <!--            <span>{{chainData.chainInfoData.chain_name}}</span>-->
-        <!--          </span>-->
-        <!--        </div>-->
-        <!--        <div>Provided by <a [href]="chainData.chainInfoData.provider_url" target="_blank">{{chainData.chainInfoData.provider}}</a>-->
-        <!--        </div>-->
-        <!--      </div>-->
       </div>
     </div>
   </mat-card>

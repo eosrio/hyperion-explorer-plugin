@@ -13,8 +13,8 @@
               <input matInput formControlName="search_field" [matAutocomplete]="auto"
                      [placeholder]="searchPlaceholder">
             </label>
-            <mat-error *ngIf="err">{{err}}</mat-error>
           </mat-form-field>
+          <mat-error *ngIf="err">{{err}}</mat-error>
           </div>
 
           <mat-autocomplete #auto="matAutocomplete" (optionSelected)="submit()">
