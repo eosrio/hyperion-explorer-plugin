@@ -75,8 +75,11 @@ export class HomeComponent implements OnInit {
     }
     const searchText = this.searchForm.get('search_field').value;
     this.searchForm.reset();
-    const status = this.searchService.submitSearch(searchText, this.filteredAccounts);
-    if (!status) {
+    const status = await this.searchService.submitSearch(searchText, this.filteredAccounts);
+
+    if(!status && !isNaN(searchText)) {
+      this.err = 'cannot search block numbers ';
+    } else if (!status) {
       this.err = 'no results for ' + searchText;
     }
   }

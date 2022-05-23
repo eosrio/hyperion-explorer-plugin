@@ -31,8 +31,6 @@ export class SearchResultsComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router,
-    private accountService: AccountService,
     private searchService: SearchService,
     public chainData: ChainService
   ) {
@@ -67,14 +65,16 @@ export class SearchResultsComponent implements OnInit {
 
   async submit(): Promise<boolean> {
     if (!this.searchForm.valid) {
-      return true;
+      return;
     }
     const searchText = this.searchForm.get('search_field').value;
-    const status = this.searchService.submitSearch(searchText, this.filteredAccounts);
-    if (!status) {
+    const status = await this.searchService.submitSearch(searchText, this.filteredAccounts);
+    if(!status && !isNaN(searchText)) {
+      this.err = 'cannot search block numbers ';
+    } else if (!status) {
       this.err = 'no results for ' + searchText;
     }
-    return false;
+    return;
   }
 
 }
