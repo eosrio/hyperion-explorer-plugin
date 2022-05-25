@@ -9,10 +9,10 @@ steps:
   - command:
       - "git clone https://github.com/voice-social/hyperion-history-api.git \
          && cd hyperion-history-api && \
-         source ~/.nvm/nvm.sh && nvm use v16 && \
+         source ~/.nvm/nvm.sh && nvm use v16 && echo 'install plguin' &&\
          npm install && ./hpm install -r https://github.com/voice-social/hyperion-explorer-plugin.git explorer && \
          cd plugins/repos/explorer/hyperion-explorer &&  source ~/.nvm/nvm.sh && nvm use 14  && \
-         npm i && ng build --configuration production --base-href /v2/explore/ && \
+         npm i && echo 'run prod run' && npm run  build:prod && \
          cd ../.. && tar -zcvf explorer.tar.gz ./explorer"
     artifact_paths:
       -  hyperion-history-api/plugins/repos/explorer.tar.gz
