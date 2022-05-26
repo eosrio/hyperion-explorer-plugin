@@ -4,6 +4,7 @@ import {HomeComponent} from './home/home.component';
 import {SearchResultsComponent} from './search-results/search-results.component';
 import {AccountComponent} from './search-results/account/account.component';
 import {TransactionComponent} from './search-results/transaction/transaction.component';
+import {SimpleAssetsComponent} from './search-results/simple-assets/simple-assets.component'
 import {BlockComponent} from './search-results/block/block.component';
 import {KeyComponent} from './search-results/key/key.component';
 import {EvmAddressComponent} from './search-results/evm-address/evm-address.component';
@@ -20,6 +21,7 @@ const routes: Routes = [
     children: [
       {path: 'account/:account_name', component: AccountComponent},
       {path: 'transaction/:transaction_id', component: TransactionComponent},
+      {path: 'assetid/:asset_id', component: SimpleAssetsComponent},
       {path: 'block/:block_num', component: BlockComponent},
       {path: 'key/:key', component: KeyComponent},
       {path: 'evm/address/:address', component: EvmAddressComponent},
