@@ -92,6 +92,12 @@ export class SearchService {
       }
     }
 
+    // asset id
+    if (!isNaN(sValue) && sValue.length === 15) {
+      await this.router.navigate(['/assetid', sValue])
+      return true
+    }
+
     // match EVM 0x prefix
     if (searchText.startsWith('0x')) {
       let route;

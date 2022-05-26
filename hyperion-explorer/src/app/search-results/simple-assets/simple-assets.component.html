@@ -1,0 +1,108 @@
+<mat-progress-spinner [diameter]="45" *ngIf="!simpleAssetsService.loaded" mode="indeterminate"></mat-progress-spinner>
+
+<div class="container">
+  <div *ngIf="!tx" fxLayout="column"
+       style="height: calc(100vh - 209px);" fxLayoutAlign="start center">
+    <mat-card style="width: 100%;">
+      <h1 class="faded">
+        <fa-icon [icon]="faSadTear" style="margin-right: 5px"></fa-icon>
+        Asset ID not found
+      </h1>
+      <div>We couldn't find the asset ID <strong class="break-word">{{assetId}}</strong></div>
+    </mat-card>
+  </div>
+
+  <div *ngIf="tx && simpleAssetsService.loaded" fxLayout="column"
+       fxLayoutAlign="start center"
+       fxLayoutGap="15px">
+    <mat-card fxFlex="100" fxFlexFill>
+        <div style="border-bottom: 1px solid #e4e4e4; margin-bottom: 12px;">
+            <div fxLayout="row" fxLayoutAlign="start start">
+              <h2 style="margin-bottom: -15px; color: #9c9c9c; margin-top: 0; margin-right: 10px">
+                <fa-layers [fixedWidth]="true" style="margin-right: 2px">
+                  <fa-icon [icon]="faCircle" transform="grow-1"></fa-icon>
+                  <fa-icon [icon]="faExchange" [inverse]="true" transform="shrink-4"></fa-icon>
+                </fa-layers>
+                NFT History
+              </h2>
+            </div>
+            <h4 style="margin: 10px 0 12px 0;" class="break-word">{{tx.asset_id}}</h4>
+          </div>
+      <h3 style="margin-top: 0;">
+        <fa-layers [fixedWidth]="true" style="margin-right: 5px">
+          <fa-icon [icon]="faCircle" transform="grow-3"></fa-icon>
+          <fa-icon [icon]="faHistory" [inverse]="true" transform="shrink-5"></fa-icon>
+        </fa-layers>
+        {{tx.res.length}} Action<span *ngIf="tx.res.length > 1">s</span>
+      </h3>
+      <table mat-table [dataSource]="tx.res"
+        class="history-table"
+        matSort
+        matSortActive="block_num"
+        matSortStart="desc"
+        matSortDirection="desc" class="history-table">
+
+        <!-- Contract Column -->
+        <ng-container matColumnDef="contract">
+          <th mat-header-cell *matHeaderCellDef> Contract</th>
+          <td mat-cell *matCellDef="let res" data-label="Contract">
+            <span>{{res['act']['account']}}</span>
+          </td>
+        </ng-container>
+
+        <!-- Action Column -->
+        <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef
+                [ngStyle.gt-xs]="{'padding-left': '14px', 'padding-right':'14px','min-width': '100px'}"
+                [ngStyle.gt-sm]="{'min-width': '150px'}">
+              Action
+            </th>
+            <td mat-cell *matCellDef="let res" [ngStyle.gt-xs]="{'padding-left': '14px', 'padding-right':'14px'}"
+                data-label="Action">
+            <span class="action-cell" [ngStyle.lt-md]="{'padding':'0'}" [ngClass.gt-sm]="'action-border'">
+              <span class="accent w-500">{{res['act']['name']}}</span>
+            </span>
+            </td>
+          </ng-container>
+
+        <!-- Data Column -->
+        <ng-container matColumnDef="data">
+          <th mat-header-cell *matHeaderCellDef> Data</th>
+          <td mat-cell *matCellDef="let res" [ngStyle.gt-xs]="{'padding': '10px 0 6px'}" data-label="Data">
+            <div *ngFor="let item of res['act']['data'] | keyvalue"
+                 [ngClass]="{'data-item': objectKeyCount(res['act']['data']) > 1}">
+              <span class="w-500">{{item.key}}</span>: <span class="break-word">{{stringifyObject(item.value)}}</span>
+            </div>
+          </td>
+        </ng-container>
+
+        <!-- Authorization Column -->
+        <ng-container matColumnDef="auth">
+          <th mat-header-cell *matHeaderCellDef>Authorization</th>
+          <td mat-cell *matCellDef="let action" [ngStyle.gt-xs]="{'padding': '10px 70px 6px'}" data-label="Authorization">
+            <div *ngFor="let auth of action['act']['authorization'][0] | keyvalue" class="data-item">
+              <span class="w-500">{{auth.key}}</span>: <span>{{auth.value}}</span>
+            </div>
+        </ng-container>
+
+        <!-- Block & Date Column -->
+        <ng-container matColumnDef="block_num">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header [ngStyle.gt-xs]="{'min-width': '70px'}">Block & Date
+            </th>
+            <td mat-cell *matCellDef="let res" data-label="Block & Date">
+              <a [routerLink]="['/block', res['block_num']]" class="link-blue">{{res['block_num']}}</a>
+              <br>
+              <span> {{formatDate(res['@timestamp'])}}</span>
+            </td>
+          </ng-container>
+
+        <!--suppress AngularUndefinedBinding -->
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></tr>
+
+        <!--suppress AngularUndefinedBinding -->
+        <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+      </table>
+
+    </mat-card>
+  </div>
+</div>

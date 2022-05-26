@@ -31,6 +31,7 @@ import {HomeComponent} from './home/home.component';
 import {SearchResultsComponent} from './search-results/search-results.component';
 import {AccountComponent} from './search-results/account/account.component';
 import {TransactionComponent} from './search-results/transaction/transaction.component';
+import {SimpleAssetsComponent} from './search-results/simple-assets/simple-assets.component'
 import {BlockComponent} from './search-results/block/block.component';
 import {KeyComponent} from './search-results/key/key.component';
 import {EvmAddressComponent} from './search-results/evm-address/evm-address.component';
@@ -63,6 +64,7 @@ export class CustomPaginator extends MatPaginatorIntl {
     SearchResultsComponent,
     AccountComponent,
     TransactionComponent,
+    SimpleAssetsComponent,
     BlockComponent,
     KeyComponent,
     EvmAddressComponent,
