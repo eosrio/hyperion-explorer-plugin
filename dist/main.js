@@ -4505,7 +4505,6 @@ class SimpleAssetsComponent {
         this.activatedRoute.params.subscribe((routeParams) => (0,tslib__WEBPACK_IMPORTED_MODULE_10__.__awaiter)(this, void 0, void 0, function* () {
             this.assetId = routeParams.asset_id;
             this.tx = yield this.simpleAssetsService.getHistoryByAssetId(routeParams.asset_id);
-            console.log(this.tx, 'tx response');
             if (!this.chainData.chainInfoData.chain_name) {
                 this.title.setTitle(`Asset ${routeParams.asset_id} • Hyperion Explorer`);
             }
