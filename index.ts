@@ -1,4 +1,5 @@
-import {FastifyInstance, FastifyReply, FastifyRequest} from "fastify";
+//@ts-nocheck
+import {FastifyReply, FastifyRequest} from "fastify";
 import {existsSync, readFileSync, unlinkSync, writeFileSync} from "fs";
 import {join} from "path";
 import fastifyStatic from "fastify-static";
