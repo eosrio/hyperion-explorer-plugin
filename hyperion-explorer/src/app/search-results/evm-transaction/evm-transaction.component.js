@@ -132,3 +132,4 @@ var EvmTransactionComponent = /** @class */ (function () {
     return EvmTransactionComponent;
 }());
 exports.EvmTransactionComponent = EvmTransactionComponent;
+//# sourceMappingURL=evm-transaction.component.js.map

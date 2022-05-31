@@ -170,3 +170,4 @@ var BlockComponent = /** @class */ (function () {
     return BlockComponent;
 }());
 exports.BlockComponent = BlockComponent;
+//# sourceMappingURL=block.component.js.map

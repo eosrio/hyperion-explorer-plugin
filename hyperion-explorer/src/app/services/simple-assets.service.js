@@ -84,3 +84,4 @@ var SimpleAssetsService = /** @class */ (function () {
     return SimpleAssetsService;
 }());
 exports.SimpleAssetsService = SimpleAssetsService;
+//# sourceMappingURL=simple-assets.service.js.map

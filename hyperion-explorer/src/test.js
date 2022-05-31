@@ -10,3 +10,4 @@ var testing_2 = require("@angular/platform-browser-dynamic/testing");
 var context = require.context('./', true, /\.spec\.ts$/);
 // And load the modules.
 context.keys().map(context);
+//# sourceMappingURL=test.js.map
