@@ -11,3 +11,4 @@ if (environment_1.environment.production) {
 document.addEventListener('DOMContentLoaded', function () {
     (0, platform_browser_dynamic_1.platformBrowserDynamic)().bootstrapModule(app_module_1.AppModule)["catch"](function (err) { return console.error(err); });
 });
+//# sourceMappingURL=main.js.map

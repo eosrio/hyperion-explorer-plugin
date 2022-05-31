@@ -159,3 +159,4 @@ var TransactionComponent = /** @class */ (function () {
     return TransactionComponent;
 }());
 exports.TransactionComponent = TransactionComponent;
+//# sourceMappingURL=transaction.component.js.map

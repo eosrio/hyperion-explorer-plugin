@@ -117,3 +117,4 @@ var SimpleAssetsComponent = /** @class */ (function () {
     return SimpleAssetsComponent;
 }());
 exports.SimpleAssetsComponent = SimpleAssetsComponent;
+//# sourceMappingURL=simple-assets.component.js.map

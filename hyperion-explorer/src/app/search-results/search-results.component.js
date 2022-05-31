@@ -143,3 +143,4 @@ var SearchResultsComponent = /** @class */ (function () {
     return SearchResultsComponent;
 }());
 exports.SearchResultsComponent = SearchResultsComponent;
+//# sourceMappingURL=search-results.component.js.map
