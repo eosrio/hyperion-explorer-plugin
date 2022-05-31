@@ -1,34 +1,81 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+exports.__esModule = true;
 exports.AccountComponent = void 0;
-const core_1 = require("@angular/core");
-const sort_1 = require("@angular/material/sort");
-const faClock_1 = require("@fortawesome/free-solid-svg-icons/faClock");
-const faUserCircle_1 = require("@fortawesome/free-solid-svg-icons/faUserCircle");
-const faCircle_1 = require("@fortawesome/free-solid-svg-icons/faCircle");
-const faStar_1 = require("@fortawesome/free-solid-svg-icons/faStar");
-const faLink_1 = require("@fortawesome/free-solid-svg-icons/faLink");
-const faHistory_1 = require("@fortawesome/free-solid-svg-icons/faHistory");
-const tree_1 = require("@angular/cdk/tree");
-const tree_2 = require("@angular/material/tree");
-const faChevronRight_1 = require("@fortawesome/free-solid-svg-icons/faChevronRight");
-const faChevronDown_1 = require("@fortawesome/free-solid-svg-icons/faChevronDown");
-const faKey_1 = require("@fortawesome/free-solid-svg-icons/faKey");
-const faUser_1 = require("@fortawesome/free-solid-svg-icons/faUser");
-const faSadTear_1 = require("@fortawesome/free-solid-svg-icons/faSadTear");
-const paginator_1 = require("@angular/material/paginator");
-const faVoteYea_1 = require("@fortawesome/free-solid-svg-icons/faVoteYea");
-const faQuestionCircle_1 = require("@fortawesome/free-regular-svg-icons/faQuestionCircle");
-const launch_darkly_service_1 = require("../services/launch-darkly/launch-darkly.service");
-const featureFlags_1 = require("../services/launch-darkly/featureFlags");
-let AccountComponent = class AccountComponent {
-    constructor(activatedRoute, accountService, chainData, title) {
+var core_1 = require("@angular/core");
+var sort_1 = require("@angular/material/sort");
+var faClock_1 = require("@fortawesome/free-solid-svg-icons/faClock");
+var faUserCircle_1 = require("@fortawesome/free-solid-svg-icons/faUserCircle");
+var faCircle_1 = require("@fortawesome/free-solid-svg-icons/faCircle");
+var faStar_1 = require("@fortawesome/free-solid-svg-icons/faStar");
+var faLink_1 = require("@fortawesome/free-solid-svg-icons/faLink");
+var faHistory_1 = require("@fortawesome/free-solid-svg-icons/faHistory");
+var tree_1 = require("@angular/cdk/tree");
+var tree_2 = require("@angular/material/tree");
+var faChevronRight_1 = require("@fortawesome/free-solid-svg-icons/faChevronRight");
+var faChevronDown_1 = require("@fortawesome/free-solid-svg-icons/faChevronDown");
+var faKey_1 = require("@fortawesome/free-solid-svg-icons/faKey");
+var faUser_1 = require("@fortawesome/free-solid-svg-icons/faUser");
+var faSadTear_1 = require("@fortawesome/free-solid-svg-icons/faSadTear");
+var paginator_1 = require("@angular/material/paginator");
+var faVoteYea_1 = require("@fortawesome/free-solid-svg-icons/faVoteYea");
+var faQuestionCircle_1 = require("@fortawesome/free-regular-svg-icons/faQuestionCircle");
+var launch_darkly_service_1 = require("src/app/services/launch-darkly/launch-darkly.service");
+var featureFlags_1 = require("src/app/services/launch-darkly/featureFlags");
+var AccountComponent = /** @class */ (function () {
+    function AccountComponent(activatedRoute, accountService, chainData, title) {
         this.activatedRoute = activatedRoute;
         this.accountService = accountService;
         this.chainData = chainData;
@@ -56,84 +103,110 @@ let AccountComponent = class AccountComponent {
             timestamp: undefined
         };
         this.systemTokenContract = 'eosio.token';
-        this.hasChild = (_, node) => node.expandable;
-        this.treeControl = new tree_1.FlatTreeControl(node => node.level, node => node.expandable);
-        this.treeFlattener = new tree_2.MatTreeFlattener(this.transformer, node => node.level, node => node.expandable, node => node.children);
+        this.hasChild = function (_, node) { return node.expandable; };
+        this.treeControl = new tree_1.FlatTreeControl(function (node) { return node.level; }, function (node) { return node.expandable; });
+        this.treeFlattener = new tree_2.MatTreeFlattener(this.transformer, function (node) { return node.level; }, function (node) { return node.expandable; }, function (node) { return node.children; });
         this.featureFlagClient = new launch_darkly_service_1.LaunchDarklyService;
         this.dataSource = new tree_2.MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
     }
-    ngOnDestroy() {
+    AccountComponent.prototype.ngOnDestroy = function () {
         console.log('ngOnDestroy');
         this.accountService.disconnectStream();
-    }
-    transformer(node, level) {
-        return {
-            expandable: !!node.children && node.children.length > 0,
-            perm_name: node.perm_name,
-            level,
-            ...node
-        };
-    }
-    objectKeyCount(obj) {
+    };
+    AccountComponent.prototype.transformer = function (node, level) {
+        return __assign({ expandable: !!node.children && node.children.length > 0, perm_name: node.perm_name, level: level }, node);
+    };
+    AccountComponent.prototype.objectKeyCount = function (obj) {
         try {
             return Object.keys(obj).length;
         }
         catch (e) {
             return 0;
         }
-    }
-    async ngOnInit() {
-        this.isQueryingTokenValueEnabled = await this.featureFlagClient.variation(featureFlags_1.FeatureFlagName.IsQueryingTokenValueEnabled);
-        this.systemAccounts = JSON.parse(await this.featureFlagClient.variation(featureFlags_1.FeatureFlagName.VoiceSystemAccounts) ?? '[]');
-        this.activatedRoute.params.subscribe(async (routeParams) => {
-            if (this.accountService.streamClientStatus) {
-                this.accountService.disconnectStream();
-            }
-            this.accountName = routeParams.account_name;
-            if (await this.accountService.loadAccountData(routeParams.account_name)) {
-                if (!this.chainData.chainInfoData.chain_name) {
-                    this.title.setTitle(`${this.accountName} • Hyperion Explorer`);
+    };
+    AccountComponent.prototype.ngOnInit = function () {
+        var _a;
+        return __awaiter(this, void 0, void 0, function () {
+            var _b, _c, _d, _e;
+            var _this = this;
+            return __generator(this, function (_f) {
+                switch (_f.label) {
+                    case 0:
+                        _b = this;
+                        return [4 /*yield*/, this.featureFlagClient.variation(featureFlags_1.FeatureFlagName.IsQueryingTokenValueEnabled)];
+                    case 1:
+                        _b.isQueryingTokenValueEnabled = _f.sent();
+                        _c = this;
+                        _e = (_d = JSON).parse;
+                        return [4 /*yield*/, this.featureFlagClient.variation(featureFlags_1.FeatureFlagName.VoiceSystemAccounts)];
+                    case 2:
+                        _c.systemAccounts = _e.apply(_d, [(_a = (_f.sent())) !== null && _a !== void 0 ? _a : '[]']);
+                        this.activatedRoute.params.subscribe(function (routeParams) { return __awaiter(_this, void 0, void 0, function () {
+                            var customCoreToken, parts, coreBalance, _a;
+                            var _this = this;
+                            return __generator(this, function (_b) {
+                                switch (_b.label) {
+                                    case 0:
+                                        if (this.accountService.streamClientStatus) {
+                                            this.accountService.disconnectStream();
+                                        }
+                                        this.accountName = routeParams.account_name;
+                                        return [4 /*yield*/, this.accountService.loadAccountData(routeParams.account_name)];
+                                    case 1:
+                                        if (!_b.sent()) return [3 /*break*/, 3];
+                                        if (!this.chainData.chainInfoData.chain_name) {
+                                            this.title.setTitle("".concat(this.accountName, " \u2022 Hyperion Explorer"));
+                                        }
+                                        else {
+                                            this.title.setTitle("".concat(this.accountName, " \u2022 ").concat(this.chainData.chainInfoData.chain_name, " Hyperion Explorer"));
+                                        }
+                                        customCoreToken = this.chainData.chainInfoData.custom_core_token;
+                                        if (customCoreToken && customCoreToken !== '') {
+                                            parts = this.chainData.chainInfoData.custom_core_token.split('::');
+                                            this.systemSymbol = parts[1];
+                                            this.systemTokenContract = parts[0];
+                                            coreBalance = this.accountService.jsonData.tokens.find(function (v) {
+                                                return v.symbol === _this.systemSymbol && v.contract === _this.systemTokenContract;
+                                            });
+                                            if (coreBalance) {
+                                                this.accountService.account.core_liquid_balance = coreBalance.amount + ' ' + this.systemSymbol;
+                                            }
+                                        }
+                                        else {
+                                            this.systemSymbol = this.getSymbol(this.accountService.account.core_liquid_balance);
+                                        }
+                                        this.systemPrecision = this.getPrecision(this.accountService.account.core_liquid_balance);
+                                        if (this.systemSymbol === null) {
+                                            try {
+                                                this.systemSymbol = this.getSymbol(this.accountService.account.total_resources.cpu_weight);
+                                                if (this.systemSymbol === null) {
+                                                    this.systemSymbol = 'SYS';
+                                                }
+                                            }
+                                            catch (e) {
+                                                this.systemSymbol = 'SYS';
+                                            }
+                                        }
+                                        this.processPermissions();
+                                        setTimeout(function () {
+                                            _this.accountService.tableDataSource.sort = _this.sort;
+                                            _this.accountService.tableDataSource.paginator = _this.paginator;
+                                        }, 500);
+                                        _a = this;
+                                        return [4 /*yield*/, this.accountService.getCreator(routeParams.account_name)];
+                                    case 2:
+                                        _a.creationData = _b.sent();
+                                        _b.label = 3;
+                                    case 3: return [2 /*return*/];
+                                }
+                            });
+                        }); });
+                        return [2 /*return*/];
                 }
-                else {
-                    this.title.setTitle(`${this.accountName} • ${this.chainData.chainInfoData.chain_name} Hyperion Explorer`);
-                }
-                const customCoreToken = this.chainData.chainInfoData.custom_core_token;
-                if (customCoreToken && customCoreToken !== '') {
-                    const parts = this.chainData.chainInfoData.custom_core_token.split('::');
-                    this.systemSymbol = parts[1];
-                    this.systemTokenContract = parts[0];
-                    const coreBalance = this.accountService.jsonData.tokens.find((v) => {
-                        return v.symbol === this.systemSymbol && v.contract === this.systemTokenContract;
-                    });
-                    if (coreBalance) {
-                        this.accountService.account.core_liquid_balance = coreBalance.amount + ' ' + this.systemSymbol;
-                    }
-                }
-                else {
-                    this.systemSymbol = this.getSymbol(this.accountService.account.core_liquid_balance);
-                }
-                this.systemPrecision = this.getPrecision(this.accountService.account.core_liquid_balance);
-                if (this.systemSymbol === null) {
-                    try {
-                        this.systemSymbol = this.getSymbol(this.accountService.account.total_resources.cpu_weight);
-                        if (this.systemSymbol === null) {
-                            this.systemSymbol = 'SYS';
-                        }
-                    }
-                    catch (e) {
-                        this.systemSymbol = 'SYS';
-                    }
-                }
-                this.processPermissions();
-                setTimeout(() => {
-                    this.accountService.tableDataSource.sort = this.sort;
-                    this.accountService.tableDataSource.paginator = this.paginator;
-                }, 500);
-                this.creationData = await this.accountService.getCreator(routeParams.account_name);
-            }
+            });
         });
-    }
-    getPrecision(asset) {
+    };
+    AccountComponent.prototype.getPrecision = function (asset) {
         if (asset) {
             try {
                 return asset.split(' ')[0].split('.')[1].length;
@@ -145,8 +218,8 @@ let AccountComponent = class AccountComponent {
         else {
             return 4;
         }
-    }
-    getSymbol(asset) {
+    };
+    AccountComponent.prototype.getSymbol = function (asset) {
         if (asset) {
             try {
                 return asset.split(' ')[1];
@@ -158,89 +231,90 @@ let AccountComponent = class AccountComponent {
         else {
             return null;
         }
-    }
-    liquidBalance() {
+    };
+    AccountComponent.prototype.liquidBalance = function () {
         if (this.accountService.account.core_liquid_balance) {
             return parseFloat(this.accountService.account.core_liquid_balance.split(' ')[0]);
         }
         return 0;
-    }
-    myCpuBalance() {
+    };
+    AccountComponent.prototype.myCpuBalance = function () {
         if (this.accountService.account.self_delegated_bandwidth) {
             return parseFloat(this.accountService.account.self_delegated_bandwidth.cpu_weight.split(' ')[0]);
         }
         return 0;
-    }
-    myNetBalance() {
+    };
+    AccountComponent.prototype.myNetBalance = function () {
         if (this.accountService.account.self_delegated_bandwidth) {
             return parseFloat(this.accountService.account.self_delegated_bandwidth.net_weight.split(' ')[0]);
         }
         return 0;
-    }
-    cpuBalance() {
+    };
+    AccountComponent.prototype.cpuBalance = function () {
         if (this.accountService.account.total_resources) {
             return parseFloat(this.accountService.account.total_resources.cpu_weight.split(' ')[0]);
         }
         return 0;
-    }
-    netBalance() {
+    };
+    AccountComponent.prototype.netBalance = function () {
         if (this.accountService.account.total_resources) {
             return parseFloat(this.accountService.account.total_resources.net_weight.split(' ')[0]);
         }
         return 0;
-    }
-    totalBalance() {
-        const liquid = this.liquidBalance();
-        const cpu = this.myCpuBalance();
-        const net = this.myNetBalance();
+    };
+    AccountComponent.prototype.totalBalance = function () {
+        var liquid = this.liquidBalance();
+        var cpu = this.myCpuBalance();
+        var net = this.myNetBalance();
         return liquid + cpu + net;
-    }
-    stakedBalance() {
-        const cpu = this.myCpuBalance();
-        const net = this.myNetBalance();
+    };
+    AccountComponent.prototype.stakedBalance = function () {
+        var cpu = this.myCpuBalance();
+        var net = this.myNetBalance();
         return cpu + net;
-    }
-    cpuByOthers() {
-        const cpu = this.cpuBalance();
-        const mycpu = this.myCpuBalance();
+    };
+    AccountComponent.prototype.cpuByOthers = function () {
+        var cpu = this.cpuBalance();
+        var mycpu = this.myCpuBalance();
         return cpu - mycpu;
-    }
-    netByOthers() {
-        const net = this.netBalance();
-        const mynet = this.myNetBalance();
+    };
+    AccountComponent.prototype.netByOthers = function () {
+        var net = this.netBalance();
+        var mynet = this.myNetBalance();
         return net - mynet;
-    }
-    stakedbyOthers() {
-        const cpu = this.cpuBalance();
-        const net = this.netBalance();
-        const mycpu = this.myCpuBalance();
-        const mynet = this.myNetBalance();
+    };
+    AccountComponent.prototype.stakedbyOthers = function () {
+        var cpu = this.cpuBalance();
+        var net = this.netBalance();
+        var mycpu = this.myCpuBalance();
+        var mynet = this.myNetBalance();
         return (cpu + net) - (mycpu + mynet);
-    }
-    refundBalance() {
-        let cpuRefund = 0;
-        let netRefund = 0;
+    };
+    AccountComponent.prototype.refundBalance = function () {
+        var cpuRefund = 0;
+        var netRefund = 0;
         if (this.accountService.account.refund_request) {
             cpuRefund = parseFloat(this.accountService.account.refund_request.cpu_amount.split(' ')[0]);
             netRefund = parseFloat(this.accountService.account.refund_request.net_amount.split(' ')[0]);
         }
         return cpuRefund + netRefund;
-    }
-    formatDate(date) {
+    };
+    AccountComponent.prototype.formatDate = function (date) {
         return new Date(date).toLocaleString();
-    }
-    getChildren(arr, parent) {
-        return arr.filter(value => value.parent === parent).map((value) => {
-            const children = this.getChildren(arr, value.perm_name);
+    };
+    AccountComponent.prototype.getChildren = function (arr, parent) {
+        var _this = this;
+        return arr.filter(function (value) { return value.parent === parent; }).map(function (value) {
+            var children = _this.getChildren(arr, value.perm_name);
             if (children.length > 0) {
                 value.children = children;
             }
             return value;
         });
-    }
-    processPermissions() {
+    };
+    AccountComponent.prototype.processPermissions = function () {
         if (this.accountService.account) {
-            const permissions = this.accountService.account.permissions;
+            var permissions = this.accountService.account.permissions;
             if (permissions) {
                 try {
                     this.dataSource.data = this.getChildren(permissions, '');
@@ -253,34 +327,34 @@ let AccountComponent = class AccountComponent {
                 }
             }
         }
-    }
-    isArray(value) {
+    };
+    AccountComponent.prototype.isArray = function (value) {
         return value !== null && typeof value === 'object' && value.length > 0;
-    }
-    getType(subitem) {
+    };
+    AccountComponent.prototype.getType = function (subitem) {
         return typeof subitem;
-    }
-    stringifyObject(subitem) {
+    };
+    AccountComponent.prototype.stringifyObject = function (subitem) {
         return JSON.stringify(subitem, null, 2);
-    }
-    convertBytes(bytes) {
-        if (bytes > (1024 ** 3)) {
-            return (bytes / (1024 ** 3)).toFixed(2) + ' GB';
+    };
+    AccountComponent.prototype.convertBytes = function (bytes) {
+        if (bytes > (Math.pow(1024, 3))) {
+            return (bytes / (Math.pow(1024, 3))).toFixed(2) + ' GB';
         }
-        if (bytes > (1024 ** 2)) {
-            return (bytes / (1024 ** 2)).toFixed(2) + ' MB';
+        if (bytes > (Math.pow(1024, 2))) {
+            return (bytes / (Math.pow(1024, 2))).toFixed(2) + ' MB';
         }
         if (bytes > 1024) {
             return (bytes / (1024)).toFixed(2) + ' KB';
         }
         return bytes + ' bytes';
-    }
-    convertMicroS(micros) {
-        let int = 0;
-        let remainder = 0;
-        const calcSec = 1000 ** 2;
-        const calcMin = calcSec * 60;
-        const calcHour = calcMin * 60;
+    };
+    AccountComponent.prototype.convertMicroS = function (micros) {
+        var int = 0;
+        var remainder = 0;
+        var calcSec = Math.pow(1000, 2);
+        var calcMin = calcSec * 60;
+        var calcHour = calcMin * 60;
         if (micros > calcHour) {
             int = Math.floor(micros / calcHour);
             remainder = micros % calcHour;
@@ -298,37 +372,37 @@ let AccountComponent = class AccountComponent {
             return (micros / (1000)).toFixed(2) + 'ms';
         }
         return micros + 'µs';
-    }
-    changePage(event) {
+    };
+    AccountComponent.prototype.changePage = function (event) {
         // disable streaming if enabled
         if (this.accountService.streamClientStatus) {
             this.accountService.toggleStreaming();
         }
-        const maxPages = Math.floor(event.length / event.pageSize);
+        var maxPages = Math.floor(event.length / event.pageSize);
         console.log(event);
-        console.log(`${event.pageIndex} / ${maxPages}`);
+        console.log("".concat(event.pageIndex, " / ").concat(maxPages));
         try {
             if (event.pageIndex === maxPages - 1) {
-                this.accountService.loadMoreActions(this.accountName).catch(console.log);
+                this.accountService.loadMoreActions(this.accountName)["catch"](console.log);
             }
         }
         catch (e) {
             console.log(e);
         }
-    }
-};
-__decorate([
-    (0, core_1.ViewChild)(sort_1.MatSort, { static: false })
-], AccountComponent.prototype, "sort", void 0);
-__decorate([
-    (0, core_1.ViewChild)(paginator_1.MatPaginator, { static: false })
-], AccountComponent.prototype, "paginator", void 0);
-AccountComponent = __decorate([
-    (0, core_1.Component)({
-        selector: 'app-account',
-        templateUrl: './account.component.html',
-        styleUrls: ['./account.component.css']
-    })
-], AccountComponent);
+    };
+    __decorate([
+        (0, core_1.ViewChild)(sort_1.MatSort, { static: false })
+    ], AccountComponent.prototype, "sort");
+    __decorate([
+        (0, core_1.ViewChild)(paginator_1.MatPaginator, { static: false })
+    ], AccountComponent.prototype, "paginator");
+    AccountComponent = __decorate([
+        (0, core_1.Component)({
+            selector: 'app-account',
+            templateUrl: './account.component.html',
+            styleUrls: ['./account.component.css']
+        })
+    ], AccountComponent);
+    return AccountComponent;
+}());
 exports.AccountComponent = AccountComponent;
-//# sourceMappingURL=account.component.js.map

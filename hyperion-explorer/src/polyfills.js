@@ -14,7 +14,7 @@
  *
  * Learn more in https://angular.io/guide/browser-support
  */
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 /***************************************************************************************************
  * BROWSER POLYFILLS
  */
@@ -58,4 +58,3 @@ require("zone.js"); // Included with Angular CLI.
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
-//# sourceMappingURL=polyfills.js.map
