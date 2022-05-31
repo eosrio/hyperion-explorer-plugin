@@ -399,7 +399,8 @@ class HomeComponent {
         this.placeholders = [
             'Search by account name...',
             'Search by transaction id...',
-            'Search by public key...'
+            'Search by public key...',
+            'Search by asset id...',
         ];
         this.err = '';
         this.currentPlaceholder = 0;
@@ -4025,7 +4026,8 @@ class SearchResultsComponent {
         this.placeholders = [
             'Search by account name...',
             'Search by transaction id...',
-            'Search by public key...'
+            'Search by public key...',
+            'Search by asset id...',
         ];
         this.err = '';
         this.currentPlaceholder = 0;
@@ -5850,7 +5852,7 @@ class SimpleAssetsService {
     constructor(httpClient) {
         this.httpClient = httpClient;
         this.loaded = false;
-        this.getNftHistoryUrl = _environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.hyperionApiUrl + '/simpleassets/v2/nft/history?id=';
+        this.getNftHistoryUrl = _environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.hyperionApiUrl + '/simpleassets/v2/nft/history_light?id=';
     }
     getHistoryByAssetId(assetId) {
         return (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__awaiter)(this, void 0, void 0, function* () {

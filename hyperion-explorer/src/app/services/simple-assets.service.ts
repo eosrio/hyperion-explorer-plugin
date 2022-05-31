@@ -9,7 +9,7 @@ export class SimpleAssetsService {
   public loaded = false;
 
   constructor(private httpClient: HttpClient) {
-    this.getNftHistoryUrl = environment.hyperionApiUrl + '/simpleassets/v2/nft/history?id='
+    this.getNftHistoryUrl = environment.hyperionApiUrl + '/simpleassets/v2/nft/history_light?id='
   }
 
   async getHistoryByAssetId(assetId: string): Promise<any> {

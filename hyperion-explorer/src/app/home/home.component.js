@@ -62,7 +62,8 @@ var HomeComponent = /** @class */ (function () {
         this.placeholders = [
             'Search by account name...',
             'Search by transaction id...',
-            'Search by public key...'
+            'Search by public key...',
+            'Search by asset id...',
         ];
         this.err = '';
         this.currentPlaceholder = 0;
