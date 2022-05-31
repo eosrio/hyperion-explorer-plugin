@@ -49,7 +49,7 @@ var SimpleAssetsService = /** @class */ (function () {
     function SimpleAssetsService(httpClient) {
         this.httpClient = httpClient;
         this.loaded = false;
-        this.getNftHistoryUrl = environment_1.environment.hyperionApiUrl + '/simpleassets/v2/nft/history?id=';
+        this.getNftHistoryUrl = environment_1.environment.hyperionApiUrl + '/simpleassets/v2/nft/history_light?id=';
     }
     SimpleAssetsService.prototype.getHistoryByAssetId = function (assetId) {
         return __awaiter(this, void 0, void 0, function () {
