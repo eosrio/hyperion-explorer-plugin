@@ -1,7 +1,7 @@
 <div style="height: 100vh" fxLayout="column" fxLayoutAlign="space-between stretch" >
   <mat-card class="search-card" fxLayout="column" fxLayoutAlign="end center">
     <div fxLayout="column" fxLayoutAlign="center center" style="text-align: center;" fxLayoutGap="20px">
-    <img src="assets/logo.png" alt="logo" class="logo">
+    <img src="assets/voiceBlockExplorer.png" alt="logo" class="logo">
     <form [formGroup]="searchForm" (ngSubmit)="submit()">
 
 
@@ -33,8 +33,7 @@
         <div style="margin-bottom: 10px;" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="6px">
           <span>Connected to</span>
           <span class="outline" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
-            <img [src]="chainData.chainInfoData.logo" alt="logo" style="height: 28px">
-            <span>{{chainData.chainInfoData.chain_name}}</span>
+            <img src="assets/hyperion.png" alt="logo" style="height: 28px">
           </span>
         </div>
         <div>Provided by <a [href]="chainData.chainInfoData.provider_url" target="_blank">{{chainData.chainInfoData.provider}}</a>

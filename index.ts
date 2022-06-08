@@ -68,7 +68,7 @@ export default class Explorer extends HyperionPlugin {
                 const _data = readFileSync(webManifestPath);
                 const tempPath = join(__dirname, 'dist', 'manifest.webmanifest');
                 if (existsSync(tempPath)) {
-                    hLog('Remving compiled manifest');
+                    hLog('Removing compiled manifest');
                     unlinkSync(tempPath);
                 }
                 const baseManifest = JSON.parse(_data.toString());
