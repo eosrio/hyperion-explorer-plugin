@@ -40,6 +40,7 @@ import {EvmBlockComponent} from './search-results/evm-block/evm-block.component'
 import {EvmTransactionComponent} from './search-results/evm-transaction/evm-transaction.component';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { LaunchDarklyService } from './services/launch-darkly/launch-darkly.service';
+import { NgxGoogleAnalyticsModule, NgxGoogleAnalyticsRouterModule} from 'ngx-google-analytics'
 
 @Injectable()
 export class CustomPaginator extends MatPaginatorIntl {
@@ -97,7 +98,9 @@ export class CustomPaginator extends MatPaginatorIntl {
     MatExpansionModule,
     RouterModule,
     MatProgressSpinnerModule,
-    NgxJsonViewerModule
+    NgxJsonViewerModule,
+    NgxGoogleAnalyticsModule.forRoot('G-3TY15BHFXX'),
+    NgxGoogleAnalyticsRouterModule,
   ],
   providers: [{provide: MatPaginatorIntl, useClass: CustomPaginator}, LaunchDarklyService],
   bootstrap: [AppComponent]

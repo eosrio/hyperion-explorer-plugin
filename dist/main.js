@@ -183,8 +183,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _search_results_evm_transaction_evm_transaction_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./search-results/evm-transaction/evm-transaction.component */ 4035);
 /* harmony import */ var ngx_json_viewer__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ngx-json-viewer */ 2244);
 /* harmony import */ var _services_launch_darkly_launch_darkly_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./services/launch-darkly/launch-darkly.service */ 8638);
+/* harmony import */ var ngx_google_analytics__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ngx-google-analytics */ 992);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/core */ 2316);
 /* harmony import */ var _services_pagination_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./services/pagination.service */ 538);
+
+
 
 
 
@@ -274,7 +277,9 @@ AppModule.ɵinj = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵ�
             _angular_material_expansion__WEBPACK_IMPORTED_MODULE_37__.MatExpansionModule,
             _angular_router__WEBPACK_IMPORTED_MODULE_38__.RouterModule,
             _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_39__.MatProgressSpinnerModule,
-            ngx_json_viewer__WEBPACK_IMPORTED_MODULE_40__.NgxJsonViewerModule
+            ngx_json_viewer__WEBPACK_IMPORTED_MODULE_40__.NgxJsonViewerModule,
+            ngx_google_analytics__WEBPACK_IMPORTED_MODULE_41__.NgxGoogleAnalyticsModule.forRoot('G-3TY15BHFXX'),
+            ngx_google_analytics__WEBPACK_IMPORTED_MODULE_41__.NgxGoogleAnalyticsRouterModule,
         ]] });
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵsetNgModuleScope"](AppModule, { declarations: [_app_component__WEBPACK_IMPORTED_MODULE_1__.AppComponent,
         _home_home_component__WEBPACK_IMPORTED_MODULE_3__.HomeComponent,
@@ -309,7 +314,7 @@ AppModule.ɵinj = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵ�
         _angular_material_expansion__WEBPACK_IMPORTED_MODULE_37__.MatExpansionModule,
         _angular_router__WEBPACK_IMPORTED_MODULE_38__.RouterModule,
         _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_39__.MatProgressSpinnerModule,
-        ngx_json_viewer__WEBPACK_IMPORTED_MODULE_40__.NgxJsonViewerModule] }); })();
+        ngx_json_viewer__WEBPACK_IMPORTED_MODULE_40__.NgxJsonViewerModule, ngx_google_analytics__WEBPACK_IMPORTED_MODULE_41__.NgxGoogleAnalyticsModule, ngx_google_analytics__WEBPACK_IMPORTED_MODULE_41__.NgxGoogleAnalyticsRouterModule] }); })();
 
 
 /***/ }),
