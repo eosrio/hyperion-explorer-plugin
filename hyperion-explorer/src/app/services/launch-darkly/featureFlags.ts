@@ -30,7 +30,7 @@ export const featureFlags: FeatureFlags = {
       'simplemarket',
       'vcewaxbridge',
       'voice.auth',
-      'voice.bp1',
+      'voicebp1',
       'voice.bridge',
       'voice.fi',
       'voice.market',

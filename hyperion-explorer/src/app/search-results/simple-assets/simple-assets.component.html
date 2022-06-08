@@ -90,7 +90,7 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header [ngStyle.gt-xs]="{'min-width': '70px'}">Block & Date
             </th>
             <td mat-cell *matCellDef="let res" data-label="Block & Date">
-              <a [routerLink]="['/block', res['block_num']]" class="link-blue">{{res['block_num']}}</a>
+              {{res['block_num']}}
               <br>
               <span> {{formatDate(res['@timestamp'])}}</span>
             </td>
