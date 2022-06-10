@@ -479,7 +479,7 @@ HomeComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_4__["
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](16, "div");
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](17, "div", 15);
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](18, "span");
-        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](19, "Connected to");
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](19, "Powered by");
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](20, "span", 16);
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelement"](21, "img", 17);
@@ -4071,7 +4071,7 @@ SearchResultsComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MOD
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](5, "div", 5);
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](6, "div", 6);
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](7, "span");
-        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](8, "Connected to");
+        _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](8, "Powered by");
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](9, "span", 7);
         _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelement"](10, "img", 8);
