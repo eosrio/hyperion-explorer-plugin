@@ -8,6 +8,7 @@ export const environment = {
   eosioNodeUrl: 'https://explorer.dev.vops.co',
   hyperionApiUrl: 'https://explorer.dev.vops.co',
   systemContract: 'eosio',
+  trackingId: '',
   userResourcesTable: 'userres'
 };
 

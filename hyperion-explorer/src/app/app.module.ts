@@ -99,7 +99,7 @@ export class CustomPaginator extends MatPaginatorIntl {
     RouterModule,
     MatProgressSpinnerModule,
     NgxJsonViewerModule,
-    NgxGoogleAnalyticsModule.forRoot('G-3TY15BHFXX'),
+    NgxGoogleAnalyticsModule.forRoot(environment.trackingId),
     NgxGoogleAnalyticsRouterModule,
   ],
   providers: [{provide: MatPaginatorIntl, useClass: CustomPaginator}, LaunchDarklyService],

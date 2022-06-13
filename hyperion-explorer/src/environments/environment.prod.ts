@@ -4,5 +4,6 @@ export const environment = {
   eosioNodeUrl: '',
   hyperionApiUrl: '',
   systemContract: 'eosio',
+  trackingId: 'G-3TY15BHFXX',
   userResourcesTable: 'userres'
 };

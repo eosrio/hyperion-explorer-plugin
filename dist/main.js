@@ -278,7 +278,7 @@ AppModule.ɵinj = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵ�
             _angular_router__WEBPACK_IMPORTED_MODULE_38__.RouterModule,
             _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_39__.MatProgressSpinnerModule,
             ngx_json_viewer__WEBPACK_IMPORTED_MODULE_40__.NgxJsonViewerModule,
-            ngx_google_analytics__WEBPACK_IMPORTED_MODULE_41__.NgxGoogleAnalyticsModule.forRoot('G-3TY15BHFXX'),
+            ngx_google_analytics__WEBPACK_IMPORTED_MODULE_41__.NgxGoogleAnalyticsModule.forRoot(_environments_environment__WEBPACK_IMPORTED_MODULE_2__.environment.trackingId),
             ngx_google_analytics__WEBPACK_IMPORTED_MODULE_41__.NgxGoogleAnalyticsRouterModule,
         ]] });
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵsetNgModuleScope"](AppModule, { declarations: [_app_component__WEBPACK_IMPORTED_MODULE_1__.AppComponent,
@@ -5871,6 +5871,7 @@ const environment = {
     eosioNodeUrl: 'https://explorer.dev.vops.co',
     hyperionApiUrl: 'https://explorer.dev.vops.co',
     systemContract: 'eosio',
+    trackingId: '',
     userResourcesTable: 'userres'
 };
 /*
