@@ -7,9 +7,10 @@ exports.environment = void 0;
 exports.environment = {
     clientSideID: '5f874a1e1663d70aab4db753',
     production: false,
-    eosioNodeUrl: 'https://explorer.dev.vops.co',
-    hyperionApiUrl: 'https://explorer.dev.vops.co',
+    eosioNodeUrl: 'https://scan.dev.vops.co',
+    hyperionApiUrl: 'https://scan.dev.vops.co',
     systemContract: 'eosio',
+    trackingId: '',
     userResourcesTable: 'userres'
 };
 /*
@@ -20,4 +21,3 @@ exports.environment = {
  * on performance if an error is thrown.
  */
 // import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
-//# sourceMappingURL=environment.js.map

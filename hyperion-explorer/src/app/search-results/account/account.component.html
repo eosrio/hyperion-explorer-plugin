@@ -149,7 +149,9 @@
         <div *ngIf="!accountService.tokens || !accountService.tokens.length ">No tokens to display</div>
       </mat-card>
 
-      <mat-card fxFlex.gt-sm="100" ngClass.gt-sm="middle-card">
+      <!-- TODO: re-enable this card when we determine what keys to show -->
+
+      <!-- <mat-card fxFlex.gt-sm="100" ngClass.gt-sm="middle-card">
 
         <h3>
           <fa-layers [fixedWidth]="true" style="margin-right: 5px">
@@ -160,10 +162,7 @@
         </h3>
 
         <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-          <!-- This is the tree node template for leaf nodes -->
-
           <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-            <!-- use a disabled button to provide padding for tree leaf -->
             <button mat-icon-button disabled></button>
             <div fxLayout="column" fxLayoutGap="7px" class="permission-cell">
               <div><h3 class="primary" style="display: inline; letter-spacing: 0.7px;">{{node.perm_name}}</h3></div>
@@ -200,9 +199,6 @@
               </ng-container>
             </div>
           </mat-tree-node>
-
-          <!-- This is the tree node template for expandable nodes -->
-          <!--suppress AngularUndefinedBinding -->
           <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
             <button mat-icon-button matTreeNodeToggle>
               <fa-icon [icon]="treeControl.isExpanded(node) ? faChevronDown : faChevronRight"></fa-icon>
@@ -243,7 +239,7 @@
             </div>
           </mat-tree-node>
         </mat-tree>
-      </mat-card>
+      </mat-card> -->
     </div>
 
     <mat-accordion class="width-100 vote-card"

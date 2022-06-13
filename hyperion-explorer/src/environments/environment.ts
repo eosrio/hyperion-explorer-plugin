@@ -5,8 +5,8 @@
 export const environment = {
   clientSideID:'5f874a1e1663d70aab4db753',
   production: false,
-  eosioNodeUrl: 'https://explorer.dev.vops.co',
-  hyperionApiUrl: 'https://explorer.dev.vops.co',
+  eosioNodeUrl: 'https://scan.dev.vops.co',
+  hyperionApiUrl: 'https://scan.dev.vops.co',
   systemContract: 'eosio',
   trackingId: '',
   userResourcesTable: 'userres'
