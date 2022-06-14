@@ -17,7 +17,7 @@ import {Title} from '@angular/platform-browser';
   styleUrls: ['./simple-assets.component.css']
 })
 export class SimpleAssetsComponent implements OnInit {
-  columnsToDisplay: string[] = ['contract', 'action', 'data', 'auth', 'block_num'];
+  columnsToDisplay: string[] = ['contract', 'action', 'data', 'block_num'];
   tx: any = {
       res: [],
       total: [],
