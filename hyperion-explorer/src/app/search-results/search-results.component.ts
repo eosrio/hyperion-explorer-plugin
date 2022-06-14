@@ -24,7 +24,6 @@ export class SearchResultsComponent implements OnInit {
   placeholders = [
     'Search by account name...',
     'Search by transaction id...',
-    'Search by public key...',
     'Search by asset id...',
   ];
   err = '';

@@ -78,7 +78,7 @@
 
         <!-- Block & Date Column -->
         <ng-container matColumnDef="block_num">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header [ngStyle.gt-xs]="{'min-width': '70px'}">Block & Date
+            <th mat-header-cell *matHeaderCellDef [ngStyle.gt-xs]="{'min-width': '70px'}">Block & Date
             </th>
             <td mat-cell *matCellDef="let res" data-label="Block & Date">
               {{res['block_num']}}

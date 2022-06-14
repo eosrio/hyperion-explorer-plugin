@@ -58,7 +58,6 @@ var SearchResultsComponent = /** @class */ (function () {
         this.placeholders = [
             'Search by account name...',
             'Search by transaction id...',
-            'Search by public key...',
             'Search by asset id...',
         ];
         this.err = '';
@@ -144,4 +143,3 @@ var SearchResultsComponent = /** @class */ (function () {
     return SearchResultsComponent;
 }());
 exports.SearchResultsComponent = SearchResultsComponent;
-//# sourceMappingURL=search-results.component.js.map

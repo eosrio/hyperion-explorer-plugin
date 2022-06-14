@@ -50,11 +50,9 @@ var faSearch_1 = require("@fortawesome/free-solid-svg-icons/faSearch");
 var launch_darkly_service_1 = require("src/app/services/launch-darkly/launch-darkly.service");
 var featureFlags_1 = require("src/app/services/launch-darkly/featureFlags");
 var HomeComponent = /** @class */ (function () {
-    function HomeComponent(formBuilder, router, accountService, searchService, chainData, title) {
+    function HomeComponent(formBuilder, searchService, chainData, title) {
         var _this = this;
         this.formBuilder = formBuilder;
-        this.router = router;
-        this.accountService = accountService;
         this.searchService = searchService;
         this.chainData = chainData;
         this.title = title;
@@ -62,7 +60,6 @@ var HomeComponent = /** @class */ (function () {
         this.placeholders = [
             'Search by account name...',
             'Search by transaction id...',
-            'Search by public key...',
             'Search by asset id...',
         ];
         this.err = '';
@@ -152,4 +149,3 @@ var HomeComponent = /** @class */ (function () {
     return HomeComponent;
 }());
 exports.HomeComponent = HomeComponent;
-//# sourceMappingURL=home.component.js.map
