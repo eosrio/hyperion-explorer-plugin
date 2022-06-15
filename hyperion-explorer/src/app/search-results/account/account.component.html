@@ -419,7 +419,7 @@
 
         <!-- Block & Date Column -->
         <ng-container matColumnDef="block_num">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header [ngStyle.gt-xs]="{'min-width': '70px'}">Block & Date
+          <th mat-header-cell *matHeaderCellDef [ngStyle.gt-xs]="{'min-width': '70px'}">Block & Date
           </th>
           <td mat-cell *matCellDef="let action" data-label="Block & Date">
             {{action['block_num']}}
