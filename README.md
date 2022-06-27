@@ -1,32 +1,24 @@
 # Hyperion Lightweight Explorer
 
-Install plugin (hpm - hyperion plugin manager)
+Getting Started:
+Install angular cli if you do not already have it.
+In the root directory run `npm install`.
 
-Hyperion History v3.3.5+ required
-```bash
-# install from this repository
-./hpm install -r https://github.com/eosrio/hyperion-explorer-plugin explorer
-# enable the plugin globally
-./hpm enable explorer
+Running Locally:
+cd into the hyperion-explorer/ directory and run `npm install `
+Running locally should point to dev for the hyperion-history api but you can double check this in the environment.ts file. 
+eosioNodeUrl and hyperionApiUrl sould both be `https://scan.dev.vops.co` (can update this as needed)
+run the project using:
+ ```bash
+ng serve --open
 ```
+note: if you get a blank white screen open up the index.html file and change the base href value to `/` (don't forget to change it back before making PR)
 
-Required configuration on the plugin section of the `chain.config.json`
-```json
-{
-  "plugins": {
-    "explorer": {
-      "enabled": true,
-      "chain_logo_url": "https://example.com/chain_logo.png",
-      "server_name": "SERVER_PUBLIC_HOSTNAME"
-    }
-  }
-}
-```
-
-Uninstall
-```bash
-./hpm uninstall explorer
-```
+Adding changes:
+When making changes in the repo you will update the .ts files like you normally would in our other repos and these changes will be reflected automatically locally. However you will need to build the repo (ng build) before pushing these changes so they will be reflected in dev and prod.
+Running `ng build` will update all the associated .js files.
+If you add new files you will need to run tsc new/file/location to generate the new .js files
+You can add `--sourcemap` to the tsc command to add the .js.map files
 
 How to use LaunchDarkly
 
