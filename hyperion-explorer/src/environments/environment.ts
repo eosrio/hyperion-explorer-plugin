@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  eosioNodeUrl: 'http://192.168.10.120:7000',
-  hyperionApiUrl: 'http://192.168.10.120:7000',
+  eosioNodeUrl: 'https://sidechain.node.tibs.app',
+  hyperionApiUrl: 'https://sidechain.node.tibs.app',
   systemContract: 'eosio',
   userResourcesTable: 'userres'
 };

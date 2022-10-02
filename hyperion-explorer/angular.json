@@ -30,6 +30,7 @@
             ],
             "scripts": [],
             "allowedCommonJsDependencies": [
+              "@fortawesome/free-solid-svg-icons",
               "socket.io-client",
               "hammerjs",
               "@eosrio/hyperion-stream-client"

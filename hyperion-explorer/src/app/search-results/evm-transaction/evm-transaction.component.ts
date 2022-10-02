@@ -7,7 +7,6 @@ import {faHourglassStart} from '@fortawesome/free-solid-svg-icons/faHourglassSta
 import {faLock} from '@fortawesome/free-solid-svg-icons/faLock';
 import {Subscription} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
-import {BigInteger} from '@angular/compiler/src/i18n/big_integer';
 import {AccountService} from '../../services/account.service';
 
 @Component({
@@ -55,15 +54,20 @@ export class EvmTransactionComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subs.push(this.activatedRoute.params.subscribe(async (routeParams) => {
       this.txHash = routeParams.hash;
-      const [hash, receipt, trace] = await Promise.all([this.evm.getTransactionByHash(this.txHash), this.evm.getTransactionReceipt(this.txHash), this.evm.traceTransaction(this.txHash)]);
-      const txData = Object.assign(hash, receipt, { trace });
-      console.log({txData});
+      const [hash, receipt, trace] = await Promise.all([
+        this.evm.getTransactionByHash(this.txHash),
+        this.evm.getTransactionReceipt(this.txHash),
+        this.evm.traceTransaction(this.txHash)
+      ]);
+      const txData = Object.assign(hash, receipt, {trace});
+      txData.output = txData.trace[0].result.output;
+      this.txData.hash = routeParams.hash;
       this.txData.block = parseInt(txData.blockNumber, 16);
       this.txData.from = txData.from;
       this.txData.timestamp = txData.timestamp || Date.now();
       this.txData.to = txData.to;
       this.txData.value = parseInt(txData.value, 16);
-      this.txData.val_formatted = `${(this.txData.value / 1000000000000000000).toFixed(4)} TLOS`
+      this.txData.val_formatted = `${(this.txData.value / 1000000000000000000).toFixed(4)} TLOS`;
       this.txData.nonce = parseInt(txData.nonce, 16);
       this.txData.gas_price = parseInt(txData.gasPrice, 16);
       this.txData.gas_used = parseInt(txData.gasUsed, 16);
