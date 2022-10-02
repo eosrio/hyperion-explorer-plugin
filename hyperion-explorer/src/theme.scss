@@ -1,25 +1,119 @@
 @use '@angular/material' as mat;
 @import '../node_modules/@angular/material/theming';
 
-$hyperion: (
-  primary: #00a6de,
-  accent: #fa7600,
+$custom-typography: mat.define-typography-config(
+  $font-family: var(--main-font-family),
+  $body-1:
+    mat.define-typography-level(
+      $font-size: var(--main-font-size),
+      $line-height: 28px,
+    ),
+  $headline:
+    mat.define-typography-level(
+      $font-size: 40px,
+      $line-height: 48px,
+      $font-weight: 700,
+    ),
+);
+
+$hyperion-primary-palette: (
+  50: var(--primary),
+  100: var(--primary),
+  200: var(--primary),
+  300: var(--primary),
+  400: var(--primary),
+  500: var(--primary),
+  600: var(--primary),
+  700: var(--primary),
+  800: var(--primary),
+  900: var(--primary),
+  A100: var(--primary),
+  A200: var(--primary),
+  A400: var(--primary),
+  A700: var(--primary),
   contrast: (
-    primary: white,
-    accent: white,
+    50: var(--btn-primary-color),
+    100: var(--btn-primary-color),
+    200: var(--btn-primary-color),
+    300: var(--btn-primary-color),
+    400: var(--btn-primary-color),
+    500: var(--btn-primary-color),
+    600: var(--btn-primary-color),
+    700: var(--btn-primary-color),
+    800: var(--btn-primary-color),
+    900: var(--btn-primary-color),
+    A100: var(--btn-primary-color),
+    A200: var(--btn-primary-color),
+    A400: var(--btn-primary-color),
+    A700: var(--btn-primary-color),
   )
 );
 
-$primary: mat.define-palette($hyperion, primary);
-$accent: mat.define-palette($hyperion, accent);
+$hyperion-accent-palette: (
+  50: var(--accent),
+  100: var(--accent),
+  200: var(--accent),
+  300: var(--accent),
+  400: var(--accent),
+  500: var(--accent),
+  600: var(--accent),
+  700: var(--accent),
+  800: var(--accent),
+  900: var(--accent),
+  A100: var(--accent),
+  A200: var(--accent),
+  A400: var(--accent),
+  A700: var(--accent),
+  contrast: (
+    50: var(--btn-accent-color),
+    100: var(--btn-accent-color),
+    200: var(--btn-accent-color),
+    300: var(--btn-accent-color),
+    400: var(--btn-accent-color),
+    500: var(--btn-accent-color),
+    600: var(--btn-accent-color),
+    700: var(--btn-accent-color),
+    800: var(--btn-accent-color),
+    900: var(--btn-accent-color),
+    A100: var(--btn-accent-color),
+    A200: var(--btn-accent-color),
+    A400: var(--btn-accent-color),
+    A700: var(--btn-accent-color),
+  )
+);
+
+$primary: mat.define-palette($hyperion-primary-palette, 500);
+$accent: mat.define-palette($hyperion-accent-palette, 500);
 $theme: mat.define-light-theme($primary, $accent);
 
 @include mat.all-component-themes($theme);
 
 .primary {
-  color: mat.get-color-from-palette($hyperion, primary);
+  color: mat.get-color-from-palette($hyperion-primary-palette, 500);
 }
 
 .accent {
-  color: mat.get-color-from-palette($hyperion, accent);
+  color: mat.get-color-from-palette($hyperion-accent-palette, 500);
+}
+
+// no zooming in on safari inputs
+@media screen and (max-width: 959px) {
+  input[type="date"],
+  input[type="datetime"],
+  input[type="datetime-local"],
+  input[type="email"],
+  input[type="month"],
+  input[type="number"],
+  input[type="password"],
+  input[type="phone"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="text"],
+  input[type="time"],
+  input[type="url"],
+  input[type="week"],
+  select,
+  textarea {
+    font-size: max(1.1rem, 16px);
+  }
 }

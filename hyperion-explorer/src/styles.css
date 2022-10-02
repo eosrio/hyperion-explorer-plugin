@@ -1,18 +1,57 @@
 @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap');
 
-html {
+:root {
+  /*concepts*/
+  --primary: #00a6de;
+  --accent: #fa7600;
+  --warn: #ef4444;
+
+  /*buttons*/
+  --btn-primary-color: white;
+  --btn-accent-color: white;
+
+  /*typography*/
+  --main-font-family: Roboto, "Helvetica Neue", sans-serif;
+  --main-font-size: 16px;
+
+  /*main and body*/
+  --main-background: #f4f5f8;
+  --main-text: #141519;
+  --container-width: 1024px;
+}
+
+html,
+body {
   height: 100%;
 }
 
-body {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  background-color: #f4f5f8;
-  margin: 0;
-  overflow: hidden;
+* {
+  font-family: var(--main-font-family);
 }
+
+body {
+  background-color: var(--main-background);
+  margin: 0;
+}
+
+/*container responsive start*/
+.hr-container {
+  margin: 0 auto;
+  padding: 0 32px 0;
+}
+
+@media screen and (min-width: 1050px) {
+  .hr-container {
+    max-width: var(--container-width) !important;
+  }
+}
+
+@media screen and (max-width: 599px) {
+  .hr-container {
+    padding: 0 10px;
+  }
+}
+/*container responsive end*/
 
 /*container responsive*/
 .container {
@@ -55,8 +94,8 @@ body {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
   background-color: #ebecef;
 }
-
 /*scroll bar end*/
+
 .width-100 {
   width: 100%;
 }
@@ -88,6 +127,7 @@ body {
 .link-gray {
   color: gray;
 }
+
 .link-blue {
   color: #00aee7;
 }

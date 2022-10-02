@@ -1,6 +1,6 @@
 <mat-progress-spinner [diameter]="45" *ngIf="!accountService.loaded" mode="indeterminate"></mat-progress-spinner>
 
-<div class="container">
+<div class="hr-container">
 
   <div *ngIf="!accountService.jsonData && accountService.loaded" fxLayout="column"
        fxLayoutAlign="start center"
@@ -391,7 +391,7 @@
                           <ng-template #notHash>
                             <a *ngIf="item.key === 'block'; else notBlock" class="link-blue"
                                [routerLink]="['/evm/block', item.value]">
-                              {{item.value}}</a> 
+                              {{item.value}}</a>
                             <ng-template #notBlock>{{(item.value / 1000000000000000000 ).toFixed(4)}} TLOS</ng-template>
                           </ng-template>
                         </ng-template>

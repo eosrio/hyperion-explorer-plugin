@@ -38,6 +38,7 @@ import {PaginationService} from './services/pagination.service';
 import {EvmBlockComponent} from './search-results/evm-block/evm-block.component';
 import {EvmTransactionComponent} from './search-results/evm-transaction/evm-transaction.component';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
+import { HeaderComponent } from './components/header/header.component';
 
 @Injectable()
 export class CustomPaginator extends MatPaginatorIntl {
@@ -66,7 +67,8 @@ export class CustomPaginator extends MatPaginatorIntl {
     KeyComponent,
     EvmAddressComponent,
     EvmBlockComponent,
-    EvmTransactionComponent
+    EvmTransactionComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

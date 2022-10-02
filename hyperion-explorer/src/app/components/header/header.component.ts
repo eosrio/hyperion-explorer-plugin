@@ -1,24 +1,19 @@
-import {Component, OnInit} from '@angular/core';
-import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {debounceTime} from 'rxjs/operators';
-import {SearchService} from '../services/search.service';
-import {AccountService} from '../services/account.service';
+import { Component, OnInit } from '@angular/core';
+import {UntypedFormBuilder, UntypedFormGroup} from '@angular/forms';
 import {faSearch} from '@fortawesome/free-solid-svg-icons/faSearch';
-import {faHeart} from '@fortawesome/free-solid-svg-icons/faHeart';
-import {ChainService} from '../services/chain.service';
-import {Title} from '@angular/platform-browser';
+import {SearchService} from '../../services/search.service';
+import {debounceTime} from 'rxjs/operators';
+import {ChainService} from '../../services/chain.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HeaderComponent implements OnInit {
   searchForm: UntypedFormGroup;
   filteredAccounts: string[];
   faSearch = faSearch;
-  faHeart = faHeart;
   searchPlaceholder: string;
   placeholders = [
     'Search by account name...',
@@ -29,16 +24,11 @@ export class HomeComponent implements OnInit {
   err = '';
   private currentPlaceholder = 0;
 
-  constructor(
-    private formBuilder: UntypedFormBuilder,
-    private router: Router,
-    private accountService: AccountService,
-    private searchService: SearchService,
-    public chainData: ChainService,
-    private title: Title
-  ) {
+  constructor(private formBuilder: UntypedFormBuilder,
+              private searchService: SearchService,
+              public chainData: ChainService) {
     this.searchForm = this.formBuilder.group({
-      search_field: ['', Validators.required]
+      search_field: ['']
     });
     this.filteredAccounts = [];
     this.searchPlaceholder = this.placeholders[0];
@@ -48,27 +38,25 @@ export class HomeComponent implements OnInit {
         this.currentPlaceholder = 0;
       }
       this.searchPlaceholder = this.placeholders[this.currentPlaceholder];
-    }, 2000);
+    }, 3000);
   }
 
   ngOnInit(): void {
     this.searchForm.get('search_field').valueChanges.pipe(debounceTime(300)).subscribe(async (result) => {
       this.filteredAccounts = await this.searchService.filterAccountNames(result);
     });
-    if (this.chainData.chainInfoData.chain_name) {
-      this.title.setTitle(`${this.chainData.chainInfoData.chain_name} Hyperion Explorer`);
-    }
   }
 
-  async submit(): Promise<void> {
+  async submit(): Promise<boolean> {
     if (!this.searchForm.valid) {
-      return;
+      return true;
     }
     const searchText = this.searchForm.get('search_field').value;
-    this.searchForm.reset();
     const status = this.searchService.submitSearch(searchText, this.filteredAccounts);
     if (!status) {
       this.err = 'no results for ' + searchText;
     }
+    return false;
   }
+
 }

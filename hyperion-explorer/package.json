@@ -3,7 +3,8 @@
   "version": "3.3.5",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --port 4300",
+    "start:external": "ng serve --host 0.0.0.0 --port 4600",
     "build": "ng build",
     "build:prod": "ng build --configuration production --base-href /v2/explore/",
     "test": "ng test",
