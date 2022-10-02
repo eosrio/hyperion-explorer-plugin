@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {debounceTime} from 'rxjs/operators';
 import {SearchService} from '../services/search.service';
@@ -14,7 +14,7 @@ import {Title} from '@angular/platform-browser';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  searchForm: FormGroup;
+  searchForm: UntypedFormGroup;
   filteredAccounts: string[];
   faSearch = faSearch;
   searchPlaceholder: string;
@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
   private currentPlaceholder = 0;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private router: Router,
     private accountService: AccountService,
     private searchService: SearchService,

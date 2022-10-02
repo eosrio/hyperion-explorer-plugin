@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 import {debounceTime} from 'rxjs/operators';
 import {SearchService} from '../services/search.service';
@@ -13,7 +13,7 @@ import {ChainService} from '../services/chain.service';
   styleUrls: ['./search-results.component.css']
 })
 export class SearchResultsComponent implements OnInit {
-  searchForm: FormGroup;
+  searchForm: UntypedFormGroup;
   filteredAccounts: string[];
   faSearch = faSearch;
   searchPlaceholder: string;
@@ -27,7 +27,7 @@ export class SearchResultsComponent implements OnInit {
   private currentPlaceholder = 0;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private router: Router,
     private accountService: AccountService,
     private searchService: SearchService,
