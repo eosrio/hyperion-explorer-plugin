@@ -5,6 +5,12 @@
   width: 100%;
 }
 
+.tagline {
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: #b8b8b8
+}
+
 .search-btn {
   height: 55px;
   border-radius: 0 5px 5px 0;
@@ -37,6 +43,7 @@
 .logo {
   cursor: pointer;
   outline: none;
+  height: 32px;
 }
 
 .chain {

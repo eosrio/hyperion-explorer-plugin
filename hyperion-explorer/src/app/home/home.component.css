@@ -6,13 +6,21 @@
   max-width: 100%;
 }
 
+.tagline {
+  font-size: 16px;
+  letter-spacing: 1px;
+}
+
 @media screen and (max-width: 599px) {
   .grid-home-container {
     grid-template-rows: 70% 30%;
   }
   .logo {
-    height: 95px;
+    height: 60px;
     margin-bottom: 8px !important;
+  }
+  .hyperion-logo {
+    height: 95px;
   }
   .home-search-input {
     width: 100%;
@@ -23,7 +31,10 @@
     grid-template-rows: 60% 40%;
   }
   .logo {
-    height: 130px;
+    height: 70px;
+  }
+  .hyperion-logo {
+    height: 80px;
   }
   .home-search-input {
     width: 350px;

@@ -6,8 +6,9 @@
       <div fxLayout="column" fxLayoutAlign="end center" style="text-align: center; height: 100%" fxLayoutGap="30px"
            class="hr-container">
 
+        <img [src]="chainData.chainInfoData.logo" alt="logo" class="logo" >
+        <div class="faded tagline">lightweight explorer</div>
 
-        <img src="assets/logo.png" alt="logo" class="logo">
         <form [formGroup]="searchForm" (ngSubmit)="submit()" fxFlexAlign.lt-sm="stretch" fxFlexOffset.lt-sm="10px">
 
 
@@ -37,16 +38,8 @@
         </form>
 
 
-
-        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="6px" fxFlexOffset.gt-xs="0px" fxFlexOffset.lt-sm="70px">
-          <span>Connected to</span>
-          <span class="outline" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
-            <img [src]="chainData.chainInfoData.logo" alt="logo" style="height: 28px">
-            <span>{{chainData.chainInfoData.chain_name}}</span>
-          </span>
-        </div>
         <div class="faded" fxFlexOffset.gt-xs="20px" fxFlexOffset.lt-sm="5 px">
-          Provided by <a [href]="chainData.chainInfoData.provider_url"
+          Data provided by <a [href]="chainData.chainInfoData.provider_url"
                          target="_blank">{{chainData.chainInfoData.provider}}</a>
         </div>
 
@@ -55,6 +48,16 @@
   </div>
 
   <div fxLayout="column" fxLayoutAlign="end center" >
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="6px" fxFlexOffset.gt-xs="0px" fxFlexOffset.lt-sm="70px">
+      <span>Powered by</span>
+      <img src="assets/logo.png" alt="logo" class="hyperion-logo">
+
+
+      <!--          <span class="outline" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">-->
+      <!--            <img [src]="chainData.chainInfoData.logo" alt="logo" style="height: 28px">-->
+      <!--            <span>{{chainData.chainInfoData.chain_name}}</span>-->
+      <!--          </span>-->
+    </div>
     <div class="faded footer-text" style="">Made with <fa-icon [icon]="faHeart"></fa-icon> by Rio Blocks</div>
   </div>
 </div>
