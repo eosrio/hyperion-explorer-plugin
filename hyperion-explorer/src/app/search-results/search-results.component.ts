@@ -14,9 +14,6 @@ export class SearchResultsComponent implements OnInit {
   faHeart = faHeart;
 
   constructor(
-    private router: Router,
-    private accountService: AccountService,
-    private searchService: SearchService,
     public chainData: ChainService
   ) {}
 

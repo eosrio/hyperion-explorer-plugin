@@ -1,6 +1,6 @@
 .grid-container {
   display: grid;
-  grid-template-rows: minmax(min-content, max-content) 1fr;
+  grid-template-rows: minmax(min-content, max-content) minmax(min-content, max-content) 1fr;
   grid-template-columns: minmax(0, 1fr);
   height: 100%;
   width: 100%;
@@ -23,4 +23,10 @@
 
 .user-page {
   /*overflow: auto;*/
+}
+
+.toolbar-container {
+  position: sticky;
+  top: 0;
+  z-index: 500;
 }

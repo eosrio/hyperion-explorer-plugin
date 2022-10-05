@@ -1,0 +1,17 @@
+.logo-name {
+  font-size: 15px;
+  font-weight: 800;
+  font-family: Montserrat, sans-serif;
+  color: #353535;
+}
+
+.tagline {
+  font-size: 13px;
+  font-weight: 500;
+  font-family: Montserrat, sans-serif;
+}
+
+.provider, .provider a {
+  font-size: 13px;
+  font-family: Montserrat, sans-serif;
+}

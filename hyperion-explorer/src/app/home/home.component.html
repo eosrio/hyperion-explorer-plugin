@@ -1,19 +1,22 @@
 <div class="grid-home-container">
   <div fxLayout="column" style="height: 100%">
 
-    <mat-card class="search-card" style="height: 100%">
+    <mat-card class="search-card" style="height: 100%" fxLayout="column" fxLayoutAlign="start stretch">
+      <div style="width: 100%">
+        <app-pre-header></app-pre-header>
+      </div>
 
-      <div fxLayout="column" fxLayoutAlign="end center" style="text-align: center; height: 100%" fxLayoutGap="30px"
+      <div fxLayout="column" fxLayoutAlign="center center" style="text-align: center; height: 100%" fxLayoutGap="40px"
            class="hr-container">
 
-        <img [src]="chainData.chainInfoData.logo" alt="logo" class="logo" >
-        <div class="faded tagline">lightweight explorer</div>
 
-        <form [formGroup]="searchForm" (ngSubmit)="submit()" fxFlexAlign.lt-sm="stretch" fxFlexOffset.lt-sm="10px">
+        <img [src]="chainData.chainInfoData.logo" alt="logo" class="logo">
+
+        <form [formGroup]="searchForm" (ngSubmit)="submit()" fxFlexAlign.lt-sm="stretch" fxFlexOffset.lt-sm="20px">
 
 
           <div fxLayout="row" fxLayoutAlign="center stretch">
-
+            <div fxHide.lt-sm="width: 30px"></div>
             <div fxLayout="column" fxFlex.lt-sm="100">
               <mat-form-field appearance="outline" class="home-search-input" style="height: 100%" fxFlex="grow">
                 <label>
@@ -37,27 +40,23 @@
 
         </form>
 
-
-        <div class="faded" fxFlexOffset.gt-xs="20px" fxFlexOffset.lt-sm="5 px">
-          Data provided by <a [href]="chainData.chainInfoData.provider_url"
-                         target="_blank">{{chainData.chainInfoData.provider}}</a>
-        </div>
-
       </div>
     </mat-card>
   </div>
 
-  <div fxLayout="column" fxLayoutAlign="end center" >
-    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="6px" fxFlexOffset.gt-xs="0px" fxFlexOffset.lt-sm="70px">
-      <span>Powered by</span>
-      <img src="assets/logo.png" alt="logo" class="hyperion-logo">
-
+  <div fxLayout="column" fxLayoutAlign="end center"  style="width: 100%">
+    <div class="hr-container" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="8px"
+         fxFlexOffset.lt-sm="70px">
+      <span class="montserrat">Powered by</span>
+      <button mat-stroked-button>
+        <img src="assets/logo-hyperion.svg" alt="logo" class="hyperion-logo">
+      </button>
 
       <!--          <span class="outline" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">-->
       <!--            <img [src]="chainData.chainInfoData.logo" alt="logo" style="height: 28px">-->
       <!--            <span>{{chainData.chainInfoData.chain_name}}</span>-->
       <!--          </span>-->
     </div>
-    <div class="faded footer-text" style="">Made with <fa-icon [icon]="faHeart"></fa-icon> by Rio Blocks</div>
+    <!--    <div class="faded footer-text" style="">Made with <fa-icon [icon]="faHeart"></fa-icon> by Rio Blocks</div>-->
   </div>
 </div>

@@ -1,15 +1,24 @@
 <div class="grid-container">
+  <div style="padding: 6px 0;">
+    <app-pre-header></app-pre-header>
+  </div>
   <div class="toolbar-container">
     <app-header></app-header>
   </div>
   <div class="main-app-content">
-    <div class="user-page" fxLayout="column" fxLayoutGap="22px">
-      <router-outlet></router-outlet>
+    <div class="user-page" fxLayout="column" fxLayoutAlign="space-between stretch" fxLayoutGap="22px"
+         style="height: 100%">
+      <div fxFlexOffset="25px">
+        <router-outlet></router-outlet>
+      </div>
       <div class="faded footer-text">
         <div style="margin-bottom: 7px">Data provider <a [href]="chainData.chainInfoData.provider_url"
                                                          target="_blank">{{chainData.chainInfoData.provider}}</a>
         </div>
-        <div>Made with <fa-icon [icon]="faHeart"></fa-icon> by Rio Blocks</div>
+        <div>Made with
+          <fa-icon [icon]="faHeart"></fa-icon>
+          by Rio Blocks
+        </div>
       </div>
     </div>
   </div>
