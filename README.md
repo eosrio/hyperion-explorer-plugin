@@ -1,3 +1,5 @@
+## NOTE: This repo no longer maintained. Please visit [explorer.telos.net](https://explorer.telos.net) (native) or [teloscan.io](https://teloscan.io) (evm) to explore blocks, transactions, and more.  
+
 # Hyperion Lightweight Explorer
 
 Install plugin (hpm - hyperion plugin manager)
