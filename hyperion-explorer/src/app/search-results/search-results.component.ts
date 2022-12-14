@@ -18,10 +18,9 @@ export class SearchResultsComponent implements OnInit {
   faSearch = faSearch;
   searchPlaceholder: string;
   placeholders = [
-    'Search by account name...',
-    'Search by block number...',
-    'Search by transaction id...',
-    'Search by public key...'
+    'Search by EVM address...',
+    'Search by transaction hash...',
+    'Search by contract address...'
   ];
   err = '';
   private currentPlaceholder = 0;

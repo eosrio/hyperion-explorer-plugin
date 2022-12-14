@@ -1,38 +1,57 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {debounceTime} from 'rxjs/operators';
 import {SearchService} from '../services/search.service';
 import {AccountService} from '../services/account.service';
 import {faSearch} from '@fortawesome/free-solid-svg-icons/faSearch';
 import {ChainService} from '../services/chain.service';
+import {EvmService} from '../services/evm.service';
 import {Title} from '@angular/platform-browser';
+import {Subscription} from 'rxjs';
+import {faCircle} from '@fortawesome/free-solid-svg-icons/faCircle';
+import {faHistory} from '@fortawesome/free-solid-svg-icons/faHistory';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
+  address = '';
+  @ViewChild('paginator') paginator: MatPaginator;
   searchForm: FormGroup;
   filteredAccounts: string[];
   faSearch = faSearch;
   searchPlaceholder: string;
   placeholders = [
-    'Search by account name...',
-    'Search by block number...',
-    'Search by transaction id...',
-    'Search by public key...'
+    'Search by EVM address...',
+    'Search by transaction hash...',
+    'Search by contract address...'
   ];
   err = '';
+  columnsToDisplay: string[] = [
+    'hash',
+    'block',
+    'fromAddr',
+    'toAddr',
+    'nativeValue'
+  ];
+  subs: Subscription[];
+  faCircle = faCircle;
+  faHistory = faHistory;
+
   private currentPlaceholder = 0;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private accountService: AccountService,
+    private activatedRoute: ActivatedRoute,
+    public accountService: AccountService,
     private searchService: SearchService,
     public chainData: ChainService,
+    public evm: EvmService,
     private title: Title
   ) {
     this.searchForm = this.formBuilder.group({
@@ -47,6 +66,30 @@ export class HomeComponent implements OnInit {
       }
       this.searchPlaceholder = this.placeholders[this.currentPlaceholder];
     }, 2000);
+    this.subs = [];
+  }
+
+  changePage(event: PageEvent): void {
+
+    // disable streaming if enabled
+    if (this.evm.streamClientStatus) {
+      this.evm.toggleStreaming();
+    }
+
+    const maxPages = Math.floor(event.length / event.pageSize);
+    console.log(event);
+    console.log(`${event.pageIndex} / ${maxPages}`);
+    try {
+      if (event.pageIndex === maxPages - 1) {
+        this.evm.loadMoreTransactions(this.address).catch(console.log);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  formatDate(date: string): string {
+    return new Date(date).toLocaleString();
   }
 
   ngOnInit(): void {
@@ -54,8 +97,20 @@ export class HomeComponent implements OnInit {
       this.filteredAccounts = await this.searchService.filterAccountNames(result);
     });
     if (this.chainData.chainInfoData.chain_name) {
-      this.title.setTitle(`${this.chainData.chainInfoData.chain_name} Hyperion Explorer`);
+      this.title.setTitle(`${this.chainData.chainInfoData.chain_name} Telos EVM Explorer`);
     }
+    this.subs.push(this.activatedRoute.params.subscribe(async (routeParams) => {
+      await this.evm.loadRecentTransactions();
+      await this.accountService.checkIrreversibility();
+    }));
+  }
+
+  ngAfterViewInit() {
+    this.evm.recentTransactions.paginator = this.paginator;
+  }
+
+  ngOnDestroy(): void {
+    this.subs.forEach(s => s.unsubscribe());
   }
 
   async submit(): Promise<void> {
